@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IngredientController;
+
+Route::get('/ingredients', [IngredientController::class, 'index'])->name('ingredients.index');
+Route::post('/ingredients', [IngredientController::class, 'store'])->name('ingredients.store');
 
 Route::get('/', function () {
     return view('welcome');

@@ -1,59 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🚀 Proyecto TFG: App de Dietas y Nutrición
+Bienvenido al repositorio del proyecto. Este proyecto está desarrollado utilizando Laravel (PHP 8.2) para agilizar el desarrollo, facilitando la gestión de lógica (Backend) y vistas (Frontend) sin configuraciones complejas.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+🛠 Stack Tecnológico
+Framework: Laravel 10/11
 
-## About Laravel
+Lenguaje: PHP 8.2
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Base de Datos: MySQL (XAMPP/WAMP)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Frontend: Blade (Motor de plantillas de Laravel) + Bootstrap 5 (CDN)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+⚙️ Configuración Inicial (Para el equipo)
+Para que el proyecto funcione en tu máquina, sigue estos pasos:
 
-## Learning Laravel
+Clonar el repo: ``` git clone <URL_DEL_REPOSITORIO>```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Instalar xampp 8.2.12: https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/xampp-windows-x64-8.2.12-0-VS16-installer.exe
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Instalar dependencias:
+``` bash
+composer install
+npm install
+```
 
-## Laravel Sponsors
+Configurar entorno:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Copia el archivo .env.example y renómbralo a .env.
 
-### Premium Partners
+Abre el .env y ajusta la conexión a tu base de datos local:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Fragmento de código
+DB_DATABASE=dieta_tfg
+DB_USERNAME=root
+DB_PASSWORD=
+Generar key: ``` php artisan key:generate```
 
-## Contributing
+Preparar Base de Datos:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Crea una base de datos vacía en phpMyAdmin llamada dieta_tfg.
 
-## Code of Conduct
+Ejecuta: php artisan migrate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Ejecutar el entorno:
 
-## Security Vulnerabilities
+Terminal 1:```npm run dev```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Terminal 2: ```php artisan serve```
 
-## License
+📂 Estructura del Proyecto (¿Dónde está cada cosa?)
+Para que sepáis dónde tocar código:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+routes/web.php: Aquí definimos las URLs (ej. /ingredients).
+
+app/Http/Controllers/: Lógica del Backend. Aquí se procesan los datos antes de enviarlos a la vista.
+
+app/Models/: Conexión a BD. Define los campos de las tablas (ej. Ingredient.php).
+
+database/migrations/: Estructura BD. Aquí están los archivos que crean las tablas al hacer migrate.
+
+resources/views/: Frontend (HTML/Blade). Aquí está el diseño de la web.
+
+ingredients/index.blade.php: Tabla principal de alimentos.
+
+ingredients/create.blade.php: Formulario para añadir datos.
+
+📝 División de Tareas
+Backend: Controladores, modelos y lógica de cálculo.
+
+Frontend: Maquetación con Blade y diseño responsive con Bootstrap 5.
+
+Base de Datos: Gestión mediante migraciones (no compartir archivos .sql manuales).
+
+¿Cómo añadir datos de prueba?
+Si quieres llenar la tabla de ingredientes automáticamente, ejecuta:
+php artisan db:seed
+(Nota: Asegúrate de tener configurado el archivo IngredientSeeder en database/seeders/).

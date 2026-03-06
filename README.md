@@ -33,6 +33,7 @@ Fragmento de código
 DB_DATABASE=dieta_tfg
 DB_USERNAME=root
 DB_PASSWORD=
+
 Generar key: ``` php artisan key:generate```
 
 Preparar Base de Datos:

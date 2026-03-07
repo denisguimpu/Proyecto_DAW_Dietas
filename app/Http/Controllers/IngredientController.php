@@ -25,4 +25,29 @@ class IngredientController extends Controller
         Ingredient::create($request->all());
         return redirect()->route('ingredients.index');
     }
+
+    // show edit form
+    public function edit(Ingredient $ingredient)
+    {
+        return view('ingredients.edit', compact('ingredient'));
+    }
+
+    // update ingredient
+    public function update(Request $request, Ingredient $ingredient)
+    {
+        $request->validate([
+            'name' => 'required',
+            'calories' => 'required|numeric',
+        ]);
+
+        $ingredient->update($request->all());
+        return redirect()->route('ingredients.index');
+    }
+
+    // delete ingredient
+    public function destroy(Ingredient $ingredient)
+    {
+        $ingredient->delete();
+        return redirect()->route('ingredients.index');
+    }
 }

@@ -581,7 +581,7 @@
                         </div>
                         <div class="ms-3">
                             <div class="stats-value" style="font-size: 1rem;">
-                                {{ $ingredients->count() > 0 && $ingredients->sortByDesc('updated_at')->first()?->updated_at ? $ingredients->sortByDesc('updated_at')->first()->updated_at->diffForHumans() : 'N/A' }}
+                                {{ optional($ingredients->sortByDesc('updated_at')->first())?->updated_at?->diffForHumans() ?? 'N/A' }}
                             </div>
                             <div class="stats-label">Última Actualización</div>
                         </div>

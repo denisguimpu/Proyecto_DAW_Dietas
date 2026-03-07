@@ -564,7 +564,7 @@
                         </div>
                         <div class="ms-3">
                             <div class="stats-value" style="font-size: 1.25rem;">
-                                {{ $ingredients->sortByDesc('protein')->first()->name ?? 'N/A' }}
+                                {{ $ingredients->sortByDesc('protein')->first()?->name ?? 'N/A' }}
                             </div>
                             <div class="stats-label">Mayor Proteína</div>
                         </div>
@@ -581,7 +581,7 @@
                         </div>
                         <div class="ms-3">
                             <div class="stats-value" style="font-size: 1rem;">
-                                {{ $ingredients->sortByDesc('updated_at')->first()->updated_at->diffForHumans() ?? 'N/A' }}
+                                {{ $ingredients->count() > 0 && $ingredients->sortByDesc('updated_at')->first()?->updated_at ? $ingredients->sortByDesc('updated_at')->first()->updated_at->diffForHumans() : 'N/A' }}
                             </div>
                             <div class="stats-label">Última Actualización</div>
                         </div>

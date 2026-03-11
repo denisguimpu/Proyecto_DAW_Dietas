@@ -1,6 +1,5 @@
 <?php
 
-
 use Livewire\Volt\Component;
 use App\Models\Ingredient;
 
@@ -36,38 +35,42 @@ new class extends Component {
                         {{ $label }} ↕
                     </th>
                 @endforeach
+                <th class="p-4"></th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-    @foreach($ingredients as $ingredient)
-    <tr>
-        <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $ingredient->name }}</td>
-        <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">{{ $ingredient->calories }}</span></td>
-        <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}g</span></td>
-        <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">{{ $ingredient->carbs }}g</span></td>
-        <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">{{ $ingredient->fats }}g</span></td>
-        
-        <td class="px-6 py-4 text-right text-sm font-medium">
-            <button 
-                x-on:click="$dispatch('edit-ingredient', { 
-                    id: {{ $ingredient->id }}, 
-                    name: '{{ $ingredient->name }}', 
-                    calories: {{ $ingredient->calories }},
-                    protein: {{ $ingredient->protein }},
-                    carbs: {{ $ingredient->carbs }},
-                    fats: {{ $ingredient->fats }} 
-                })"
-                class="text-indigo-600 hover:text-indigo-900 mr-3 font-semibold">
-                Editar
-            </button>
-            <form action="{{ route('ingredients.destroy', $ingredient->id) }}" method="POST" class="inline">
-                @csrf @method('DELETE')
-                <button type="submit" class="text-red-600 hover:text-red-900" 
-                        onclick="return confirm('¿Estás seguro?')">Eliminar</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
+            @foreach($ingredients as $ingredient)
+            <tr>
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $ingredient->name }}</td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">{{ $ingredient->calories }}</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}g</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">{{ $ingredient->carbs }}g</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">{{ $ingredient->fats }}g</span></td>
+                
+                <td class="px-6 py-4 text-right text-sm font-medium">
+                    <button 
+                        type="button"
+                        x-on:click="$dispatch('edit-ingredient', { 
+                            id: {{ $ingredient->id }}, 
+                            name: '{{ $ingredient->name }}', 
+                            calories: {{ $ingredient->calories }},
+                            protein: {{ $ingredient->protein }},
+                            carbs: {{ $ingredient->carbs }},
+                            fats: {{ $ingredient->fats }} 
+                        })"
+                        class="text-indigo-600 hover:text-indigo-900 mr-3 font-semibold">
+                        Editar
+                    </button>
+
+                    <button 
+                        type="button"
+                        @click="deleteUrl = '{{ route('ingredients.destroy', $ingredient->id) }}'; confirmDelete = true;"
+                        class="text-red-600 hover:text-red-900 font-semibold">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
 </div>

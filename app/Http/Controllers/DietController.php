@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Diet; // ¡No olvides importar el modelo!
+use Illuminate\Http\Request;
+
+class DietController extends Controller
+{
+    public function index()
+    {
+        // Traemos todas las dietas de la base de datos
+        $diets = Diet::all();
+        
+        // Cargamos la vista pasándole la lista de dietas
+        return view('diets.index', compact('diets'));
+    }
+
+    public function create()
+{
+    // Obtenemos todos los ingredientes para mostrarlos en el formulario
+    $ingredients = Ingredient::all();
+    return view('diets.create', compact('ingredients'));
+}
+
+public function store(Request $request)
+{
+    // 1. Validar
+    $request->validate([
+        'name' => 'required|max:255',
+        'description' => 'nullable'
+    ]);
+
+    // 2. Crear la dieta
+    $diet = Diet::create($request->only('name', 'description'));
+
+    // 3. ASOCIAR LOS INGREDIENTES (La magia de la tabla pivote)
+    // $request->ingredients es un array con los IDs de los checkboxes marcados
+    if ($request->has('ingredients')) {
+        $diet->ingredients()->attach($request->ingredients);
+    }
+
+    return redirect()->route('diets.index')->with('success', 'Dieta creada con éxito');
+}
+}

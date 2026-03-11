@@ -22,7 +22,8 @@ Route::delete('/ingredients/{ingredient}', [IngredientController::class, 'destro
 Route::get('/diets', [DietController::class, 'index'])->name('diets.index'); // Ruta añadida para arreglar el error
 Route::get('/diets/create', [DietController::class, 'create'])->name('diets.create');
 Route::post('/diets', [DietController::class, 'store'])->name('diets.store');
-Route::get('/diets/{id}', [DietController::class, 'show'])->name('diets.show'); // Útil para la Tarea 5
+Route::get('/diets/{id}', [DietController::class, 'show'])->name('diets.show'); 
+Route::delete('/diets/{id}', [DietController::class, 'destroy'])->name('diets.destroy');
 
 // Rutas por defecto de Laravel
 Route::get('/', function () {

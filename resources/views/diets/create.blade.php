@@ -18,21 +18,28 @@
                     </div>
 
                     <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-4">Ingredientes disponibles:</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            @forelse($ingredients as $ingredient)
-                                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                                    <input type="checkbox" name="ingredients[]" value="{{ $ingredient->id }}" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                    <div class="ml-3">
-                                        <span class="text-sm font-medium text-gray-900">{{ $ingredient->name }}</span>
-                                        <span class="text-xs text-gray-500 block">{{ $ingredient->calories }} kcal | P: {{ $ingredient->protein }}g</span>
-                                    </div>
-                                </label>
-                            @empty
-                                <p class="text-gray-500 text-sm">No hay ingredientes creados. <a href="{{ route('ingredients.index') }}" class="text-indigo-600 underline">Crea algunos primero.</a></p>
-                            @endforelse
-                        </div>
+    <label class="block text-gray-700 text-sm font-bold mb-4">Ingredientes disponibles:</label>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        @forelse($ingredients as $ingredient)
+            <label class="flex items-start p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200 group">
+                <input type="checkbox" name="ingredients[]" value="{{ $ingredient->id }}" class="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                
+                <div class="ml-4 w-full">
+                    <span class="block text-sm font-bold text-gray-900 group-hover:text-indigo-900">{{ $ingredient->name }}</span>
+                    
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">{{ $ingredient->calories }} kcal</span>
+                        <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider">P: {{ $ingredient->protein }}g</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider">C: {{ $ingredient->carbs }}g</span>
+                        <span class="px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-700 text-[10px] font-bold uppercase tracking-wider">G: {{ $ingredient->fats }}g</span>
                     </div>
+                </div>
+            </label>
+        @empty
+            <p class="text-gray-500 text-sm">No hay ingredientes creados.</p>
+        @endforelse
+    </div>
+</div>
 
                     <div class="flex items-center justify-end mt-8 pt-6 border-t border-gray-200">
                         <button type="submit" class="appearance-none bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200" style="appearance: none; -webkit-appearance: none; background-color: #111827; border: none;">

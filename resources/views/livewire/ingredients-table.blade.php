@@ -41,11 +41,11 @@ new class extends Component {
         <tbody class="bg-white divide-y divide-gray-200">
             @foreach($ingredients as $ingredient)
             <tr wire:key="ingredient-{{ $ingredient->id }}">
-                <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $ingredient->name }}</td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">{{ $ingredient->calories }}</span></td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}g</span></td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">{{ $ingredient->carbs }}g</span></td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">{{ $ingredient->fats }}g</span></td>
+                <td class="px-6 py-4 text-base font-semibold text-gray-900">{{ $ingredient->name }}</td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-bold">{{ $ingredient->calories }}</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-bold">{{ $ingredient->protein }}g</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold">{{ $ingredient->carbs }}g</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-sm font-bold">{{ $ingredient->fats }}g</span></td>
                 
                 <td class="px-6 py-4 text-right text-sm font-medium">
                     <button 

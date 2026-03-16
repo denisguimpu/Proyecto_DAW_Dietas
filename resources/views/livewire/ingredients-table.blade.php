@@ -40,7 +40,7 @@ new class extends Component {
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
             @foreach($ingredients as $ingredient)
-            <tr>
+            <tr wire:key="ingredient-{{ $ingredient->id }}">
                 <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $ingredient->name }}</td>
                 <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">{{ $ingredient->calories }}</span></td>
                 <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}g</span></td>

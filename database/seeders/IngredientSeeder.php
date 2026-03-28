@@ -18,7 +18,18 @@ class IngredientSeeder extends Seeder
             true
         );
 
-        // Insertar todos los ingredientes en la base de datos
-        Ingredient::insert($data);
+        $ingredients = collect($data)->map(function (array $ingredient) {
+            return [
+                'name' => $ingredient['name'],
+                'gr_ration' => $ingredient['gr_ration'] ?? 0,
+                'calories' => $ingredient['calories'],
+                'fats' => $ingredient['fats'],
+                'carbs' => $ingredient['carbs'],
+                'protein' => $ingredient['protein'],
+            ];
+        })->all();
+
+        // Inserta o actualiza por nombre para evitar errores de clave primaria duplicada.
+        Ingredient::upsert($ingredients, ['name'], ['gr_ration', 'calories', 'fats', 'carbs', 'protein']);
     }
 }

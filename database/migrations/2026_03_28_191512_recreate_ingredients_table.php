@@ -9,13 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ingredients', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->string('name')->primary();
+            $table->integer('gr_ration')->default(0);
             $table->integer('calories');
             $table->float('fats');
             $table->float('carbs');
             $table->float('protein');
-            $table->timestamps();
         });
     }
 

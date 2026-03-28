@@ -22,11 +22,11 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         @forelse($ingredients as $ingredient)
             <label class="flex items-start p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200 group">
-                <input type="checkbox" name="ingredients[]" value="{{ $ingredient->id }}" class="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                
+                <input type="checkbox" name="ingredients[]" value="{{ $ingredient->name }}" class="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+
                 <div class="ml-4 w-full">
                     <span class="block text-sm font-bold text-gray-900 group-hover:text-indigo-900">{{ $ingredient->name }}</span>
-                    
+
                     <div class="flex flex-wrap gap-2 mt-2">
                         <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">{{ $ingredient->calories }} kcal</span>
                         <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider">P: {{ $ingredient->protein }}g</span>

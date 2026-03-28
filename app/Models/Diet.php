@@ -11,7 +11,7 @@ class Diet extends Model
 
     // Relación con ingredientes
     public function ingredients() {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class, 'diet_ingredient', 'diet_id', 'ingredient_name', 'id', 'name');
     }
 
     // Suma calorías

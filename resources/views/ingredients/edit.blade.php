@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Editar Ingrediente - NutriTrack TFG</title>
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --primary-color: #2ecc71;
@@ -27,62 +27,62 @@
             --border-color: #e2e8f0;
             --white: #ffffff;
         }
-        
+
         * {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        
+
         body {
             background-color: var(--bg-light);
             color: var(--text-dark);
         }
-        
+
         .navbar-nutri {
             background-color: var(--white);
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
             padding: 0.75rem 0;
         }
-        
+
         .navbar-brand {
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-color) !important;
         }
-        
+
         .content-card {
             background: var(--white);
             border-radius: 16px;
             border: 1px solid var(--border-color);
             overflow: hidden;
         }
-        
+
         .content-card-header {
             padding: 1.5rem;
             border-bottom: 1px solid var(--border-color);
             background: var(--white);
         }
-        
+
         .content-card-body {
             padding: 1.5rem;
         }
-        
+
         .form-label {
             font-weight: 600;
             color: var(--text-dark);
             margin-bottom: 0.5rem;
         }
-        
+
         .form-control {
             border-radius: 10px;
             border: 1px solid var(--border-color);
             padding: 0.75rem 1rem;
         }
-        
+
         .form-control:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
         }
-        
+
         .btn-save {
             background: var(--primary-color);
             border: none;
@@ -91,13 +91,13 @@
             font-weight: 600;
             transition: all 0.2s ease;
         }
-        
+
         .btn-save:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(46, 204, 113, 0.35);
         }
-        
+
         .btn-cancel {
             background: var(--bg-light);
             border: 1px solid var(--border-color);
@@ -107,7 +107,7 @@
             color: var(--text-dark);
             transition: all 0.2s ease;
         }
-        
+
         .btn-cancel:hover {
             background: var(--border-color);
         }
@@ -146,15 +146,15 @@
                         </h5>
                     </div>
                     <div class="content-card-body">
-                        <form action="{{ route('ingredients.update', $ingredient->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('ingredients.update', $ingredient) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            
+
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nombre del Ingrediente</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $ingredient->name }}" required>
                             </div>
-                            
+
                             <div class="row g-3 mb-3">
                                 <div class="col-6">
                                     <label for="calories" class="form-label">Calorías</label>
@@ -171,7 +171,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row g-3 mb-3">
                                 <div class="col-6">
                                     <label for="fats" class="form-label">Grasas</label>
@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="mb-4">
                                 <label for="image" class="form-label">Imagen (opcional)</label>
                                 <input type="file" class="form-control" id="image" name="image" accept="image/*">
@@ -196,7 +196,7 @@
                                     <small class="text-muted">Imagen actual: {{ $ingredient->image }}</small>
                                 @endif
                             </div>
-                            
+
                             <div class="d-flex gap-3">
                                 <button type="submit" class="btn btn-success btn-save">
                                     <i class="bi bi-check-lg me-2"></i>Guardar Cambios

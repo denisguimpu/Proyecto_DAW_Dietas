@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Diet; 
+use App\Models\Diet;
 use Illuminate\Http\Request;
 use App\Models\Ingredient;
 
@@ -12,7 +12,7 @@ class DietController extends Controller
     {
         // Traemos todas las dietas de la base de datos
         $diets = Diet::all();
-        
+
         // Cargamos la vista pasándole la lista de dietas
         return view('diets.index', compact('diets'));
     }
@@ -29,7 +29,9 @@ public function store(Request $request)
     // 1. Validar
     $request->validate([
         'name' => 'required|max:255',
-        'description' => 'nullable'
+        'description' => 'nullable',
+        'ingredients' => 'nullable|array',
+        'ingredients.*' => 'exists:ingredients,name',
     ]);
 
     // 2. Crear la dieta
@@ -47,10 +49,10 @@ public function store(Request $request)
 public function destroy($id)
 {
     $diet = \App\Models\Diet::findOrFail($id);
-    
+
     // Primero borramos la conexión en la tabla pivote para no dejar datos huérfanos
     $diet->ingredients()->detach();
-    
+
     // Luego borramos la dieta
     $diet->delete();
 

@@ -46,25 +46,25 @@ new class extends Component {
                 <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}g</span></td>
                 <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">{{ $ingredient->carbs }}g</span></td>
                 <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">{{ $ingredient->fats }}g</span></td>
-                
+
                 <td class="px-6 py-4 text-right text-sm font-medium">
-                    <button 
+                    <button
                         type="button"
-                        x-on:click="$dispatch('edit-ingredient', { 
-                            id: {{ $ingredient->id }}, 
-                            name: '{{ $ingredient->name }}', 
-                            calories: {{ $ingredient->calories }},
-                            protein: {{ $ingredient->protein }},
-                            carbs: {{ $ingredient->carbs }},
-                            fats: {{ $ingredient->fats }} 
+                        x-on:click="$dispatch('edit-ingredient', {
+                            name: @js($ingredient->name),
+                            calories: @js($ingredient->calories),
+                            protein: @js($ingredient->protein),
+                            carbs: @js($ingredient->carbs),
+                            fats: @js($ingredient->fats),
+                            editUrl: @js(route('ingredients.update', $ingredient))
                         })"
                         class="text-indigo-600 hover:text-indigo-900 mr-3 font-semibold">
                         Editar
                     </button>
 
-                    <button 
+                    <button
                         type="button"
-                        @click="deleteUrl = '{{ route('ingredients.destroy', $ingredient->id) }}'; confirmDelete = true;"
+                        @click="deleteUrl = '{{ route('ingredients.destroy', $ingredient) }}'; confirmDelete = true;"
                         class="text-red-600 hover:text-red-900 font-semibold">
                         Eliminar
                     </button>

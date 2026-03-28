@@ -6,11 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ingredient extends Model
 {
-    // Define the fillable fields for mass assignment
-    protected $fillable = ['name', 'calories', 'protein', 'fats', 'carbs', 'unit'];
+    protected $primaryKey = 'name';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    public $timestamps = false;
 
+    protected $fillable = ['name', 'gr_ration', 'calories', 'protein', 'fats', 'carbs'];
 
-    public function diets() {
-    return $this->belongsToMany(Diet::class);
-}
+    public function diets()
+    {
+        return $this->belongsToMany(Diet::class, 'diet_ingredient', 'ingredient_name', 'diet_id', 'name', 'id');
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'name';
+    }
 }

@@ -159,14 +159,14 @@
                                 <div class="col-6">
                                     <label for="kcal" class="form-label">Kcal</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="kcal" name="kcal" value="{{ $ingredient->kcal }}" required style="border-radius: 10px 0 0 10px;">
+                                        <input type="number" step="any" class="form-control" id="kcal" name="kcal" value="{{ $ingredient->kcal }}" required style="border-radius: 10px 0 0 10px;">
                                         <span class="input-group-text" style="border-radius: 0 10px 10px 0;">kcal</span>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label for="protein" class="form-label">Proteínas</label>
                                     <div class="input-group">
-                                        <input type="number" step="0.1" class="form-control" id="protein" name="protein" value="{{ $ingredient->protein }}" required style="border-radius: 10px 0 0 10px;">
+                                        <input type="number" step="any" class="form-control" id="protein" name="protein" value="{{ $ingredient->protein }}" required style="border-radius: 10px 0 0 10px;">
                                         <span class="input-group-text" style="border-radius: 0 10px 10px 0;">g</span>
                                     </div>
                                 </div>
@@ -176,14 +176,14 @@
                                 <div class="col-6">
                                     <label for="fats" class="form-label">Grasas</label>
                                     <div class="input-group">
-                                        <input type="number" step="0.1" class="form-control" id="fats" name="fats" value="{{ $ingredient->fats }}" required style="border-radius: 10px 0 0 10px;">
+                                        <input type="number" step="any" class="form-control" id="fats" name="fats" value="{{ $ingredient->fats }}" required style="border-radius: 10px 0 0 10px;">
                                         <span class="input-group-text" style="border-radius: 0 10px 10px 0;">g</span>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label for="carbs" class="form-label">Carbohidratos</label>
                                     <div class="input-group">
-                                        <input type="number" step="0.1" class="form-control" id="carbs" name="carbs" value="{{ $ingredient->carbs }}" required style="border-radius: 10px 0 0 10px;">
+                                        <input type="number" step="any" class="form-control" id="carbs" name="carbs" value="{{ $ingredient->carbs }}" required style="border-radius: 10px 0 0 10px;">
                                         <span class="input-group-text" style="border-radius: 0 10px 10px 0;">g</span>
                                     </div>
                                 </div>

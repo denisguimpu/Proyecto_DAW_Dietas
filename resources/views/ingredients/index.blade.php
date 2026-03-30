@@ -48,23 +48,23 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Ración (g)</label>
-                                <input type="number" name="gr_ration" x-model="ingredient.gr_ration" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <input type="number" step="any" name="gr_ration" x-model="ingredient.gr_ration" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Kcal</label>
-                                <input type="number" name="kcal" x-model="ingredient.kcal" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <input type="number" step="any" name="kcal" x-model="ingredient.kcal" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Proteína (g)</label>
-                                <input type="number" name="protein" x-model="ingredient.protein" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <input type="number" step="any" name="protein" x-model="ingredient.protein" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Carbohidratos (g)</label>
-                                <input type="number" name="carbs" x-model="ingredient.carbs" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <input type="number" step="any" name="carbs" x-model="ingredient.carbs" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Grasas (g)</label>
-                                <input type="number" name="fats" x-model="ingredient.fats" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <input type="number" step="any" name="fats" x-model="ingredient.fats" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                         </div>
                     </div>

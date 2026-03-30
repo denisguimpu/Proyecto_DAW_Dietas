@@ -24,7 +24,7 @@
                                     <input type="checkbox" name="ingredients[]" value="{{ $ingredient->name }}" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
                                     <label class="ml-3 block text-sm text-gray-700">
                                         <span class="font-bold">{{ $ingredient->name }}</span>
-                                        <span class="text-gray-500 text-xs">({{ $ingredient->calories }} kcal)</span>
+                                        <span class="text-gray-500 text-xs">({{ $ingredient->kcal }} kcal)</span>
                                     </label>
                                 </div>
                             @endforeach

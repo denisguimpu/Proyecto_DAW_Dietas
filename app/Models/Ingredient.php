@@ -11,7 +11,7 @@ class Ingredient extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
-    protected $fillable = ['name', 'gr_ration', 'calories', 'protein', 'fats', 'carbs'];
+    protected $fillable = ['name', 'gr_ration', 'kcal', 'protein', 'fats', 'carbs'];
 
     public function diets()
     {

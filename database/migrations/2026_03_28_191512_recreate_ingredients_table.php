@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('ingredients', function (Blueprint $table) {
             $table->string('name')->primary();
             $table->integer('gr_ration')->default(0);
-            $table->integer('calories');
+            $table->integer('kcal');
             $table->float('fats');
             $table->float('carbs');
             $table->float('protein');

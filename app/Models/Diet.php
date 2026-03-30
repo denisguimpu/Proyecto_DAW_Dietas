@@ -17,7 +17,7 @@ class Diet extends Model
     // Suma calorías
     public function totalCalories()
     {
-        return $this->ingredients->sum('calories');
+        return $this->ingredients->sum('kcal');
     }
 
     // Suma proteínas

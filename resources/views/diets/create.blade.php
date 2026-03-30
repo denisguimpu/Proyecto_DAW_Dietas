@@ -19,19 +19,20 @@
 
                     <div class="mb-6">
     <label class="block text-gray-700 text-sm font-bold mb-4">Ingredientes disponibles:</label>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4">
         @forelse($ingredients as $ingredient)
             <label class="flex items-start p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200 group">
                 <input type="checkbox" name="ingredients[]" value="{{ $ingredient->name }}" class="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
 
-                <div class="ml-4 w-full">
+                <div class="ml-4 w-full flex items-start justify-between gap-4">
                     <span class="block text-sm font-bold text-gray-900 group-hover:text-indigo-900">{{ $ingredient->name }}</span>
 
-                    <div class="flex flex-wrap gap-2 mt-2">
-                        <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">{{ $ingredient->calories }} kcal</span>
-                        <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider">P: {{ $ingredient->protein }}g</span>
-                        <span class="px-2 py-0.5 rounded-md bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider">C: {{ $ingredient->carbs }}g</span>
-                        <span class="px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-700 text-[10px] font-bold uppercase tracking-wider">G: {{ $ingredient->fats }}g</span>
+                    <div class="flex flex-wrap justify-end gap-2">
+                        <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 text-[10px] font-bold uppercase tracking-wider">Racion (g): {{ $ingredient->gr_ration }}</span>
+                        <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">Kcal: {{ $ingredient->kcal }}</span>
+                        <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider">Prot: {{ $ingredient->protein }}</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider">Carb: {{ $ingredient->carbs }}</span>
+                        <span class="px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-700 text-[10px] font-bold uppercase tracking-wider">Grasa: {{ $ingredient->fats }}</span>
                     </div>
                 </div>
             </label>

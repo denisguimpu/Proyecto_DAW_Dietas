@@ -22,7 +22,7 @@ class IngredientSeeder extends Seeder
             return [
                 'name' => $ingredient['name'],
                 'gr_ration' => $ingredient['gr_ration'] ?? 0,
-                'calories' => $ingredient['calories'],
+                'kcal' => $ingredient['Kcal'],
                 'fats' => $ingredient['fats'],
                 'carbs' => $ingredient['carbs'],
                 'protein' => $ingredient['protein'],
@@ -30,6 +30,6 @@ class IngredientSeeder extends Seeder
         })->all();
 
         // Inserta o actualiza por nombre para evitar errores de clave primaria duplicada.
-        Ingredient::upsert($ingredients, ['name'], ['gr_ration', 'calories', 'fats', 'carbs', 'protein']);
+        Ingredient::upsert($ingredients, ['name'], ['gr_ration', 'kcal', 'fats', 'carbs', 'protein']);
     }
 }

@@ -19,7 +19,9 @@ class IngredientController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'calories' => 'required|numeric',
+            'kcal' => 'required|numeric',
+        ], [], [
+            'kcal' => 'Kcal',
         ]);
 
         Ingredient::create($request->all());
@@ -37,7 +39,9 @@ class IngredientController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'calories' => 'required|numeric',
+            'kcal' => 'required|numeric',
+        ], [], [
+            'kcal' => 'Kcal',
         ]);
 
         $ingredient->update($request->all());

@@ -30,7 +30,7 @@ new class extends Component {
     <table class="w-full bg-white rounded-lg shadow">
         <thead class="bg-gray-100">
             <tr>
-                @foreach(['name' => 'Nombre', 'calories' => 'Kcal', 'protein' => 'Prot', 'carbs' => 'Carb', 'fats' => 'Grasa'] as $field => $label)
+                @foreach(['name' => 'Nombre', 'gr_ration' => 'Ración (g)', 'kcal' => 'Kcal', 'protein' => 'Prot', 'carbs' => 'Carb', 'fats' => 'Grasa'] as $field => $label)
                     <th class="p-4 text-left cursor-pointer hover:text-indigo-600" wire:click="sortBy('{{ $field }}')">
                         {{ $label }} ↕
                     </th>
@@ -42,17 +42,19 @@ new class extends Component {
             @foreach($ingredients as $ingredient)
             <tr>
                 <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $ingredient->name }}</td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">{{ $ingredient->calories }}</span></td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}g</span></td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">{{ $ingredient->carbs }}g</span></td>
-                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">{{ $ingredient->fats }}g</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-bold">{{ $ingredient->gr_ration }}</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">{{ $ingredient->kcal }}</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">{{ $ingredient->carbs }}</span></td>
+                <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">{{ $ingredient->fats }}</span></td>
 
                 <td class="px-6 py-4 text-right text-sm font-medium">
                     <button
                         type="button"
                         x-on:click="$dispatch('edit-ingredient', {
                             name: @js($ingredient->name),
-                            calories: @js($ingredient->calories),
+                            gr_ration: @js($ingredient->gr_ration),
+                            kcal: @js($ingredient->kcal),
                             protein: @js($ingredient->protein),
                             carbs: @js($ingredient->carbs),
                             fats: @js($ingredient->fats),

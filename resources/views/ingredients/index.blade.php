@@ -10,7 +10,7 @@
         editMode: false,
         confirmDelete: false,
         deleteUrl: '',
-        ingredient: { name: '', calories: '', protein: '', carbs: '', fats: '', editUrl: '' }
+        ingredient: { name: '', gr_ration: '', kcal: '', protein: '', carbs: '', fats: '', editUrl: '' }
     }" @edit-ingredient.window="
         ingredient = $event.detail;
         editMode = true;
@@ -20,7 +20,7 @@
 
             <div class="mb-6 flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h3 class="text-lg font-bold text-gray-900">Listado de Ingredientes</h3>
-                <button @click="open = true; editMode = false; ingredient = { name: '', calories: '', protein: '', carbs: '', fats: '', editUrl: '' }"
+                <button @click="open = true; editMode = false; ingredient = { name: '', gr_ration: '', kcal: '', protein: '', carbs: '', fats: '', editUrl: '' }"
                         class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all">
                     + Nuevo Ingrediente
                 </button>
@@ -47,8 +47,12 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1">Calorías (kcal)</label>
-                                <input type="number" name="calories" x-model="ingredient.calories" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Ración (g)</label>
+                                <input type="number" name="gr_ration" x-model="ingredient.gr_ration" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Kcal</label>
+                                <input type="number" name="kcal" x-model="ingredient.kcal" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Proteína (g)</label>

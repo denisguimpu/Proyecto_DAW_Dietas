@@ -157,9 +157,9 @@
 
                             <div class="row g-3 mb-3">
                                 <div class="col-6">
-                                    <label for="calories" class="form-label">Calorías</label>
+                                    <label for="kcal" class="form-label">Kcal</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="calories" name="calories" value="{{ $ingredient->calories }}" required style="border-radius: 10px 0 0 10px;">
+                                        <input type="number" class="form-control" id="kcal" name="kcal" value="{{ $ingredient->kcal }}" required style="border-radius: 10px 0 0 10px;">
                                         <span class="input-group-text" style="border-radius: 0 10px 10px 0;">kcal</span>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@
                 <h3 class="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">Ingredientes:</h3>
                 <ul class="list-disc list-inside space-y-2 text-gray-700">
                     @foreach($diet->ingredients as $ingredient)
-                        <li>{{ $ingredient->name }} ({{ $ingredient->calories }} kcal)</li>
+                        <li>{{ $ingredient->name }} ({{ $ingredient->kcal }} kcal)</li>
                     @endforeach
                 </ul>
 

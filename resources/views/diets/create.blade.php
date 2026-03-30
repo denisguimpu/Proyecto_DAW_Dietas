@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-8">
                 <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Nueva Dieta</h2>
 
@@ -12,7 +12,21 @@
                             <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-900">Ingredientes marcados</h3>
                             <p class="mt-1 text-xs text-indigo-800">Puedes editar la racion (g) en esta franja para ajustar los calculos.</p>
 
-                            <div id="selected-ingredients-list" class="mt-3 space-y-2"></div>
+                            <div class="mt-3 overflow-x-auto">
+                                <table class="w-full bg-white rounded-lg shadow text-sm">
+                                    <thead class="bg-gray-100 text-gray-800">
+                                        <tr>
+                                            <th class="p-4 text-left font-bold">Ingrediente</th>
+                                            <th class="p-4 text-left font-bold bg-gray-100 text-gray-700">Racion (g)</th>
+                                            <th class="p-4 text-left font-bold bg-orange-100 text-orange-700">Kcal racion</th>
+                                            <th class="p-4 text-left font-bold bg-blue-100 text-blue-700">Prot racion</th>
+                                            <th class="p-4 text-left font-bold bg-green-100 text-green-700">Carb racion</th>
+                                            <th class="p-4 text-left font-bold bg-yellow-100 text-yellow-700">Grasa racion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="selected-ingredients-list" class="divide-y divide-gray-200 bg-white"></tbody>
+                                </table>
+                            </div>
 
                             <div class="mt-4 border-t border-indigo-200 pt-3">
                                 <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-900">Suma total (segun racion)</p>
@@ -38,56 +52,65 @@
                     </div>
 
                     <div class="mb-6">
-    <label class="block text-gray-700 text-sm font-bold mb-4">Ingredientes disponibles:</label>
-    <div class="grid grid-cols-1 gap-4">
-        @forelse($ingredients as $ingredient)
-            <label class="flex items-start p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200 group">
-                <input
-                    type="checkbox"
-                    name="ingredients[]"
-                    value="{{ $ingredient->name }}"
-                    data-name="{{ $ingredient->name }}"
-                    data-gr-ration="{{ $ingredient->gr_ration }}"
-                    data-kcal="{{ $ingredient->kcal }}"
-                    data-protein="{{ $ingredient->protein }}"
-                    data-carbs="{{ $ingredient->carbs }}"
-                    data-fats="{{ $ingredient->fats }}"
-                    @checked(in_array($ingredient->name, old('ingredients', []), true))
-                    class="ingredient-checkbox mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                >
+                        <label class="block text-gray-700 text-sm font-bold mb-4">Ingredientes disponibles:</label>
 
-                <div class="ml-4 w-full flex items-start justify-between gap-4">
-                    <span class="block text-sm font-bold text-gray-900 group-hover:text-indigo-900">{{ $ingredient->name }}</span>
-
-                    <div class="flex flex-wrap justify-end gap-2">
-                        <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 text-[10px] font-bold uppercase tracking-wider">Racion (g): {{ $ingredient->gr_ration }}</span>
-                        <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">Kcal/100g: {{ $ingredient->kcal }}</span>
-                        <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider">Prot/100g: {{ $ingredient->protein }}</span>
-                        <span class="px-2 py-0.5 rounded-md bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider">Carb/100g: {{ $ingredient->carbs }}</span>
-                        <span class="px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-700 text-[10px] font-bold uppercase tracking-wider">Grasa/100g: {{ $ingredient->fats }}</span>
+                        <div class="overflow-x-auto">
+                            <table class="w-full bg-white rounded-lg shadow">
+                                <thead class="bg-gray-100 text-gray-800">
+                                    <tr>
+                                        <th class="p-4 text-left font-bold">Seleccionar</th>
+                                        <th class="p-4 text-left font-bold">Ingrediente</th>
+                                        <th class="p-4 text-left font-bold bg-gray-100 text-gray-700">Racion predefinida (g)</th>
+                                        <th class="p-4 text-left font-bold bg-orange-100 text-orange-700">Kcal/100g</th>
+                                        <th class="p-4 text-left font-bold bg-blue-100 text-blue-700">Proteinas/100g</th>
+                                        <th class="p-4 text-left font-bold bg-green-100 text-green-700">Carbohidratos/100g</th>
+                                        <th class="p-4 text-left font-bold bg-yellow-100 text-yellow-700">Grasas/100g</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    @forelse($ingredients as $ingredient)
+                                        <tr>
+                                            <td class="px-6 py-4 text-sm text-gray-900">
+                                                <input
+                                                    type="checkbox"
+                                                    name="ingredients[]"
+                                                    value="{{ $ingredient->name }}"
+                                                    data-name="{{ $ingredient->name }}"
+                                                    data-gr-ration="{{ $ingredient->gr_ration }}"
+                                                    data-kcal="{{ $ingredient->kcal }}"
+                                                    data-protein="{{ $ingredient->protein }}"
+                                                    data-carbs="{{ $ingredient->carbs }}"
+                                                    data-fats="{{ $ingredient->fats }}"
+                                                    @checked(in_array($ingredient->name, old('ingredients', []), true))
+                                                    class="ingredient-checkbox h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                                                >
+                                            </td>
+                                            <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">{{ $ingredient->name }}</td>
+                                            <td class="px-6 py-4">
+                                                <span class="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-bold">{{ $ingredient->gr_ration }} g</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">{{ $ingredient->kcal }}</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $ingredient->protein }}</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">{{ $ingredient->carbs }}</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold">{{ $ingredient->fats }}</span>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="px-6 py-4 text-sm text-gray-500">No hay ingredientes creados.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </label>
-
-            @php
-                $ratio = ($ingredient->gr_ration ?? 0) / 100;
-                $kcalPerRation = ($ingredient->kcal ?? 0) * $ratio;
-                $proteinPerRation = ($ingredient->protein ?? 0) * $ratio;
-                $carbsPerRation = ($ingredient->carbs ?? 0) * $ratio;
-                $fatsPerRation = ($ingredient->fats ?? 0) * $ratio;
-            @endphp
-
-            <div class="-mt-2 mb-2 ml-9 flex flex-wrap gap-2">
-                <span class="px-2 py-0.5 rounded-md bg-orange-50 text-orange-800 text-[10px] font-bold uppercase tracking-wider">Aporte racion - Kcal: {{ rtrim(rtrim(number_format($kcalPerRation, 2, '.', ''), '0'), '.') }}</span>
-                <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 text-[10px] font-bold uppercase tracking-wider">Prot: {{ rtrim(rtrim(number_format($proteinPerRation, 2, '.', ''), '0'), '.') }}</span>
-                <span class="px-2 py-0.5 rounded-md bg-green-50 text-green-800 text-[10px] font-bold uppercase tracking-wider">Carb: {{ rtrim(rtrim(number_format($carbsPerRation, 2, '.', ''), '0'), '.') }}</span>
-                <span class="px-2 py-0.5 rounded-md bg-yellow-50 text-yellow-800 text-[10px] font-bold uppercase tracking-wider">Grasa: {{ rtrim(rtrim(number_format($fatsPerRation, 2, '.', ''), '0'), '.') }}</span>
-            </div>
-        @empty
-            <p class="text-gray-500 text-sm">No hay ingredientes creados.</p>
-        @endforelse
-    </div>
-</div>
 
                     <div class="flex items-center justify-end mt-8 pt-6 border-t border-gray-200">
                         <button type="submit" class="appearance-none bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200" style="appearance: none; -webkit-appearance: none; background-color: #111827; border: none;">
@@ -178,33 +201,24 @@
                     const fats = fatsPer100 * ratio;
 
                     return `
-                        <div class="rounded-lg border border-indigo-200 bg-white p-3">
-                            <p class="text-sm font-bold text-gray-900">${checkbox.dataset.name || ''}</p>
-                            <div class="mt-2 flex flex-wrap gap-2">
-                                <label class="flex items-center gap-2 px-2 py-1 rounded-md bg-gray-100 text-gray-700 text-[10px] font-bold uppercase tracking-wider">
-                                    Racion (g):
-                                    <input
-                                        type="number"
-                                        min="0"
-                                        step="0.1"
-                                        value="${formatNumber(grRation)}"
-                                        data-ration-input="true"
-                                        data-ingredient-name="${checkbox.dataset.name || ''}"
-                                        class="w-20 border-gray-300 rounded-md text-[10px] font-bold text-gray-900"
-                                    >
-                                </label>
-                                <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">Kcal/100g: ${formatNumber(kcalPer100)}</span>
-                                <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider">Prot/100g: ${formatNumber(proteinPer100)}</span>
-                                <span class="px-2 py-0.5 rounded-md bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider">Carb/100g: ${formatNumber(carbsPer100)}</span>
-                                <span class="px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-700 text-[10px] font-bold uppercase tracking-wider">Grasa/100g: ${formatNumber(fatsPer100)}</span>
-                            </div>
-                            <div class="mt-2 flex flex-wrap gap-2">
-                                <span class="px-2 py-0.5 rounded-md bg-orange-50 text-orange-800 text-[10px] font-bold uppercase tracking-wider">Aporte racion - Kcal: <span data-card-field="kcal">${formatNumber(kcal)}</span></span>
-                                <span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 text-[10px] font-bold uppercase tracking-wider">Prot: <span data-card-field="protein">${formatNumber(protein)}</span></span>
-                                <span class="px-2 py-0.5 rounded-md bg-green-50 text-green-800 text-[10px] font-bold uppercase tracking-wider">Carb: <span data-card-field="carbs">${formatNumber(carbs)}</span></span>
-                                <span class="px-2 py-0.5 rounded-md bg-yellow-50 text-yellow-800 text-[10px] font-bold uppercase tracking-wider">Grasa: <span data-card-field="fats">${formatNumber(fats)}</span></span>
-                            </div>
-                        </div>
+                        <tr>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">${checkbox.dataset.name || ''}</td>
+                            <td class="px-6 py-4">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    step="0.1"
+                                    value="${formatNumber(grRation)}"
+                                    data-ration-input="true"
+                                    data-ingredient-name="${checkbox.dataset.name || ''}"
+                                    class="w-24 border-gray-300 rounded-md text-xs font-bold text-gray-900"
+                                >
+                            </td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold" data-row-field="kcal">${formatNumber(kcal)}</span></td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold" data-row-field="protein">${formatNumber(protein)}</span></td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold" data-row-field="carbs">${formatNumber(carbs)}</span></td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold" data-row-field="fats">${formatNumber(fats)}</span></td>
+                        </tr>
                     `;
                 }).join('');
 
@@ -231,8 +245,8 @@
                 const parsedValue = Number(target.value);
                 linkedCheckbox.dataset.grRation = Number.isFinite(parsedValue) && parsedValue >= 0 ? String(parsedValue) : '0';
 
-                const card = target.closest('.rounded-lg');
-                if (!card) {
+                const row = target.closest('tr');
+                if (!row) {
                     return;
                 }
 
@@ -243,10 +257,10 @@
                 const carbs = Number(linkedCheckbox.dataset.carbs || 0) * ratio;
                 const fats = Number(linkedCheckbox.dataset.fats || 0) * ratio;
 
-                card.querySelector('[data-card-field="kcal"]').textContent = formatNumber(kcal);
-                card.querySelector('[data-card-field="protein"]').textContent = formatNumber(protein);
-                card.querySelector('[data-card-field="carbs"]').textContent = formatNumber(carbs);
-                card.querySelector('[data-card-field="fats"]').textContent = formatNumber(fats);
+                row.querySelector('[data-row-field="kcal"]').textContent = formatNumber(kcal);
+                row.querySelector('[data-row-field="protein"]').textContent = formatNumber(protein);
+                row.querySelector('[data-row-field="carbs"]').textContent = formatNumber(carbs);
+                row.querySelector('[data-row-field="fats"]').textContent = formatNumber(fats);
 
                 updateTotals();
             });

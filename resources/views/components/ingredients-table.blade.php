@@ -22,23 +22,36 @@ new class extends Component {
     }
 }; ?>
 
-<div class="space-y-4">
+<div class="space-y-4" data-ingredients-table-root>
     <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-        <input type="text" wire:model.live.debounce.300ms="search" placeholder="🔍 Buscar..." class="w-full rounded-lg border-gray-300">
+        <input id="ingredients-search-input" type="text" wire:model.live.debounce.300ms="search" placeholder="🔍 Buscar..." class="w-full rounded-lg border-gray-300">
     </div>
 
-    <table class="w-full bg-white rounded-lg shadow">
+    <table id="ingredients-data-table" class="w-full bg-white rounded-lg shadow">
         <thead class="bg-gray-100">
             <tr>
-                @foreach(['name' => 'Nombre', 'gr_ration' => 'Ración (g)', 'kcal' => 'Kcal', 'protein' => 'Prot', 'carbs' => 'Carb', 'fats' => 'Grasa'] as $field => $label)
-                    <th class="p-4 text-left cursor-pointer hover:text-indigo-600" wire:click="sortBy('{{ $field }}')">
-                        {{ $label }} ↕
-                    </th>
-                @endforeach
+                <th class="p-4 text-left">
+                    <button type="button" class="font-bold hover:text-indigo-600 js-sort" data-sort-index="0" data-sort-type="text">Ingrediente ↕</button>
+                </th>
+                <th class="p-4 text-left bg-gray-100 text-gray-700">
+                    <button type="button" class="font-bold hover:text-indigo-600 js-sort" data-sort-index="1" data-sort-type="number">Racion predefinida (g) ↕</button>
+                </th>
+                <th class="p-4 text-left bg-orange-100 text-orange-700">
+                    <button type="button" class="font-bold hover:text-indigo-600 js-sort" data-sort-index="2" data-sort-type="number">Kcal/100g ↕</button>
+                </th>
+                <th class="p-4 text-left bg-blue-100 text-blue-700">
+                    <button type="button" class="font-bold hover:text-indigo-600 js-sort" data-sort-index="3" data-sort-type="number">Proteinas/100g ↕</button>
+                </th>
+                <th class="p-4 text-left bg-green-100 text-green-700">
+                    <button type="button" class="font-bold hover:text-indigo-600 js-sort" data-sort-index="4" data-sort-type="number">Carbohidratos/100g ↕</button>
+                </th>
+                <th class="p-4 text-left bg-yellow-100 text-yellow-700">
+                    <button type="button" class="font-bold hover:text-indigo-600 js-sort" data-sort-index="5" data-sort-type="number">Grasas/100g ↕</button>
+                </th>
                 <th class="p-4"></th>
             </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody id="ingredients-table-body" class="bg-white divide-y divide-gray-200">
             @foreach($ingredients as $ingredient)
             <tr>
                 <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $ingredient->name }}</td>
@@ -76,3 +89,81 @@ new class extends Component {
         </tbody>
     </table>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const root = document.querySelector('[data-ingredients-table-root]');
+        if (!root || root.dataset.jsReady === '1') {
+            return;
+        }
+
+        root.dataset.jsReady = '1';
+
+        const tableBody = root.querySelector('#ingredients-table-body');
+        const searchInput = root.querySelector('#ingredients-search-input');
+        const sortButtons = root.querySelectorAll('.js-sort');
+
+        if (!tableBody) {
+            return;
+        }
+
+        const parseValue = (row, columnIndex, type) => {
+            const cell = row.children[columnIndex];
+            const raw = (cell?.textContent || '').trim();
+
+            if (type === 'number') {
+                const normalized = raw.replace(',', '.').replace(/[^0-9.-]/g, '');
+                const value = Number(normalized);
+                return Number.isFinite(value) ? value : 0;
+            }
+
+            return raw.toLowerCase();
+        };
+
+        sortButtons.forEach((button) => {
+            button.addEventListener('click', function () {
+                const columnIndex = Number(button.dataset.sortIndex);
+                const type = button.dataset.sortType || 'text';
+                const direction = button.dataset.sortDirection === 'asc' ? 'desc' : 'asc';
+
+                sortButtons.forEach((btn) => {
+                    if (btn !== button) {
+                        delete btn.dataset.sortDirection;
+                    }
+                });
+
+                button.dataset.sortDirection = direction;
+
+                const rows = Array.from(tableBody.querySelectorAll('tr'));
+                rows.sort((a, b) => {
+                    const left = parseValue(a, columnIndex, type);
+                    const right = parseValue(b, columnIndex, type);
+
+                    if (left < right) {
+                        return direction === 'asc' ? -1 : 1;
+                    }
+
+                    if (left > right) {
+                        return direction === 'asc' ? 1 : -1;
+                    }
+
+                    return 0;
+                });
+
+                rows.forEach((row) => tableBody.appendChild(row));
+            });
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                const query = searchInput.value.toLowerCase().trim();
+                const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+                rows.forEach((row) => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(query) ? '' : 'none';
+                });
+            });
+        }
+    });
+</script>

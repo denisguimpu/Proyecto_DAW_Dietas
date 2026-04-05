@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-lg sm:rounded-2xl p-8">
-                
+
                 <div class="flex justify-between items-center mb-8 border-b pb-6">
                     <div>
                         <h2 class="text-3xl font-extrabold text-gray-900">Mis Dietas</h2>
@@ -34,7 +34,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end gap-3">
                                             <a href="{{ route('diets.show', $diet->id) }}" class="text-indigo-600 hover:text-indigo-900 font-bold hover:underline">Ver Detalle</a>
-                                            
+                                            <a href="{{ route('diets.edit', $diet->id) }}" class="text-emerald-600 hover:text-emerald-900 font-bold hover:underline">Editar</a>
+
                                             <form action="{{ route('diets.destroy', $diet->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta dieta?');">
                                                 @csrf
                                                 @method('DELETE')

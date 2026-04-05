@@ -23,6 +23,13 @@ class DietController extends Controller
     $ingredients = Ingredient::all();
     return view('diets.create', compact('ingredients'));
 }
+    public function edit($id)
+    {
+        $diet = Diet::with('ingredients')->findOrFail($id);
+        $ingredients = Ingredient::all();
+
+        return view('diets.edit', compact('diet', 'ingredients'));
+    }
 
 public function store(Request $request)
 {
@@ -45,6 +52,21 @@ public function store(Request $request)
 
     return redirect()->route('diets.index')->with('success', 'Dieta creada con éxito');
 }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable',
+            'ingredients' => 'nullable|array',
+            'ingredients.*' => 'exists:ingredients,name',
+        ]);
+
+        $diet = Diet::findOrFail($id);
+        $diet->update($request->only('name', 'description'));
+        $diet->ingredients()->sync($request->input('ingredients', []));
+
+        return redirect()->route('diets.show', $diet->id)->with('success', 'Dieta actualizada con éxito');
+    }
 
 public function destroy($id)
 {

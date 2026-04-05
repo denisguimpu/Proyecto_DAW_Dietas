@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/diets', [DietController::class, 'index'])->name('diets.index'); // Ruta añadida para arreglar el error
     Route::get('/diets/create', [DietController::class, 'create'])->name('diets.create');
     Route::post('/diets', [DietController::class, 'store'])->name('diets.store');
+    Route::post('/diets/groups', [DietController::class, 'storeFoodGroup'])->name('diets.groups.store');
     Route::get('/diets/{id}/edit', [DietController::class, 'edit'])->name('diets.edit');
     Route::put('/diets/{id}', [DietController::class, 'update'])->name('diets.update');
     Route::get('/diets/{id}', [DietController::class, 'show'])->name('diets.show');

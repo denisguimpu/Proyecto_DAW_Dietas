@@ -14,10 +14,20 @@ class Diet extends Model
         return $this->belongsToMany(Ingredient::class, 'diet_ingredient', 'diet_id', 'ingredient_name', 'id', 'name');
     }
 
+    public function foodGroups()
+    {
+        return $this->belongsToMany(FoodGroup::class, 'diet_food_group');
+    }
+
     // Suma calorías
     public function totalCalories()
     {
-        return $this->ingredients->sum('kcal');
+        return $this->ingredients->sum(function ($ingredient) {
+            $grRation = (float) ($ingredient->gr_ration ?? 0);
+            $kcalPer100 = (float) ($ingredient->kcal ?? 0);
+
+            return $kcalPer100 * ($grRation / 100);
+        });
     }
 
     // Suma proteínas

@@ -54,6 +54,16 @@
                     <div class="mb-6">
                         <label class="block text-gray-700 text-sm font-bold mb-4">Ingredientes disponibles:</label>
 
+                        <div class="mb-4">
+                            <label for="ingredients-search" class="block text-sm font-semibold text-gray-700 mb-2">Buscador</label>
+                            <input
+                                id="ingredients-search"
+                                type="text"
+                                placeholder="Escribe para filtrar alimentos..."
+                                class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500"
+                            >
+                        </div>
+
                         <div class="overflow-x-auto">
                             <table class="w-full bg-white rounded-lg shadow">
                                 <thead class="bg-gray-100 text-gray-800">
@@ -67,9 +77,9 @@
                                         <th class="p-4 text-left font-bold bg-yellow-100 text-yellow-700">Grasas/100g</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
+                                <tbody id="ingredients-table-body" class="divide-y divide-gray-200 bg-white">
                                     @forelse($ingredients as $ingredient)
-                                        <tr>
+                                        <tr data-ingredient-row="true" data-ingredient-name="{{ strtolower($ingredient->name) }}">
                                             <td class="px-6 py-4 text-sm text-gray-900">
                                                 <input
                                                     type="checkbox"
@@ -103,10 +113,13 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr>
+                                        <tr data-empty-ingredients-row="true">
                                             <td colspan="7" class="px-6 py-4 text-sm text-gray-500">No hay ingredientes creados.</td>
                                         </tr>
                                     @endforelse
+                                    <tr id="ingredients-no-results" class="hidden">
+                                        <td colspan="7" class="px-6 py-4 text-sm text-gray-500">No se han encontrado alimentos con ese texto.</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -127,6 +140,9 @@
             const checkboxes = document.querySelectorAll('.ingredient-checkbox');
             const summary = document.getElementById('selected-ingredients-summary');
             const selectedList = document.getElementById('selected-ingredients-list');
+            const searchInput = document.getElementById('ingredients-search');
+            const ingredientRows = document.querySelectorAll('[data-ingredient-row="true"]');
+            const noResultsRow = document.getElementById('ingredients-no-results');
 
             const formatNumber = (value) => {
                 const numericValue = Number(value);
@@ -169,6 +185,26 @@
                 document.querySelector('[data-total="protein"]').textContent = formatNumber(totalProtein);
                 document.querySelector('[data-total="carbs"]').textContent = formatNumber(totalCarbs);
                 document.querySelector('[data-total="fats"]').textContent = formatNumber(totalFats);
+            };
+
+            const updateIngredientFilter = () => {
+                const query = (searchInput?.value || '').toLowerCase().trim();
+                let visibleRows = 0;
+
+                ingredientRows.forEach((row) => {
+                    const ingredientName = row.dataset.ingredientName || '';
+                    const matches = query === '' || ingredientName.includes(query);
+
+                    row.classList.toggle('hidden', !matches);
+
+                    if (matches) {
+                        visibleRows += 1;
+                    }
+                });
+
+                if (noResultsRow) {
+                    noResultsRow.classList.toggle('hidden', visibleRows !== 0);
+                }
             };
 
             const renderSummary = () => {
@@ -229,6 +265,10 @@
                 checkbox.addEventListener('change', renderSummary);
             });
 
+            if (searchInput) {
+                searchInput.addEventListener('input', updateIngredientFilter);
+            }
+
             selectedList.addEventListener('input', (event) => {
                 const target = event.target;
                 if (!(target instanceof HTMLInputElement) || target.dataset.rationInput !== 'true') {
@@ -265,6 +305,7 @@
                 updateTotals();
             });
 
+            updateIngredientFilter();
             renderSummary();
         });
     </script>

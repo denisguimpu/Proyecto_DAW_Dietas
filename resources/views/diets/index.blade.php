@@ -134,7 +134,6 @@
                                 <div class="rounded-lg border border-indigo-100 bg-white p-4">
                                     <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                                         <h4 class="text-base font-extrabold text-gray-900">{{ $group->name }}</h4>
-                                        <span class="text-sm font-bold text-orange-700">Total kcal: {{ number_format($group->total_kcal, 2) }}</span>
                                     </div>
                                     <div class="mt-3 grid gap-2 sm:grid-cols-4 text-sm">
                                         <span class="rounded-md bg-orange-50 px-2 py-1 font-semibold text-orange-700">Kcal: {{ number_format($group->total_kcal, 2) }}</span>

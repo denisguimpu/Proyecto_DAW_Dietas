@@ -11,18 +11,40 @@ class DietController extends Controller
 {
     public function index()
     {
-        // Traemos todas las dietas con sus ingredientes para poder calcular kcal totales
+        // Traemos todas las dietas con sus ingredientes para poder calcular sus totales nutricionales
         $diets = Diet::with('ingredients')->get();
 
         $diets->each(function (Diet $diet) {
-            $diet->setAttribute('total_kcal', $this->calculateDietTotalKcal($diet));
+            $totals = $this->calculateDietNutritionTotals($diet);
+
+            $diet->setAttribute('total_kcal', $totals['kcal']);
+            $diet->setAttribute('total_protein', $totals['protein']);
+            $diet->setAttribute('total_carbs', $totals['carbs']);
+            $diet->setAttribute('total_fats', $totals['fats']);
         });
 
         $foodGroups = FoodGroup::with('diets.ingredients')->latest()->get();
         $foodGroups->each(function (FoodGroup $group) {
-            $group->setAttribute('total_kcal', $group->diets->sum(function (Diet $diet) {
-                return $this->calculateDietTotalKcal($diet);
-            }));
+            $groupTotals = [
+                'kcal' => 0,
+                'protein' => 0,
+                'carbs' => 0,
+                'fats' => 0,
+            ];
+
+            $group->diets->each(function (Diet $diet) use (&$groupTotals) {
+                $dietTotals = $this->calculateDietNutritionTotals($diet);
+
+                $groupTotals['kcal'] += $dietTotals['kcal'];
+                $groupTotals['protein'] += $dietTotals['protein'];
+                $groupTotals['carbs'] += $dietTotals['carbs'];
+                $groupTotals['fats'] += $dietTotals['fats'];
+            });
+
+            $group->setAttribute('total_kcal', $groupTotals['kcal']);
+            $group->setAttribute('total_protein', $groupTotals['protein']);
+            $group->setAttribute('total_carbs', $groupTotals['carbs']);
+            $group->setAttribute('total_fats', $groupTotals['fats']);
         });
 
         // Cargamos la vista pasándole la lista de dietas
@@ -119,14 +141,34 @@ public function storeFoodGroup(Request $request)
     return redirect()->route('diets.index')->with('success', 'Grupo de alimentos creado con éxito');
 }
 
-private function calculateDietTotalKcal(Diet $diet): float
+private function calculateDietNutritionTotals(Diet $diet): array
 {
-    return $diet->ingredients->sum(function ($ingredient) {
-        $grRation = (float) ($ingredient->gr_ration ?? 0);
-        $kcalPer100 = (float) ($ingredient->kcal ?? 0);
+    return [
+        'kcal' => $diet->ingredients->sum(function ($ingredient) {
+            $grRation = (float) ($ingredient->gr_ration ?? 0);
+            $kcalPer100 = (float) ($ingredient->kcal ?? 0);
 
-        return $kcalPer100 * ($grRation / 100);
-    });
+            return $kcalPer100 * ($grRation / 100);
+        }),
+        'protein' => $diet->ingredients->sum(function ($ingredient) {
+            $grRation = (float) ($ingredient->gr_ration ?? 0);
+            $proteinPer100 = (float) ($ingredient->protein ?? 0);
+
+            return $proteinPer100 * ($grRation / 100);
+        }),
+        'carbs' => $diet->ingredients->sum(function ($ingredient) {
+            $grRation = (float) ($ingredient->gr_ration ?? 0);
+            $carbsPer100 = (float) ($ingredient->carbs ?? 0);
+
+            return $carbsPer100 * ($grRation / 100);
+        }),
+        'fats' => $diet->ingredients->sum(function ($ingredient) {
+            $grRation = (float) ($ingredient->gr_ration ?? 0);
+            $fatsPer100 = (float) ($ingredient->fats ?? 0);
+
+            return $fatsPer100 * ($grRation / 100);
+        }),
+    ];
 }
 
 }

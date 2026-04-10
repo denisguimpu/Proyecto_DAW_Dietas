@@ -72,6 +72,9 @@
                                                     name="diets[]"
                                                     value="{{ $diet->id }}"
                                                     data-diet-kcal="{{ $diet->total_kcal }}"
+                                                    data-diet-protein="{{ $diet->total_protein }}"
+                                                    data-diet-carbs="{{ $diet->total_carbs }}"
+                                                    data-diet-fats="{{ $diet->total_fats }}"
                                                     class="food-group-diet-checkbox h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                                     @checked(in_array($diet->id, old('diets', [])))
                                                 >
@@ -98,6 +101,21 @@
                             kcal
                         </div>
 
+                        <div class="grid gap-3 sm:grid-cols-3">
+                            <div class="rounded-lg bg-white px-4 py-3 text-sm font-bold text-gray-800">
+                                Proteínas totales:
+                                <span id="food-group-total-protein" class="text-blue-700">0.00</span>
+                            </div>
+                            <div class="rounded-lg bg-white px-4 py-3 text-sm font-bold text-gray-800">
+                                Carbohidratos totales:
+                                <span id="food-group-total-carbs" class="text-green-700">0.00</span>
+                            </div>
+                            <div class="rounded-lg bg-white px-4 py-3 text-sm font-bold text-gray-800">
+                                Grasas totales:
+                                <span id="food-group-total-fats" class="text-yellow-700">0.00</span>
+                            </div>
+                        </div>
+
                         <div class="flex justify-end">
                             <button
                                 type="submit"
@@ -116,9 +134,15 @@
                                 <div class="rounded-lg border border-indigo-100 bg-white p-4">
                                     <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                                         <h4 class="text-base font-extrabold text-gray-900">{{ $group->name }}</h4>
-                                        <span class="text-sm font-bold text-orange-700">Total: {{ number_format($group->total_kcal, 2) }} kcal</span>
+                                        <span class="text-sm font-bold text-orange-700">Total kcal: {{ number_format($group->total_kcal, 2) }}</span>
                                     </div>
-                                    <p class="mt-2 text-sm text-gray-600">
+                                    <div class="mt-3 grid gap-2 sm:grid-cols-4 text-sm">
+                                        <span class="rounded-md bg-orange-50 px-2 py-1 font-semibold text-orange-700">Kcal: {{ number_format($group->total_kcal, 2) }}</span>
+                                        <span class="rounded-md bg-blue-50 px-2 py-1 font-semibold text-blue-700">Proteínas: {{ number_format($group->total_protein, 2) }}</span>
+                                        <span class="rounded-md bg-green-50 px-2 py-1 font-semibold text-green-700">Carbohidratos: {{ number_format($group->total_carbs, 2) }}</span>
+                                        <span class="rounded-md bg-yellow-50 px-2 py-1 font-semibold text-yellow-700">Grasas: {{ number_format($group->total_fats, 2) }}</span>
+                                    </div>
+                                    <p class="mt-3 text-sm text-gray-600">
                                         Menús incluidos:
                                         @if($group->diets->isEmpty())
                                             <span class="font-semibold">Sin menús asociados</span>
@@ -139,6 +163,9 @@
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Nombre</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Descripción</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Kcal totales</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Proteínas</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Carbohidratos</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Grasas</th>
                                 <th class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Acciones</th>
                             </tr>
                         </thead>
@@ -153,6 +180,15 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-orange-700">
                                         {{ number_format($diet->total_kcal, 2) }} kcal
+                                    </td>
+                                    <td class="px-6 py-4 text-sm font-bold text-blue-700">
+                                        {{ number_format($diet->total_protein, 2) }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm font-bold text-green-700">
+                                        {{ number_format($diet->total_carbs, 2) }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm font-bold text-yellow-700">
+                                        {{ number_format($diet->total_fats, 2) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end gap-3">
@@ -169,7 +205,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500 font-medium">
+                                    <td colspan="7" class="px-6 py-12 text-center text-gray-500 font-medium">
                                         No hay dietas creadas. ¡Empieza creando tu primer plan nutricional!
                                     </td>
                                 </tr>
@@ -187,14 +223,41 @@
             const form = document.getElementById('food-group-form');
             const checkboxes = document.querySelectorAll('.food-group-diet-checkbox');
             const totalKcalElement = document.getElementById('food-group-total-kcal');
+            const totalProteinElement = document.getElementById('food-group-total-protein');
+            const totalCarbsElement = document.getElementById('food-group-total-carbs');
+            const totalFatsElement = document.getElementById('food-group-total-fats');
 
             const updateSelectedDietsTotal = () => {
-                const total = Array.from(checkboxes)
+                const selectedCheckboxes = Array.from(checkboxes)
                     .filter((checkbox) => checkbox.checked)
-                    .reduce((sum, checkbox) => sum + Number(checkbox.dataset.dietKcal || 0), 0);
+                    .map((checkbox) => ({
+                        kcal: Number(checkbox.dataset.dietKcal || 0),
+                        protein: Number(checkbox.dataset.dietProtein || 0),
+                        carbs: Number(checkbox.dataset.dietCarbs || 0),
+                        fats: Number(checkbox.dataset.dietFats || 0),
+                    }));
+
+                const totals = selectedCheckboxes.reduce((sum, current) => ({
+                    kcal: sum.kcal + current.kcal,
+                    protein: sum.protein + current.protein,
+                    carbs: sum.carbs + current.carbs,
+                    fats: sum.fats + current.fats,
+                }), { kcal: 0, protein: 0, carbs: 0, fats: 0 });
 
                 if (totalKcalElement) {
-                    totalKcalElement.textContent = total.toFixed(2);
+                    totalKcalElement.textContent = totals.kcal.toFixed(2);
+                }
+
+                if (totalProteinElement) {
+                    totalProteinElement.textContent = totals.protein.toFixed(2);
+                }
+
+                if (totalCarbsElement) {
+                    totalCarbsElement.textContent = totals.carbs.toFixed(2);
+                }
+
+                if (totalFatsElement) {
+                    totalFatsElement.textContent = totals.fats.toFixed(2);
                 }
             };
 

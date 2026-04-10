@@ -131,6 +131,32 @@ class MenuController extends Controller
         return redirect()->route('menus.index')->with('success', 'Grupo de menús creado con éxito');
     }
 
+    public function updateFoodGroup(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'menus' => 'nullable|array',
+            'menus.*' => 'exists:menus,id',
+        ]);
+
+        $foodGroup = FoodGroup::findOrFail($id);
+        $foodGroup->update([
+            'name' => $validated['name'],
+        ]);
+        $foodGroup->menus()->sync($validated['menus'] ?? []);
+
+        return redirect()->route('menus.index')->with('success', 'Grupo de menús actualizado con éxito');
+    }
+
+    public function destroyFoodGroup($id)
+    {
+        $foodGroup = FoodGroup::findOrFail($id);
+        $foodGroup->menus()->detach();
+        $foodGroup->delete();
+
+        return redirect()->route('menus.index')->with('success', 'Grupo de menús eliminado correctamente');
+    }
+
     private function calculateMenuNutritionTotals(Menu $menu): array
     {
         return [

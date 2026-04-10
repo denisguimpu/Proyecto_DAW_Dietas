@@ -2,10 +2,15 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-8">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Nuevo menú</h2>
-
                 <form action="{{ route('menus.store') }}" method="POST">
                     @csrf
+
+                    <div class="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
+                        <h2 class="text-2xl font-bold text-gray-800">Nuevo menú</h2>
+                        <button type="submit" class="appearance-none bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200" style="appearance: none; -webkit-appearance: none; background-color: #111827; border: none;">
+                            Guardar menú
+                        </button>
+                    </div>
 
                     <div id="selected-ingredients-summary" class="mb-6 hidden">
                         <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
@@ -131,11 +136,6 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-end mt-8 pt-6 border-t border-gray-200">
-                        <button type="submit" class="appearance-none bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200" style="appearance: none; -webkit-appearance: none; background-color: #111827; border: none;">
-                            Guardar menú
-                        </button>
-                    </div>
                 </form>
             </div>
         </div>

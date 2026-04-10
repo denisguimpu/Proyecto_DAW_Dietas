@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
     Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
     Route::post('/menus/groups', [MenuController::class, 'storeFoodGroup'])->name('menus.groups.store');
+    Route::put('/menus/groups/{id}', [MenuController::class, 'updateFoodGroup'])->name('menus.groups.update');
+    Route::delete('/menus/groups/{id}', [MenuController::class, 'destroyFoodGroup'])->name('menus.groups.destroy');
     Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
     Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
     Route::get('/menus/{id}', [MenuController::class, 'show'])->name('menus.show');

@@ -134,6 +134,20 @@
                                 <div class="rounded-lg border border-indigo-100 bg-white p-4">
                                     <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                                         <h4 class="text-base font-extrabold text-gray-900">{{ $group->name }}</h4>
+                                        <div class="mt-2 flex items-center gap-3 sm:mt-0">
+                                            <button
+                                                type="button"
+                                                class="text-sm font-bold text-indigo-600 hover:text-indigo-800 hover:underline"
+                                                data-toggle-group-edit="{{ $group->id }}"
+                                            >
+                                                Editar grupo
+                                            </button>
+                                            <form action="{{ route('menus.groups.destroy', $group->id) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar este grupo de menús?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-sm font-bold text-red-600 hover:text-red-800 hover:underline">Eliminar grupo</button>
+                                            </form>
+                                        </div>
                                     </div>
                                     <div class="mt-3 grid gap-2 sm:grid-cols-4 text-sm">
                                         <span class="rounded-md bg-orange-50 px-2 py-1 font-semibold text-orange-700">Kcal: {{ number_format($group->total_kcal, 2) }}</span>
@@ -149,6 +163,62 @@
                                             <span class="font-semibold">{{ $group->menus->pluck('name')->join(', ') }}</span>
                                         @endif
                                     </p>
+
+                                    <form
+                                        action="{{ route('menus.groups.update', $group->id) }}"
+                                        method="POST"
+                                        class="mt-4 hidden rounded-lg border border-indigo-100 bg-indigo-50 p-4"
+                                        data-group-edit-panel="{{ $group->id }}"
+                                    >
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div>
+                                            <label class="block text-sm font-bold text-gray-800 mb-2">Nombre del grupo</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value="{{ $group->name }}"
+                                                class="w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500"
+                                                required
+                                            >
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <p class="text-sm font-bold text-gray-800 mb-3">Menús incluidos</p>
+                                            @if($menus->isEmpty())
+                                                <p class="text-sm text-gray-600">No hay menús disponibles para asociar.</p>
+                                            @else
+                                                <div class="grid gap-2 sm:grid-cols-2">
+                                                    @foreach($menus as $menu)
+                                                        <label class="flex items-center gap-3 rounded-md border border-indigo-100 bg-white px-3 py-2 text-sm font-semibold text-gray-800">
+                                                            <input
+                                                                type="checkbox"
+                                                                name="menus[]"
+                                                                value="{{ $menu->id }}"
+                                                                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                                @checked($group->menus->contains('id', $menu->id))
+                                                            >
+                                                            <span>{{ $menu->name }}</span>
+                                                        </label>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="mt-4 flex justify-end gap-3">
+                                            <button
+                                                type="button"
+                                                class="rounded-lg bg-gray-200 px-4 py-2 text-sm font-bold text-gray-900 hover:bg-gray-300"
+                                                data-toggle-group-edit="{{ $group->id }}"
+                                            >
+                                                Cancelar
+                                            </button>
+                                            <button type="submit" class="rounded-lg bg-gray-900 px-4 py-2 text-sm font-bold text-white hover:bg-black">
+                                                Guardar cambios
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             @endforeach
                         </div>
@@ -265,6 +335,18 @@
                     form.classList.toggle('hidden');
                 });
             }
+
+            const groupEditToggleButtons = document.querySelectorAll('[data-toggle-group-edit]');
+            groupEditToggleButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const groupId = button.getAttribute('data-toggle-group-edit');
+                    const panel = document.querySelector(`[data-group-edit-panel="${groupId}"]`);
+
+                    if (panel) {
+                        panel.classList.toggle('hidden');
+                    }
+                });
+            });
 
             checkboxes.forEach((checkbox) => {
                 checkbox.addEventListener('change', updateSelectedMenusTotal);

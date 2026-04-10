@@ -14,7 +14,7 @@
                         <h2 class="text-3xl font-extrabold text-gray-900">Mis menús</h2>
                         <p class="text-gray-500 mt-1">Gestiona y consulta tus planes nutricionales.</p>
                     </div>
-                    <a href="{{ route('diets.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl transition duration-200 shadow-md transform hover:scale-105">
+                    <a href="{{ route('menus.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl transition duration-200 shadow-md transform hover:scale-105">
                         + Nuevo menú
                     </a>
                 </div>
@@ -36,7 +36,7 @@
 
                     <form
                         id="food-group-form"
-                        action="{{ route('diets.groups.store') }}"
+                        action="{{ route('menus.groups.store') }}"
                         method="POST"
                         class="mt-5 space-y-5 {{ $errors->any() ? '' : 'hidden' }}"
                     >
@@ -60,37 +60,37 @@
 
                         <div>
                             <p class="text-sm font-bold text-gray-800 mb-3">Añadir menús creados</p>
-                            @if($diets->isEmpty())
+                            @if($menus->isEmpty())
                                 <p class="text-sm text-gray-600">No hay menús disponibles todavía. Crea un menú antes de generar grupos.</p>
                             @else
                                 <div class="grid gap-3 sm:grid-cols-2">
-                                    @foreach($diets as $diet)
+                                    @foreach($menus as $menu)
                                         <label class="flex items-center justify-between gap-4 rounded-lg border border-indigo-100 bg-white px-4 py-3">
                                             <span class="flex items-center gap-3 text-sm font-semibold text-gray-800">
                                                 <input
                                                     type="checkbox"
-                                                    name="diets[]"
-                                                    value="{{ $diet->id }}"
-                                                    data-diet-kcal="{{ $diet->total_kcal }}"
-                                                    data-diet-protein="{{ $diet->total_protein }}"
-                                                    data-diet-carbs="{{ $diet->total_carbs }}"
-                                                    data-diet-fats="{{ $diet->total_fats }}"
-                                                    class="food-group-diet-checkbox h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                    @checked(in_array($diet->id, old('diets', [])))
+                                                    name="menus[]"
+                                                    value="{{ $menu->id }}"
+                                                    data-menu-kcal="{{ $menu->total_kcal }}"
+                                                    data-menu-protein="{{ $menu->total_protein }}"
+                                                    data-menu-carbs="{{ $menu->total_carbs }}"
+                                                    data-menu-fats="{{ $menu->total_fats }}"
+                                                    class="food-group-menu-checkbox h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                                    @checked(in_array($menu->id, old('menus', [])))
                                                 >
-                                                {{ $diet->name }}
+                                                {{ $menu->name }}
                                             </span>
                                             <span class="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-bold text-orange-700">
-                                                {{ number_format($diet->total_kcal, 2) }} kcal
+                                                {{ number_format($menu->total_kcal, 2) }} kcal
                                             </span>
                                         </label>
                                     @endforeach
                                 </div>
                             @endif
-                            @error('diets')
+                            @error('menus')
                                 <p class="mt-1 text-xs font-semibold text-red-600">{{ $message }}</p>
                             @enderror
-                            @error('diets.*')
+                            @error('menus.*')
                                 <p class="mt-1 text-xs font-semibold text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -120,7 +120,7 @@
                             <button
                                 type="submit"
                                 class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
-                                @disabled($diets->isEmpty())
+                                @disabled($menus->isEmpty())
                             >
                                 Guardar grupo de menús
                             </button>
@@ -143,10 +143,10 @@
                                     </div>
                                     <p class="mt-3 text-sm text-gray-600">
                                         Menús incluidos:
-                                        @if($group->diets->isEmpty())
+                                        @if($group->menus->isEmpty())
                                             <span class="font-semibold">Sin menús asociados</span>
                                         @else
-                                            <span class="font-semibold">{{ $group->diets->pluck('name')->join(', ') }}</span>
+                                            <span class="font-semibold">{{ $group->menus->pluck('name')->join(', ') }}</span>
                                         @endif
                                     </p>
                                 </div>
@@ -169,32 +169,32 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse($diets as $diet)
+                            @forelse($menus as $menu)
                                 <tr class="hover:bg-gray-50 transition duration-150">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                        {{ $diet->name }}
+                                        {{ $menu->name }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-600 italic">
-                                        {{ $diet->description ?? 'Sin descripción disponible' }}
+                                        {{ $menu->description ?? 'Sin descripción disponible' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-orange-700">
-                                        {{ number_format($diet->total_kcal, 2) }} kcal
+                                        {{ number_format($menu->total_kcal, 2) }} kcal
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-blue-700">
-                                        {{ number_format($diet->total_protein, 2) }}
+                                        {{ number_format($menu->total_protein, 2) }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-green-700">
-                                        {{ number_format($diet->total_carbs, 2) }}
+                                        {{ number_format($menu->total_carbs, 2) }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-yellow-700">
-                                        {{ number_format($diet->total_fats, 2) }}
+                                        {{ number_format($menu->total_fats, 2) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end gap-3">
-                                            <a href="{{ route('diets.show', $diet->id) }}" class="text-indigo-600 hover:text-indigo-900 font-bold hover:underline">Ver detalle</a>
-                                            <a href="{{ route('diets.edit', $diet->id) }}" class="text-emerald-600 hover:text-emerald-900 font-bold hover:underline">Editar</a>
+                                            <a href="{{ route('menus.show', $menu->id) }}" class="text-indigo-600 hover:text-indigo-900 font-bold hover:underline">Ver detalle</a>
+                                            <a href="{{ route('menus.edit', $menu->id) }}" class="text-emerald-600 hover:text-emerald-900 font-bold hover:underline">Editar</a>
 
-                                            <form action="{{ route('diets.destroy', $diet->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta dieta?');">
+                                            <form action="{{ route('menus.destroy', $menu->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este menú?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-800 font-bold hover:underline">Eliminar</button>
@@ -220,20 +220,20 @@
         document.addEventListener('DOMContentLoaded', function () {
             const toggleButton = document.getElementById('toggle-food-group-form');
             const form = document.getElementById('food-group-form');
-            const checkboxes = document.querySelectorAll('.food-group-diet-checkbox');
+            const checkboxes = document.querySelectorAll('.food-group-menu-checkbox');
             const totalKcalElement = document.getElementById('food-group-total-kcal');
             const totalProteinElement = document.getElementById('food-group-total-protein');
             const totalCarbsElement = document.getElementById('food-group-total-carbs');
             const totalFatsElement = document.getElementById('food-group-total-fats');
 
-            const updateSelectedDietsTotal = () => {
+            const updateSelectedMenusTotal = () => {
                 const selectedCheckboxes = Array.from(checkboxes)
                     .filter((checkbox) => checkbox.checked)
                     .map((checkbox) => ({
-                        kcal: Number(checkbox.dataset.dietKcal || 0),
-                        protein: Number(checkbox.dataset.dietProtein || 0),
-                        carbs: Number(checkbox.dataset.dietCarbs || 0),
-                        fats: Number(checkbox.dataset.dietFats || 0),
+                        kcal: Number(checkbox.dataset.menuKcal || 0),
+                        protein: Number(checkbox.dataset.menuProtein || 0),
+                        carbs: Number(checkbox.dataset.menuCarbs || 0),
+                        fats: Number(checkbox.dataset.menuFats || 0),
                     }));
 
                 const totals = selectedCheckboxes.reduce((sum, current) => ({
@@ -267,10 +267,10 @@
             }
 
             checkboxes.forEach((checkbox) => {
-                checkbox.addEventListener('change', updateSelectedDietsTotal);
+                checkbox.addEventListener('change', updateSelectedMenusTotal);
             });
 
-            updateSelectedDietsTotal();
+            updateSelectedMenusTotal();
         });
     </script>
 </x-app-layout>

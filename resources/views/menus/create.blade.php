@@ -4,7 +4,7 @@
             <div class="bg-white shadow-sm sm:rounded-lg p-8">
                 <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Nuevo menú</h2>
 
-                <form action="{{ route('diets.store') }}" method="POST">
+                <form action="{{ route('menus.store') }}" method="POST">
                     @csrf
 
                     <div id="selected-ingredients-summary" class="mb-6 hidden">
@@ -78,20 +78,26 @@
                                     </tr>
                                 </thead>
                                 <tbody id="ingredients-table-body" class="divide-y divide-gray-200 bg-white">
+                                    @php
+                                        $selectedIngredientIds = collect(old('ingredients', []))
+                                            ->map(fn ($value) => (string) $value)
+                                            ->all();
+                                    @endphp
                                     @forelse($ingredients as $ingredient)
                                         <tr data-ingredient-row="true" data-ingredient-name="{{ strtolower($ingredient->name) }}">
                                             <td class="px-6 py-4 text-sm text-gray-900">
                                                 <input
                                                     type="checkbox"
                                                     name="ingredients[]"
-                                                    value="{{ $ingredient->name }}"
+                                                    value="{{ $ingredient->id }}"
+                                                    data-id="{{ $ingredient->id }}"
                                                     data-name="{{ $ingredient->name }}"
                                                     data-gr-ration="{{ $ingredient->gr_ration }}"
                                                     data-kcal="{{ $ingredient->kcal }}"
                                                     data-protein="{{ $ingredient->protein }}"
                                                     data-carbs="{{ $ingredient->carbs }}"
                                                     data-fats="{{ $ingredient->fats }}"
-                                                    @checked(in_array($ingredient->name, old('ingredients', []), true))
+                                                    @checked(in_array((string) $ingredient->id, $selectedIngredientIds, true))
                                                     class="ingredient-checkbox h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                                 >
                                             </td>
@@ -128,7 +134,7 @@
                     <div class="flex items-center justify-end mt-8 pt-6 border-t border-gray-200">
                         <button type="submit" class="appearance-none bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200" style="appearance: none; -webkit-appearance: none; background-color: #111827; border: none;">
                             Guardar menú
-</button>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -246,7 +252,7 @@
                                     step="0.1"
                                     value="${formatNumber(grRation)}"
                                     data-ration-input="true"
-                                    data-ingredient-name="${checkbox.dataset.name || ''}"
+                                    data-ingredient-id="${checkbox.dataset.id || ''}"
                                     class="w-24 border-gray-300 rounded-md text-xs font-bold text-gray-900"
                                 >
                             </td>
@@ -275,8 +281,8 @@
                     return;
                 }
 
-                const ingredientName = target.dataset.ingredientName || '';
-                const linkedCheckbox = Array.from(checkboxes).find((checkbox) => checkbox.dataset.name === ingredientName);
+                const ingredientId = target.dataset.ingredientId || '';
+                const linkedCheckbox = Array.from(checkboxes).find((checkbox) => checkbox.dataset.id === ingredientId);
 
                 if (!linkedCheckbox) {
                     return;

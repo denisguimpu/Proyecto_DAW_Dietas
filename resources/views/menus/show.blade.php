@@ -4,11 +4,11 @@
             <div class="bg-white shadow-lg sm:rounded-2xl p-8">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-2">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ $diet->name }}</h1>
-                        <p class="text-gray-600">{{ $diet->description }}</p>
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ $menu->name }}</h1>
+                        <p class="text-gray-600">{{ $menu->description }}</p>
                     </div>
 
-                        <a href="{{ route('diets.edit', $diet->id) }}" class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-emerald-700">
+                        <a href="{{ route('menus.edit', $menu->id) }}" class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-emerald-700">
                         Editar menú
                     </a>
                 </div>
@@ -43,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
-                                @forelse($diet->ingredients as $ingredient)
+                                @forelse($menu->ingredients as $ingredient)
                                     @php
                                         $grRation = (float) ($ingredient->gr_ration ?? 0);
                                         $ratio = $grRation / 100;
@@ -70,7 +70,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="px-6 py-4 text-sm text-gray-500">Esta dieta no tiene ingredientes asociados.</td>
+                                        <td colspan="6" class="px-6 py-4 text-sm text-gray-500">Este menú no tiene ingredientes asociados.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="mt-8">
-                    <a href="{{ route('diets.index') }}" class="text-indigo-600 hover:underline font-bold">← Volver al listado</a>
+                    <a href="{{ route('menus.index') }}" class="text-indigo-600 hover:underline font-bold">← Volver al listado</a>
                 </div>
             </div>
         </div>

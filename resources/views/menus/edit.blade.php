@@ -4,7 +4,7 @@
             <div class="bg-white shadow-sm sm:rounded-lg p-8">
                 <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Editar menú</h2>
 
-                <form action="{{ route('diets.update', $diet->id) }}" method="POST">
+                <form action="{{ route('menus.update', $menu->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -44,12 +44,12 @@
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Nombre del menú:</label>
-                        <input type="text" name="name" value="{{ old('name', $diet->name) }}" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500">
+                        <input type="text" name="name" value="{{ old('name', $menu->name) }}" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500">
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
-                        <textarea name="description" rows="2" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500">{{ old('description', $diet->description) }}</textarea>
+                        <textarea name="description" rows="2" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500">{{ old('description', $menu->description) }}</textarea>
                     </div>
 
                     <div class="mb-6">
@@ -79,20 +79,26 @@
                                     </tr>
                                 </thead>
                                 <tbody id="ingredients-table-body" class="divide-y divide-gray-200 bg-white">
+                                    @php
+                                        $selectedIngredientIds = collect(old('ingredients', $menu->ingredients->pluck('id')->toArray()))
+                                            ->map(fn ($value) => (string) $value)
+                                            ->all();
+                                    @endphp
                                     @forelse($ingredients as $ingredient)
                                         <tr data-ingredient-row="true" data-ingredient-name="{{ strtolower($ingredient->name) }}">
                                             <td class="px-6 py-4 text-sm text-gray-900">
                                                 <input
                                                     type="checkbox"
                                                     name="ingredients[]"
-                                                    value="{{ $ingredient->name }}"
+                                                    value="{{ $ingredient->id }}"
+                                                    data-id="{{ $ingredient->id }}"
                                                     data-name="{{ $ingredient->name }}"
                                                     data-gr-ration="{{ $ingredient->gr_ration }}"
                                                     data-kcal="{{ $ingredient->kcal }}"
                                                     data-protein="{{ $ingredient->protein }}"
                                                     data-carbs="{{ $ingredient->carbs }}"
                                                     data-fats="{{ $ingredient->fats }}"
-                                                    @checked(in_array($ingredient->name, old('ingredients', $diet->ingredients->pluck('name')->toArray()), true))
+                                                    @checked(in_array((string) $ingredient->id, $selectedIngredientIds, true))
                                                     class="ingredient-checkbox h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                                 >
                                             </td>
@@ -127,7 +133,7 @@
                     </div>
 
                     <div class="flex items-center justify-end mt-8 pt-6 border-t border-gray-200 gap-3">
-                        <a href="{{ route('diets.show', $diet->id) }}" class="appearance-none bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-3 px-8 rounded-lg shadow-sm transition duration-200">Cancelar</a>
+                        <a href="{{ route('menus.show', $menu->id) }}" class="appearance-none bg-gray-200 hover:bg-gray-300 text-gray-900 font-bold py-3 px-8 rounded-lg shadow-sm transition duration-200">Cancelar</a>
                         <button type="submit" class="appearance-none bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200" style="appearance: none; -webkit-appearance: none; background-color: #111827; border: none;">
                             Guardar cambios
                         </button>
@@ -248,7 +254,7 @@
                                     step="0.1"
                                     value="${formatNumber(grRation)}"
                                     data-ration-input="true"
-                                    data-ingredient-name="${checkbox.dataset.name || ''}"
+                                    data-ingredient-id="${checkbox.dataset.id || ''}"
                                     class="w-24 border-gray-300 rounded-md text-xs font-bold text-gray-900"
                                 >
                             </td>
@@ -277,8 +283,8 @@
                     return;
                 }
 
-                const ingredientName = target.dataset.ingredientName || '';
-                const linkedCheckbox = Array.from(checkboxes).find((checkbox) => checkbox.dataset.name === ingredientName);
+                const ingredientId = target.dataset.ingredientId || '';
+                const linkedCheckbox = Array.from(checkboxes).find((checkbox) => checkbox.dataset.id === ingredientId);
 
                 if (!linkedCheckbox) {
                     return;

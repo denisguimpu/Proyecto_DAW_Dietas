@@ -8,8 +8,13 @@ class FoodGroup extends Model
 {
     protected $fillable = ['name'];
 
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class, 'menu_food_group', 'food_group_id', 'menu_id');
+    }
+
     public function diets()
     {
-        return $this->belongsToMany(Diet::class, 'diet_food_group');
+        return $this->menus();
     }
 }

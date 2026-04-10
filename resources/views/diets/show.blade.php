@@ -8,8 +8,8 @@
                         <p class="text-gray-600">{{ $diet->description }}</p>
                     </div>
 
-                    <a href="{{ route('diets.edit', $diet->id) }}" class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-emerald-700">
-                        Editar dieta
+                        <a href="{{ route('diets.edit', $diet->id) }}" class="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-emerald-700">
+                        Editar menú
                     </a>
                 </div>
 
@@ -20,7 +20,7 @@
 
                 <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
                     <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-900">Ingredientes marcados</h3>
-                    <p class="mt-1 text-xs text-indigo-800">Vista de solo lectura de los valores nutricionales por racion.</p>
+                    <p class="mt-1 text-xs text-indigo-800">Vista de solo lectura de los valores nutricionales por ración.</p>
 
                     @php
                         $totalGrRation = 0;
@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="mt-4 border-t border-indigo-200 pt-3">
-                        <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-900">Suma total (segun racion)</p>
+                        <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-900">Suma total (según ración)</p>
                         <div class="mt-2 flex flex-wrap gap-2">
                             <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 text-[10px] font-bold uppercase tracking-wider">Racion (g): {{ number_format($totalGrRation, 0) }}</span>
                             <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">Kcal: {{ number_format($totalKcal, 2) }}</span>

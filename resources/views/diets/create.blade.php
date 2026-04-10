@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-8">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Nueva Dieta</h2>
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Nuevo menú</h2>
 
                 <form action="{{ route('diets.store') }}" method="POST">
                     @csrf
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Nombre del menú:</label>
                         <input type="text" name="name" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500">
                     </div>
 
@@ -127,7 +127,7 @@
 
                     <div class="flex items-center justify-end mt-8 pt-6 border-t border-gray-200">
                         <button type="submit" class="appearance-none bg-gray-900 hover:bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-200" style="appearance: none; -webkit-appearance: none; background-color: #111827; border: none;">
-    Guardar Dieta
+                            Guardar menú
 </button>
                     </div>
                 </form>

@@ -18,7 +18,7 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*')">
-                        {{ __('Dietas') }}
+                        {{ __('Menús') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -77,7 +77,7 @@
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*')">
-                {{ __('Dietas') }}
+                {{ __('Menús') }}
             </x-responsive-nav-link>
         </div>
 

@@ -11,7 +11,7 @@ class DietController extends Controller
 {
     public function index()
     {
-        // Traemos todas las dietas con sus ingredientes para poder calcular sus totales nutricionales
+        // Traemos todos los menús con sus ingredientes para poder calcular sus totales nutricionales
         $diets = Diet::with('ingredients')->get();
 
         $diets->each(function (Diet $diet) {
@@ -47,7 +47,7 @@ class DietController extends Controller
             $group->setAttribute('total_fats', $groupTotals['fats']);
         });
 
-        // Cargamos la vista pasándole la lista de dietas
+        // Cargamos la vista pasándole la lista de menús
         return view('diets.index', compact('diets', 'foodGroups'));
     }
 
@@ -75,7 +75,7 @@ public function store(Request $request)
         'ingredients.*' => 'exists:ingredients,name',
     ]);
 
-    // 2. Crear la dieta
+    // 2. Crear el menú
     $diet = Diet::create($request->only('name', 'description'));
 
     // 3. ASOCIAR LOS INGREDIENTES (La magia de la tabla pivote)
@@ -84,7 +84,7 @@ public function store(Request $request)
         $diet->ingredients()->attach($request->ingredients);
     }
 
-    return redirect()->route('diets.index')->with('success', 'Dieta creada con éxito');
+    return redirect()->route('diets.index')->with('success', 'Menú creado con éxito');
 }
     public function update(Request $request, $id)
     {
@@ -99,7 +99,7 @@ public function store(Request $request)
         $diet->update($request->only('name', 'description'));
         $diet->ingredients()->sync($request->input('ingredients', []));
 
-        return redirect()->route('diets.show', $diet->id)->with('success', 'Dieta actualizada con éxito');
+        return redirect()->route('diets.show', $diet->id)->with('success', 'Menú actualizado con éxito');
     }
 
 public function destroy($id)
@@ -109,18 +109,18 @@ public function destroy($id)
     // Primero borramos la conexión en la tabla pivote para no dejar datos huérfanos
     $diet->ingredients()->detach();
 
-    // Luego borramos la dieta
+    // Luego borramos el menú
     $diet->delete();
 
-    return redirect()->route('diets.index')->with('success', 'Dieta eliminada correctamente');
+    return redirect()->route('diets.index')->with('success', 'Menú eliminado correctamente');
 }
 
 public function show($id)
 {
-    // Buscamos la dieta por su ID y cargamos sus ingredientes relacionados
+    // Buscamos el menú por su ID y cargamos sus ingredientes relacionados
     $diet = Diet::with('ingredients')->findOrFail($id);
 
-    // Retornamos la vista enviándole la dieta
+    // Retornamos la vista enviándole el menú
     return view('diets.show', compact('diet'));
 }
 

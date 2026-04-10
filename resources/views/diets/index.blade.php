@@ -11,26 +11,26 @@
 
                 <div class="flex justify-between items-center mb-8 border-b pb-6">
                     <div>
-                        <h2 class="text-3xl font-extrabold text-gray-900">Mis Dietas</h2>
+                        <h2 class="text-3xl font-extrabold text-gray-900">Mis menús</h2>
                         <p class="text-gray-500 mt-1">Gestiona y consulta tus planes nutricionales.</p>
                     </div>
                     <a href="{{ route('diets.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl transition duration-200 shadow-md transform hover:scale-105">
-                        + Nueva Dieta
+                        + Nuevo menú
                     </a>
                 </div>
 
                 <div class="mb-8 rounded-2xl border border-indigo-200 bg-indigo-50 p-6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h3 class="text-xl font-extrabold text-indigo-900">Grupos de alimentos</h3>
-                            <p class="text-sm text-indigo-800">Agrupa menús existentes y obtén el recuento total de calorías.</p>
+                            <h3 class="text-xl font-extrabold text-indigo-900">Grupos de menús</h3>
+                            <p class="text-sm text-indigo-800">Agrupa menús existentes y obtén el recuento total de nutrientes.</p>
                         </div>
                         <button
                             type="button"
                             id="toggle-food-group-form"
                             class="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-indigo-700"
                         >
-                            + Nuevo grupo de alimentos
+                            + Nuevo grupo de menús
                         </button>
                     </div>
 
@@ -43,7 +43,7 @@
                         @csrf
 
                         <div>
-                            <label for="food-group-name" class="block text-sm font-bold text-gray-800 mb-2">Nombre del grupo</label>
+                            <label for="food-group-name" class="block text-sm font-bold text-gray-800 mb-2">Nombre del grupo de menús</label>
                             <input
                                 id="food-group-name"
                                 type="text"
@@ -61,7 +61,7 @@
                         <div>
                             <p class="text-sm font-bold text-gray-800 mb-3">Añadir menús creados</p>
                             @if($diets->isEmpty())
-                                <p class="text-sm text-gray-600">No hay menús disponibles todavía. Crea una dieta antes de generar grupos.</p>
+                                <p class="text-sm text-gray-600">No hay menús disponibles todavía. Crea un menú antes de generar grupos.</p>
                             @else
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     @foreach($diets as $diet)
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="rounded-lg bg-white px-4 py-3 text-sm font-bold text-gray-800">
-                            Recuento total de calorías (menús seleccionados):
+                            Recuento total de nutrientes (menús seleccionados):
                             <span id="food-group-total-kcal" class="text-indigo-700">0.00</span>
                             kcal
                         </div>
@@ -122,7 +122,7 @@
                                 class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
                                 @disabled($diets->isEmpty())
                             >
-                                Guardar grupo
+                                Guardar grupo de menús
                             </button>
                         </div>
                     </form>
@@ -191,7 +191,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end gap-3">
-                                            <a href="{{ route('diets.show', $diet->id) }}" class="text-indigo-600 hover:text-indigo-900 font-bold hover:underline">Ver Detalle</a>
+                                            <a href="{{ route('diets.show', $diet->id) }}" class="text-indigo-600 hover:text-indigo-900 font-bold hover:underline">Ver detalle</a>
                                             <a href="{{ route('diets.edit', $diet->id) }}" class="text-emerald-600 hover:text-emerald-900 font-bold hover:underline">Editar</a>
 
                                             <form action="{{ route('diets.destroy', $diet->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta dieta?');">
@@ -205,7 +205,7 @@
                             @empty
                                 <tr>
                                     <td colspan="7" class="px-6 py-12 text-center text-gray-500 font-medium">
-                                        No hay dietas creadas. ¡Empieza creando tu primer plan nutricional!
+                                        No hay menús creados. ¡Empieza creando tu primer plan nutricional!
                                     </td>
                                 </tr>
                             @endforelse

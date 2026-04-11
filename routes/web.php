@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\MenuController; // Importación añadida
+use App\Models\FoodGroup;
+use App\Models\Ingredient;
+use App\Models\Menu;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +40,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'stats' => [
+            'ingredients' => Ingredient::count(),
+            'menus' => Menu::count(),
+            'foodGroups' => FoodGroup::count(),
+        ],
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Rutas de Perfil (Breeze)

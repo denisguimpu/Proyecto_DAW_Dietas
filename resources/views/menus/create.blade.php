@@ -94,15 +94,15 @@
                                                 <input
                                                     type="checkbox"
                                                     name="ingredients[]"
-                                                    value="{{ $ingredient->id }}"
-                                                    data-id="{{ $ingredient->id }}"
+                                                    value="{{ $ingredient->name }}"
+                                                    data-id="{{ $ingredient->name }}"
                                                     data-name="{{ $ingredient->name }}"
                                                     data-gr-ration="{{ $ingredient->gr_ration }}"
                                                     data-kcal="{{ $ingredient->kcal }}"
                                                     data-protein="{{ $ingredient->protein }}"
                                                     data-carbs="{{ $ingredient->carbs }}"
                                                     data-fats="{{ $ingredient->fats }}"
-                                                    @checked(in_array((string) $ingredient->id, $selectedIngredientIds, true))
+                                                    @checked(in_array((string) $ingredient->name, $selectedIngredientIds, true))
                                                     class="ingredient-checkbox h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                                 >
                                             </td>

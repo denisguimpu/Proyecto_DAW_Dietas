@@ -70,7 +70,7 @@ class MenuController extends Controller
             'name' => 'required|max:255',
             'description' => 'nullable',
             'ingredients' => 'nullable|array',
-            'ingredients.*' => 'exists:ingredients,id',
+            'ingredients.*' => 'exists:ingredients,name',
         ]);
 
         $menu = Menu::create($request->only('name', 'description'));
@@ -88,7 +88,7 @@ class MenuController extends Controller
             'name' => 'required|max:255',
             'description' => 'nullable',
             'ingredients' => 'nullable|array',
-            'ingredients.*' => 'exists:ingredients,id',
+            'ingredients.*' => 'exists:ingredients,name',
         ]);
 
         $menu = Menu::findOrFail($id);

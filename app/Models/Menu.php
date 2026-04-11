@@ -14,7 +14,7 @@ class Menu extends Model
     // Relación con ingredientes
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class, 'menu_ingredient', 'menu_id', 'ingredient_id');
+        return $this->belongsToMany(Ingredient::class, 'menu_ingredient', 'menu_id', 'ingredient_name', 'id', 'name');
     }
 
     public function foodGroups()

@@ -53,7 +53,7 @@ class IngredientController extends Controller
             if ($oldName !== $newName) {
                 DB::table('ingredients')->insert($payload);
 
-                DB::table('diet_ingredient')
+                DB::table('menu_ingredient')
                     ->where('ingredient_name', $oldName)
                     ->update(['ingredient_name' => $newName]);
 

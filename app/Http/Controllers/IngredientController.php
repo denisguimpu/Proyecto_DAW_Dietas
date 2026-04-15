@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IngredientController extends Controller
 {
@@ -19,7 +20,9 @@ class IngredientController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'calories' => 'required|numeric',
+            'kcal' => 'required|numeric',
+        ], [], [
+            'kcal' => 'Kcal',
         ]);
 
         Ingredient::create($request->all());
@@ -36,11 +39,34 @@ class IngredientController extends Controller
     public function update(Request $request, Ingredient $ingredient)
     {
         $request->validate([
-            'name' => 'required',
-            'calories' => 'required|numeric',
+            'name' => 'required|unique:ingredients,name,' . $ingredient->name . ',name',
+            'kcal' => 'required|numeric',
+        ], [], [
+            'kcal' => 'Kcal',
         ]);
 
-        $ingredient->update($request->all());
+        DB::transaction(function () use ($request, $ingredient) {
+            $oldName = $ingredient->getOriginal('name');
+            $newName = $request->input('name');
+            $payload = $request->only(['name', 'gr_ration', 'kcal', 'protein', 'fats', 'carbs']);
+
+            if ($oldName !== $newName) {
+                DB::table('ingredients')->insert($payload);
+
+                DB::table('menu_ingredient')
+                    ->where('ingredient_name', $oldName)
+                    ->update(['ingredient_name' => $newName]);
+
+                DB::table('ingredients')
+                    ->where('name', $oldName)
+                    ->delete();
+
+                return;
+            }
+
+            $ingredient->update($payload);
+        });
+
         return redirect()->route('ingredients.index');
     }
 

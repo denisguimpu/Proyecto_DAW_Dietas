@@ -1,0 +1,2554 @@
+[
+    {
+        "name": "aceite girasol",
+        "gr_ration": 15,
+        "Kcal": 826,
+        "fats": 92,
+        "carbs": 0,
+        "protein": 0
+    },
+    {
+        "name": "aceite oliva extra gran seleccion",
+        "gr_ration": 8,
+        "Kcal": 822,
+        "fats": 91,
+        "carbs": 0,
+        "protein": 0
+    },
+    {
+        "name": "aceitunas sin hueso aliñadas",
+        "gr_ration": 20,
+        "Kcal": 134,
+        "fats": 13,
+        "carbs": 0,
+        "protein": 1.9
+    },
+    {
+        "name": "acelgas",
+        "gr_ration": 220,
+        "Kcal": 10,
+        "fats": 0,
+        "carbs": 1.1,
+        "protein": 0.7
+    },
+    {
+        "name": "agua",
+        "gr_ration": 220,
+        "Kcal": 0,
+        "fats": 0,
+        "carbs": 0,
+        "protein": 0
+    },
+    {
+        "name": "altramuces",
+        "gr_ration": 40,
+        "Kcal": 105,
+        "fats": 2,
+        "carbs": 10,
+        "protein": 9.6
+    },
+    {
+        "name": "alubias a la jardinera",
+        "gr_ration": 420,
+        "Kcal": 85,
+        "fats": 1.9,
+        "carbs": 10.3,
+        "protein": 4.8
+    },
+    {
+        "name": "anchoas",
+        "gr_ration": 10,
+        "Kcal": 192,
+        "fats": 10.1,
+        "carbs": 0.3,
+        "protein": 25
+    },
+    {
+        "name": "arroz congelado microondas",
+        "gr_ration": 167,
+        "Kcal": 126,
+        "fats": 0.3,
+        "carbs": 28,
+        "protein": 2.7
+    },
+    {
+        "name": "arroz integral largo",
+        "gr_ration": 80,
+        "Kcal": 350,
+        "fats": 2.8,
+        "carbs": 72,
+        "protein": 7.6
+    },
+    {
+        "name": "arroz tres delicias",
+        "gr_ration": 220,
+        "Kcal": 109,
+        "fats": 1.4,
+        "carbs": 19,
+        "protein": 4.6
+    },
+    {
+        "name": "atun aceite girasol (escurrido)",
+        "gr_ration": 60,
+        "Kcal": 245,
+        "fats": 18,
+        "carbs": 0.9,
+        "protein": 21
+    },
+    {
+        "name": "atun aceite oliva (escurrido)",
+        "gr_ration": 60,
+        "Kcal": 245,
+        "fats": 18,
+        "carbs": 0.9,
+        "protein": 21
+    },
+    {
+        "name": "atun con tomate",
+        "gr_ration": 60,
+        "Kcal": 196,
+        "fats": 15,
+        "carbs": 2.2,
+        "protein": 13
+    },
+    {
+        "name": "atun natural",
+        "gr_ration": 60,
+        "Kcal": 98,
+        "fats": 1.2,
+        "carbs": 0.9,
+        "protein": 21
+    },
+    {
+        "name": "banderillas dulces",
+        "gr_ration": 70,
+        "Kcal": 48,
+        "fats": 3.4,
+        "carbs": 2.8,
+        "protein": 1
+    },
+    {
+        "name": "batido chocolate 0%",
+        "gr_ration": 200,
+        "Kcal": 45,
+        "fats": 1.3,
+        "carbs": 5.8,
+        "protein": 2.2
+    },
+    {
+        "name": "batido chocolate leche",
+        "gr_ration": 200,
+        "Kcal": 61,
+        "fats": 0.9,
+        "carbs": 10,
+        "protein": 3.1
+    },
+    {
+        "name": "batido fresa",
+        "gr_ration": 200,
+        "Kcal": 51,
+        "fats": 0.5,
+        "carbs": 9.6,
+        "protein": 1.9
+    },
+    {
+        "name": "bebida avena",
+        "gr_ration": 220,
+        "Kcal": 47,
+        "fats": 0.7,
+        "carbs": 8.2,
+        "protein": 1.6
+    },
+    {
+        "name": "bebida avena 0% azucar",
+        "gr_ration": 220,
+        "Kcal": 35,
+        "fats": 1.4,
+        "carbs": 4.7,
+        "protein": 0.7
+    },
+    {
+        "name": "bebida avena chocolate 0% azucar",
+        "gr_ration": 220,
+        "Kcal": 44,
+        "fats": 1.9,
+        "carbs": 5.1,
+        "protein": 1.2
+    },
+    {
+        "name": "biscotes",
+        "gr_ration": 30,
+        "Kcal": 396,
+        "fats": 7,
+        "carbs": 70,
+        "protein": 11
+    },
+    {
+        "name": "brocoli",
+        "gr_ration": 200,
+        "Kcal": 29,
+        "fats": 0.4,
+        "carbs": 1.8,
+        "protein": 3
+    },
+    {
+        "name": "caballa aceite oliva (escurrido)",
+        "gr_ration": 85,
+        "Kcal": 218,
+        "fats": 13,
+        "carbs": 0.5,
+        "protein": 25
+    },
+    {
+        "name": "cacahuete desgrasado polvo",
+        "gr_ration": 15,
+        "Kcal": 416,
+        "fats": 13.2,
+        "carbs": 21,
+        "protein": 46.7
+    },
+    {
+        "name": "cafe avena",
+        "gr_ration": 250,
+        "Kcal": 51,
+        "fats": 2.2,
+        "carbs": 6.4,
+        "protein": 1.1
+    },
+    {
+        "name": "cafe con leche capuccino",
+        "gr_ration": 250,
+        "Kcal": 59,
+        "fats": 1.3,
+        "carbs": 8.6,
+        "protein": 3
+    },
+    {
+        "name": "cafe con leche descafeinado",
+        "gr_ration": 250,
+        "Kcal": 74,
+        "fats": 2.5,
+        "carbs": 9.1,
+        "protein": 3.5
+    },
+    {
+        "name": "cafe con leche expresso",
+        "gr_ration": 250,
+        "Kcal": 56,
+        "fats": 1.2,
+        "carbs": 8.2,
+        "protein": 3
+    },
+    {
+        "name": "cafe con leche light",
+        "gr_ration": 250,
+        "Kcal": 42,
+        "fats": 0.8,
+        "carbs": 5.7,
+        "protein": 3
+    },
+    {
+        "name": "calamar salsa americana",
+        "gr_ration": 80,
+        "Kcal": 162,
+        "fats": 11,
+        "carbs": 3.8,
+        "protein": 12
+    },
+    {
+        "name": "canelones",
+        "gr_ration": 600,
+        "Kcal": 144,
+        "fats": 5.7,
+        "carbs": 15,
+        "protein": 7.3
+    },
+    {
+        "name": "carne albondigas",
+        "gr_ration": 220,
+        "Kcal": 167,
+        "fats": 9.6,
+        "carbs": 1.4,
+        "protein": 17.9
+    },
+    {
+        "name": "carne alitas de pollo",
+        "gr_ration": 150,
+        "Kcal": 182,
+        "fats": 11.3,
+        "carbs": 2.5,
+        "protein": 17.2
+    },
+    {
+        "name": "carne bacon",
+        "gr_ration": 80,
+        "Kcal": 293,
+        "fats": 25,
+        "carbs": 0.5,
+        "protein": 16.6
+    },
+    {
+        "name": "carne brochetas",
+        "gr_ration": 270,
+        "Kcal": 154,
+        "fats": 10.3,
+        "carbs": 0.5,
+        "protein": 15.3
+    },
+    {
+        "name": "carne chorizo oreado",
+        "gr_ration": 150,
+        "Kcal": 400,
+        "fats": 35,
+        "carbs": 2,
+        "protein": 14
+    },
+    {
+        "name": "carne chuletas cerdo",
+        "gr_ration": 220,
+        "Kcal": 144,
+        "fats": 5.89,
+        "carbs": 0,
+        "protein": 21.35
+    },
+    {
+        "name": "carne chuletas ternera",
+        "gr_ration": 220,
+        "Kcal": 110,
+        "fats": 2.59,
+        "carbs": 0,
+        "protein": 20.2
+    },
+    {
+        "name": "carne cochinillo",
+        "gr_ration": 150,
+        "Kcal": 286,
+        "fats": 23.48,
+        "carbs": 0,
+        "protein": 17.33
+    },
+    {
+        "name": "carne costillas cerdo",
+        "gr_ration": 220,
+        "Kcal": 257,
+        "fats": 15,
+        "carbs": 16,
+        "protein": 14
+    },
+    {
+        "name": "carne filetes lomo",
+        "gr_ration": 220,
+        "Kcal": 136,
+        "fats": 5.41,
+        "carbs": 0,
+        "protein": 20.54
+    },
+    {
+        "name": "carne filetes pavo",
+        "gr_ration": 220,
+        "Kcal": 103,
+        "fats": 0.9,
+        "carbs": 0,
+        "protein": 24
+    },
+    {
+        "name": "carne filetes pollo",
+        "gr_ration": 220,
+        "Kcal": 108,
+        "fats": 1.8,
+        "carbs": 0.5,
+        "protein": 22
+    },
+    {
+        "name": "carne filetes ternera",
+        "gr_ration": 220,
+        "Kcal": 135,
+        "fats": 3.92,
+        "carbs": 0,
+        "protein": 23.35
+    },
+    {
+        "name": "carne frankfurt",
+        "gr_ration": 220,
+        "Kcal": 165,
+        "fats": 12,
+        "carbs": 0.9,
+        "protein": 13
+    },
+    {
+        "name": "carne hamburguesas",
+        "gr_ration": 100,
+        "Kcal": 192,
+        "fats": 13,
+        "carbs": 2.6,
+        "protein": 17.1
+    },
+    {
+        "name": "carne higado ternera",
+        "gr_ration": 220,
+        "Kcal": 140,
+        "fats": 4.85,
+        "carbs": 2.91,
+        "protein": 19.93
+    },
+    {
+        "name": "carne kebab",
+        "gr_ration": 220,
+        "Kcal": 193,
+        "fats": 12,
+        "carbs": 1.69,
+        "protein": 20
+    },
+    {
+        "name": "carne lagartito iberico",
+        "gr_ration": 220,
+        "Kcal": 225,
+        "fats": 14.45,
+        "carbs": 0,
+        "protein": 22
+    },
+    {
+        "name": "carne lagrimitas limon",
+        "gr_ration": 220,
+        "Kcal": 236,
+        "fats": 11.6,
+        "carbs": 17.1,
+        "protein": 15.4
+    },
+    {
+        "name": "carne lomo adobado",
+        "gr_ration": 220,
+        "Kcal": 117,
+        "fats": 3.6,
+        "carbs": 0.8,
+        "protein": 20
+    },
+    {
+        "name": "carne longaniza",
+        "gr_ration": 220,
+        "Kcal": 212,
+        "fats": 18,
+        "carbs": 2,
+        "protein": 13
+    },
+    {
+        "name": "carne picada cerdo",
+        "gr_ration": 150,
+        "Kcal": 206,
+        "fats": 16,
+        "carbs": 2,
+        "protein": 17
+    },
+    {
+        "name": "carne picada vacuno",
+        "gr_ration": 150,
+        "Kcal": 204,
+        "fats": 14,
+        "carbs": 0.5,
+        "protein": 19
+    },
+    {
+        "name": "carne pinchitos",
+        "gr_ration": 220,
+        "Kcal": 91,
+        "fats": 1,
+        "carbs": 0.8,
+        "protein": 19.7
+    },
+    {
+        "name": "carne pollo asado troceado",
+        "gr_ration": 200,
+        "Kcal": 189,
+        "fats": 12,
+        "carbs": 0.7,
+        "protein": 19
+    },
+    {
+        "name": "cereales arroz choco",
+        "gr_ration": 100,
+        "Kcal": 386,
+        "fats": 1.9,
+        "carbs": 84,
+        "protein": 6.3
+    },
+    {
+        "name": "cereales chocapic",
+        "gr_ration": 80,
+        "Kcal": 393,
+        "fats": 4.8,
+        "carbs": 76.2,
+        "protein": 8.4
+    },
+    {
+        "name": "cereales corn flakes 0%",
+        "gr_ration": 80,
+        "Kcal": 373,
+        "fats": 1.1,
+        "carbs": 82,
+        "protein": 6.7
+    },
+    {
+        "name": "cerveza shandy",
+        "gr_ration": 330,
+        "Kcal": 37,
+        "fats": 0,
+        "carbs": 8,
+        "protein": 0.1
+    },
+    {
+        "name": "champiñones laminados",
+        "gr_ration": 180,
+        "Kcal": 21,
+        "fats": 0.1,
+        "carbs": 1.5,
+        "protein": 2.8
+    },
+    {
+        "name": "copos de avena",
+        "gr_ration": 60,
+        "Kcal": 375,
+        "fats": 1.3,
+        "carbs": 59,
+        "protein": 14
+    },
+    {
+        "name": "corazones de alcachofa",
+        "gr_ration": 80,
+        "Kcal": 26,
+        "fats": 0.4,
+        "carbs": 3.2,
+        "protein": 1.7
+    },
+    {
+        "name": "croquetas",
+        "gr_ration": 220,
+        "Kcal": 205,
+        "fats": 10,
+        "carbs": 20,
+        "protein": 7.4
+    },
+    {
+        "name": "dulce berlinas",
+        "gr_ration": 125,
+        "Kcal": 488,
+        "fats": 34,
+        "carbs": 38,
+        "protein": 6.9
+    },
+    {
+        "name": "dulce bocaditos cacao",
+        "gr_ration": 83,
+        "Kcal": 460,
+        "fats": 28,
+        "carbs": 47,
+        "protein": 5.3
+    },
+    {
+        "name": "dulce bollicao",
+        "gr_ration": 60,
+        "Kcal": 223,
+        "fats": 8.4,
+        "carbs": 31.5,
+        "protein": 4.8
+    },
+    {
+        "name": "dulce bollo chocolate",
+        "gr_ration": 42,
+        "Kcal": 353,
+        "fats": 16,
+        "carbs": 42,
+        "protein": 8.6
+    },
+    {
+        "name": "dulce conguitos",
+        "gr_ration": 50,
+        "Kcal": 554,
+        "fats": 35.4,
+        "carbs": 42,
+        "protein": 14.5
+    },
+    {
+        "name": "dulce cortadillo cabello angel",
+        "gr_ration": 36,
+        "Kcal": 426,
+        "fats": 15,
+        "carbs": 68,
+        "protein": 4
+    },
+    {
+        "name": "dulce croissant cacao",
+        "gr_ration": 43,
+        "Kcal": 500,
+        "fats": 31,
+        "carbs": 47,
+        "protein": 6.2
+    },
+    {
+        "name": "dulce croissant chocolate",
+        "gr_ration": 37.5,
+        "Kcal": 531,
+        "fats": 34.3,
+        "carbs": 51.2,
+        "protein": 4.5
+    },
+    {
+        "name": "dulce donetes",
+        "gr_ration": 83,
+        "Kcal": 504,
+        "fats": 32,
+        "carbs": 48,
+        "protein": 5
+    },
+    {
+        "name": "dulce donuts",
+        "gr_ration": 50,
+        "Kcal": 410,
+        "fats": 24,
+        "carbs": 42,
+        "protein": 5.4
+    },
+    {
+        "name": "dulce donuts chocolate",
+        "gr_ration": 60,
+        "Kcal": 470,
+        "fats": 31,
+        "carbs": 40,
+        "protein": 6.4
+    },
+    {
+        "name": "dulce dulce roditas chocolate blanco (philipinos)",
+        "gr_ration": 75,
+        "Kcal": 502,
+        "fats": 24,
+        "carbs": 64,
+        "protein": 6.6
+    },
+    {
+        "name": "dulce galletas limon",
+        "gr_ration": 22,
+        "Kcal": 499,
+        "fats": 23,
+        "carbs": 67,
+        "protein": 5
+    },
+    {
+        "name": "dulce galletas oreo",
+        "gr_ration": 22,
+        "Kcal": 104,
+        "fats": 4.3,
+        "carbs": 15,
+        "protein": 1.2
+    },
+    {
+        "name": "dulce galletas tosta rica",
+        "gr_ration": 143,
+        "Kcal": 463,
+        "fats": 15,
+        "carbs": 73,
+        "protein": 7.5
+    },
+    {
+        "name": "dulce huesitos",
+        "gr_ration": 20,
+        "Kcal": 500,
+        "fats": 23,
+        "carbs": 66,
+        "protein": 6.5
+    },
+    {
+        "name": "dulce kinder bueno",
+        "gr_ration": 21,
+        "Kcal": 573,
+        "fats": 37,
+        "carbs": 50,
+        "protein": 7.9
+    },
+    {
+        "name": "dulce kit kat",
+        "gr_ration": 42,
+        "Kcal": 512,
+        "fats": 26,
+        "carbs": 60,
+        "protein": 6.7
+    },
+    {
+        "name": "dulce magdalenas",
+        "gr_ration": 34,
+        "Kcal": 415,
+        "fats": 21,
+        "carbs": 51,
+        "protein": 5
+    },
+    {
+        "name": "dulce magdalenas chocolate",
+        "gr_ration": 17,
+        "Kcal": 457,
+        "fats": 24,
+        "carbs": 54,
+        "protein": 5.4
+    },
+    {
+        "name": "dulce tortas aceite",
+        "gr_ration": 30,
+        "Kcal": 493,
+        "fats": 24,
+        "carbs": 61,
+        "protein": 6
+    },
+    {
+        "name": "dulce tortitas arroz yogur",
+        "gr_ration": 30,
+        "Kcal": 467,
+        "fats": 20,
+        "carbs": 63,
+        "protein": 7.2
+    },
+    {
+        "name": "embutido cabecero lomo",
+        "gr_ration": 60,
+        "Kcal": 270,
+        "fats": 16,
+        "carbs": 0.5,
+        "protein": 31
+    },
+    {
+        "name": "embutido chorizo",
+        "gr_ration": 60,
+        "Kcal": 341,
+        "fats": 26,
+        "carbs": 2.7,
+        "protein": 24
+    },
+    {
+        "name": "embutido chorizo iberico",
+        "gr_ration": 60,
+        "Kcal": 494,
+        "fats": 43.6,
+        "carbs": 1.3,
+        "protein": 24
+    },
+    {
+        "name": "embutido jamon",
+        "gr_ration": 60,
+        "Kcal": 234,
+        "fats": 12,
+        "carbs": 1.5,
+        "protein": 30
+    },
+    {
+        "name": "embutido jamon cocido braseado",
+        "gr_ration": 60,
+        "Kcal": 99,
+        "fats": 2.3,
+        "carbs": 1.5,
+        "protein": 18
+    },
+    {
+        "name": "embutido jamon pavo",
+        "gr_ration": 60,
+        "Kcal": 87,
+        "fats": 2.5,
+        "carbs": 1.8,
+        "protein": 14.2
+    },
+    {
+        "name": "embutido jamon reducido sal",
+        "gr_ration": 60,
+        "Kcal": 99,
+        "fats": 3,
+        "carbs": 3,
+        "protein": 15
+    },
+    {
+        "name": "embutido lacon horno",
+        "gr_ration": 60,
+        "Kcal": 212,
+        "fats": 16,
+        "carbs": 5,
+        "protein": 12
+    },
+    {
+        "name": "embutido lomo embuchado",
+        "gr_ration": 60,
+        "Kcal": 201,
+        "fats": 6.5,
+        "carbs": 1.5,
+        "protein": 34
+    },
+    {
+        "name": "embutido mortadela",
+        "gr_ration": 60,
+        "Kcal": 254,
+        "fats": 22,
+        "carbs": 4,
+        "protein": 10
+    },
+    {
+        "name": "embutido mortadela aceitunas",
+        "gr_ration": 60,
+        "Kcal": 244,
+        "fats": 20,
+        "carbs": 5.6,
+        "protein": 10.5
+    },
+    {
+        "name": "embutido mortadela siciliana",
+        "gr_ration": 60,
+        "Kcal": 244,
+        "fats": 6.5,
+        "carbs": 7.3,
+        "protein": 13.2
+    },
+    {
+        "name": "embutido paleta cocida",
+        "gr_ration": 60,
+        "Kcal": 109,
+        "fats": 3,
+        "carbs": 1.5,
+        "protein": 19
+    },
+    {
+        "name": "embutido pechuga pavo braseada",
+        "gr_ration": 60,
+        "Kcal": 99,
+        "fats": 2.3,
+        "carbs": 1.5,
+        "protein": 18
+    },
+    {
+        "name": "embutido pechuga pavo cocida",
+        "gr_ration": 60,
+        "Kcal": 81,
+        "fats": 0.5,
+        "carbs": 3,
+        "protein": 16
+    },
+    {
+        "name": "embutido pechuga pollo",
+        "gr_ration": 60,
+        "Kcal": 84,
+        "fats": 1.2,
+        "carbs": 1.3,
+        "protein": 16.9
+    },
+    {
+        "name": "embutido pollo relleno",
+        "gr_ration": 60,
+        "Kcal": 170,
+        "fats": 6.87,
+        "carbs": 7.29,
+        "protein": 18.46
+    },
+    {
+        "name": "embutido salchichon",
+        "gr_ration": 60,
+        "Kcal": 372,
+        "fats": 30,
+        "carbs": 3.6,
+        "protein": 22
+    },
+    {
+        "name": "embutido salchichon iberico",
+        "gr_ration": 60,
+        "Kcal": 493,
+        "fats": 42.6,
+        "carbs": 1.8,
+        "protein": 25.6
+    },
+    {
+        "name": "empanada de atun",
+        "gr_ration": 170,
+        "Kcal": 226,
+        "fats": 10,
+        "carbs": 26,
+        "protein": 7.9
+    },
+    {
+        "name": "empanada pollo setas",
+        "gr_ration": 170,
+        "Kcal": 272,
+        "fats": 12,
+        "carbs": 33,
+        "protein": 7.2
+    },
+    {
+        "name": "empanadillas atun",
+        "gr_ration": 170,
+        "Kcal": 255,
+        "fats": 13.5,
+        "carbs": 28,
+        "protein": 5.6
+    },
+    {
+        "name": "espinaca",
+        "gr_ration": 220,
+        "Kcal": 27,
+        "fats": 0.4,
+        "carbs": 1.6,
+        "protein": 2.9
+    },
+    {
+        "name": "fabada",
+        "gr_ration": 420,
+        "Kcal": 140,
+        "fats": 7.4,
+        "carbs": 9.3,
+        "protein": 7.3
+    },
+    {
+        "name": "fideos orientales",
+        "gr_ration": 65,
+        "Kcal": 98,
+        "fats": 4,
+        "carbs": 13,
+        "protein": 2.1
+    },
+    {
+        "name": "fideos pollo",
+        "gr_ration": 80,
+        "Kcal": 324,
+        "fats": 2.4,
+        "carbs": 59.2,
+        "protein": 14.9
+    },
+    {
+        "name": "fruta aguacate",
+        "gr_ration": 100,
+        "Kcal": 159,
+        "fats": 14,
+        "carbs": 3,
+        "protein": 2
+    },
+    {
+        "name": "fruta albaricoque",
+        "gr_ration": 100,
+        "Kcal": 48,
+        "fats": 0.39,
+        "carbs": 11.12,
+        "protein": 1.4
+    },
+    {
+        "name": "fruta banana",
+        "gr_ration": 100,
+        "Kcal": 89,
+        "fats": 0.33,
+        "carbs": 22.84,
+        "protein": 1.09
+    },
+    {
+        "name": "fruta caqui",
+        "gr_ration": 100,
+        "Kcal": 70,
+        "fats": 0.19,
+        "carbs": 18.59,
+        "protein": 0.58
+    },
+    {
+        "name": "fruta cebolla",
+        "gr_ration": 100,
+        "Kcal": 42,
+        "fats": 0.08,
+        "carbs": 10.11,
+        "protein": 0.92
+    },
+    {
+        "name": "fruta cebolla fresca",
+        "gr_ration": 100,
+        "Kcal": 32,
+        "fats": 0.19,
+        "carbs": 7.34,
+        "protein": 1.83
+    },
+    {
+        "name": "fruta chirimolla",
+        "gr_ration": 100,
+        "Kcal": 74,
+        "fats": 0.62,
+        "carbs": 17.7,
+        "protein": 1.65
+    },
+    {
+        "name": "fruta ciruela roja",
+        "gr_ration": 100,
+        "Kcal": 46,
+        "fats": 0.28,
+        "carbs": 11.42,
+        "protein": 0.7
+    },
+    {
+        "name": "fruta fresas",
+        "gr_ration": 100,
+        "Kcal": 32,
+        "fats": 0.3,
+        "carbs": 7.68,
+        "protein": 0.67
+    },
+    {
+        "name": "fruta kiwi",
+        "gr_ration": 100,
+        "Kcal": 61,
+        "fats": 0.52,
+        "carbs": 14.66,
+        "protein": 1.14
+    },
+    {
+        "name": "fruta limones",
+        "gr_ration": 30,
+        "Kcal": 25,
+        "fats": 0,
+        "carbs": 8.63,
+        "protein": 0.38
+    },
+    {
+        "name": "fruta macedonia",
+        "gr_ration": 100,
+        "Kcal": 69,
+        "fats": 0.1,
+        "carbs": 16.5,
+        "protein": 0.4
+    },
+    {
+        "name": "fruta mandarina",
+        "gr_ration": 100,
+        "Kcal": 43,
+        "fats": 0,
+        "carbs": 9,
+        "protein": 0.8
+    },
+    {
+        "name": "fruta manzana fuji",
+        "gr_ration": 100,
+        "Kcal": 52,
+        "fats": 0.17,
+        "carbs": 13.81,
+        "protein": 0.26
+    },
+    {
+        "name": "fruta manzana golden",
+        "gr_ration": 100,
+        "Kcal": 52,
+        "fats": 0.17,
+        "carbs": 13.81,
+        "protein": 0.26
+    },
+    {
+        "name": "fruta melocoton",
+        "gr_ration": 100,
+        "Kcal": 39,
+        "fats": 0.25,
+        "carbs": 9.54,
+        "protein": 0.91
+    },
+    {
+        "name": "fruta melon",
+        "gr_ration": 120,
+        "Kcal": 36,
+        "fats": 0.14,
+        "carbs": 9.08,
+        "protein": 0.54
+    },
+    {
+        "name": "fruta naranja",
+        "gr_ration": 100,
+        "Kcal": 47,
+        "fats": 0.12,
+        "carbs": 11.75,
+        "protein": 0.94
+    },
+    {
+        "name": "fruta nectarina",
+        "gr_ration": 100,
+        "Kcal": 44,
+        "fats": 0.32,
+        "carbs": 10.55,
+        "protein": 1.06
+    },
+    {
+        "name": "fruta paraguayo",
+        "gr_ration": 100,
+        "Kcal": 49,
+        "fats": 0.19,
+        "carbs": 12.23,
+        "protein": 0.83
+    },
+    {
+        "name": "fruta pera",
+        "gr_ration": 55,
+        "Kcal": 64,
+        "fats": 0,
+        "carbs": 16,
+        "protein": 1
+    },
+    {
+        "name": "fruta persimon",
+        "gr_ration": 100,
+        "Kcal": 69,
+        "fats": 0,
+        "carbs": 14.1,
+        "protein": 0.66
+    },
+    {
+        "name": "fruta pina",
+        "gr_ration": 100,
+        "Kcal": 56,
+        "fats": 0.5,
+        "carbs": 13,
+        "protein": 0.5
+    },
+    {
+        "name": "fruta platano",
+        "gr_ration": 100,
+        "Kcal": 90,
+        "fats": 0.33,
+        "carbs": 23.27,
+        "protein": 1.1
+    },
+    {
+        "name": "fruta sandia",
+        "gr_ration": 120,
+        "Kcal": 30,
+        "fats": 0.15,
+        "carbs": 7.55,
+        "protein": 0.61
+    },
+    {
+        "name": "fruta uva negra",
+        "gr_ration": 60,
+        "Kcal": 67,
+        "fats": 0.15,
+        "carbs": 17.5,
+        "protein": 0.68
+    },
+    {
+        "name": "frutos secos almendras",
+        "gr_ration": 30,
+        "Kcal": 603,
+        "fats": 51,
+        "carbs": 5.4,
+        "protein": 25
+    },
+    {
+        "name": "frutos secos almendras tostadas",
+        "gr_ration": 30,
+        "Kcal": 626,
+        "fats": 55,
+        "carbs": 4.3,
+        "protein": 22
+    },
+    {
+        "name": "frutos secos anacardos fritos",
+        "gr_ration": 30,
+        "Kcal": 617,
+        "fats": 50,
+        "carbs": 16,
+        "protein": 22.4
+    },
+    {
+        "name": "frutos secos anacardos naturales",
+        "gr_ration": 30,
+        "Kcal": 604,
+        "fats": 48.2,
+        "carbs": 19,
+        "protein": 21.9
+    },
+    {
+        "name": "frutos secos avellanas",
+        "gr_ration": 30,
+        "Kcal": 671,
+        "fats": 64,
+        "carbs": 3.9,
+        "protein": 16
+    },
+    {
+        "name": "frutos secos cacahuetes miel",
+        "gr_ration": 30,
+        "Kcal": 591,
+        "fats": 44,
+        "carbs": 25,
+        "protein": 21
+    },
+    {
+        "name": "frutos secos cacahuetes salados",
+        "gr_ration": 30,
+        "Kcal": 596,
+        "fats": 48.5,
+        "carbs": 7.6,
+        "protein": 29.5
+    },
+    {
+        "name": "frutos secos datiles",
+        "gr_ration": 30,
+        "Kcal": 298,
+        "fats": 0.5,
+        "carbs": 68.9,
+        "protein": 2
+    },
+    {
+        "name": "frutos secos nueces",
+        "gr_ration": 30,
+        "Kcal": 716,
+        "fats": 70,
+        "carbs": 2.2,
+        "protein": 17
+    },
+    {
+        "name": "frutos secos pasas",
+        "gr_ration": 30,
+        "Kcal": 324,
+        "fats": 1.1,
+        "carbs": 73,
+        "protein": 3.1
+    },
+    {
+        "name": "frutos secos pipas calabaza",
+        "gr_ration": 30,
+        "Kcal": 583,
+        "fats": 47.9,
+        "carbs": 3,
+        "protein": 35.3
+    },
+    {
+        "name": "frutos secos pipas girasol",
+        "gr_ration": 30,
+        "Kcal": 665,
+        "fats": 61,
+        "carbs": 3.6,
+        "protein": 22
+    },
+    {
+        "name": "frutos secos pistachos",
+        "gr_ration": 25,
+        "Kcal": 617,
+        "fats": 51.1,
+        "carbs": 10,
+        "protein": 24.8
+    },
+    {
+        "name": "fuet",
+        "gr_ration": 60,
+        "Kcal": 421,
+        "fats": 34,
+        "carbs": 1.4,
+        "protein": 27.5
+    },
+    {
+        "name": "garbanzos riojana",
+        "gr_ration": 420,
+        "Kcal": 129,
+        "fats": 6.4,
+        "carbs": 10.8,
+        "protein": 5.8
+    },
+    {
+        "name": "gazpacho",
+        "gr_ration": 220,
+        "Kcal": 40,
+        "fats": 2.6,
+        "carbs": 3.4,
+        "protein": 0.9
+    },
+    {
+        "name": "guacamole",
+        "gr_ration": 60,
+        "Kcal": 149,
+        "fats": 13.7,
+        "carbs": 2,
+        "protein": 1.9
+    },
+    {
+        "name": "helado almendrado",
+        "gr_ration": 90,
+        "Kcal": 324,
+        "fats": 19.8,
+        "carbs": 31.2,
+        "protein": 4.7
+    },
+    {
+        "name": "helado kinder",
+        "gr_ration": 120,
+        "Kcal": 283,
+        "fats": 16,
+        "carbs": 31,
+        "protein": 3.6
+    },
+    {
+        "name": "helado nocciola",
+        "gr_ration": 50,
+        "Kcal": 403,
+        "fats": 27.1,
+        "carbs": 35.3,
+        "protein": 4.1
+    },
+    {
+        "name": "helado vainilla chocolate nata",
+        "gr_ration": 80,
+        "Kcal": 197,
+        "fats": 10,
+        "carbs": 23,
+        "protein": 3.3
+    },
+    {
+        "name": "huevos",
+        "gr_ration": 60,
+        "Kcal": 150,
+        "fats": 11.1,
+        "carbs": 0.5,
+        "protein": 12.5
+    },
+    {
+        "name": "hummus",
+        "gr_ration": 60,
+        "Kcal": 311,
+        "fats": 25.8,
+        "carbs": 11.1,
+        "protein": 6
+    },
+    {
+        "name": "jamon taquitos",
+        "gr_ration": 45,
+        "Kcal": 234,
+        "fats": 10.6,
+        "carbs": 1,
+        "protein": 33.7
+    },
+    {
+        "name": "judia verde",
+        "gr_ration": 220,
+        "Kcal": 31,
+        "fats": 0.2,
+        "carbs": 4.2,
+        "protein": 1.9
+    },
+    {
+        "name": "langostinos rebozados",
+        "gr_ration": 170,
+        "Kcal": 185,
+        "fats": 4.5,
+        "carbs": 27.1,
+        "protein": 8.1
+    },
+    {
+        "name": "lasaña boloñesa",
+        "gr_ration": 175,
+        "Kcal": 143,
+        "fats": 6.1,
+        "carbs": 14,
+        "protein": 7.4
+    },
+    {
+        "name": "lasaña espinacas",
+        "gr_ration": 175,
+        "Kcal": 165,
+        "fats": 10,
+        "carbs": 12,
+        "protein": 5.9
+    },
+    {
+        "name": "leche condensada",
+        "gr_ration": 40,
+        "Kcal": 322,
+        "fats": 8,
+        "carbs": 55,
+        "protein": 7.4
+    },
+    {
+        "name": "leche condensada desnatada",
+        "gr_ration": 40,
+        "Kcal": 274,
+        "fats": 0.5,
+        "carbs": 59,
+        "protein": 8.5
+    },
+    {
+        "name": "leche en polvo desnatada",
+        "gr_ration": 6,
+        "Kcal": 357,
+        "fats": 1,
+        "carbs": 54.5,
+        "protein": 32.5
+    },
+    {
+        "name": "leche entera",
+        "gr_ration": 220,
+        "Kcal": 63,
+        "fats": 3.6,
+        "carbs": 4.6,
+        "protein": 3.1
+    },
+    {
+        "name": "leche fresca",
+        "gr_ration": 220,
+        "Kcal": 62,
+        "fats": 3.5,
+        "carbs": 4.5,
+        "protein": 3.1
+    },
+    {
+        "name": "leche semidesnatada",
+        "gr_ration": 200,
+        "Kcal": 46,
+        "fats": 1.6,
+        "carbs": 4.8,
+        "protein": 3.1
+    },
+    {
+        "name": "leche soja",
+        "gr_ration": 220,
+        "Kcal": 44,
+        "fats": 2,
+        "carbs": 2.8,
+        "protein": 3.4
+    },
+    {
+        "name": "lentejas",
+        "gr_ration": 420,
+        "Kcal": 132,
+        "fats": 8.4,
+        "carbs": 8,
+        "protein": 5.1
+    },
+    {
+        "name": "limon exprimido",
+        "gr_ration": 30,
+        "Kcal": 29,
+        "fats": 0,
+        "carbs": 7.1,
+        "protein": 0
+    },
+    {
+        "name": "macarrones",
+        "gr_ration": 220,
+        "Kcal": 366,
+        "fats": 1.5,
+        "carbs": 74,
+        "protein": 12
+    },
+    {
+        "name": "maiz dulce",
+        "gr_ration": 70,
+        "Kcal": 75,
+        "fats": 2.3,
+        "carbs": 9.3,
+        "protein": 2.6
+    },
+    {
+        "name": "mantequilla",
+        "gr_ration": 30,
+        "Kcal": 734,
+        "fats": 81,
+        "carbs": 0.8,
+        "protein": 0.5
+    },
+    {
+        "name": "mantequilla cacahuete",
+        "gr_ration": 50,
+        "Kcal": 618,
+        "fats": 50,
+        "carbs": 7,
+        "protein": 30
+    },
+    {
+        "name": "mejillones escabeche",
+        "gr_ration": 110,
+        "Kcal": 170,
+        "fats": 9,
+        "carbs": 1.4,
+        "protein": 17
+    },
+    {
+        "name": "merluza empanada",
+        "gr_ration": 200,
+        "Kcal": 189,
+        "fats": 10.1,
+        "carbs": 13.8,
+        "protein": 11
+    },
+    {
+        "name": "mermelada fresa",
+        "gr_ration": 40,
+        "Kcal": 194,
+        "fats": 0,
+        "carbs": 47,
+        "protein": 0.5
+    },
+    {
+        "name": "migas de coliflor",
+        "gr_ration": 220,
+        "Kcal": 20,
+        "fats": 0,
+        "carbs": 2.5,
+        "protein": 1.3
+    },
+    {
+        "name": "mix de pepinillos y cebollitas",
+        "gr_ration": 70,
+        "Kcal": 19,
+        "fats": 0.5,
+        "carbs": 2.6,
+        "protein": 1.2
+    },
+    {
+        "name": "nata para cocinar",
+        "gr_ration": 100,
+        "Kcal": 163,
+        "fats": 15,
+        "carbs": 5,
+        "protein": 2
+    },
+    {
+        "name": "nocilla",
+        "gr_ration": 120,
+        "Kcal": 230,
+        "fats": 30.9,
+        "carbs": 57.5,
+        "protein": 6.3
+    },
+    {
+        "name": "nuggets pollo",
+        "gr_ration": 120,
+        "Kcal": 230,
+        "fats": 13.4,
+        "carbs": 16.6,
+        "protein": 10.4
+    },
+    {
+        "name": "palitos surimi",
+        "gr_ration": 77,
+        "Kcal": 90,
+        "fats": 0.8,
+        "carbs": 12.4,
+        "protein": 7.9
+    },
+    {
+        "name": "pan",
+        "gr_ration": 75,
+        "Kcal": 278,
+        "fats": 1.6,
+        "carbs": 56,
+        "protein": 9.2
+    },
+    {
+        "name": "pan hamburguesa",
+        "gr_ration": 75,
+        "Kcal": 277,
+        "fats": 6.2,
+        "carbs": 44,
+        "protein": 9.4
+    },
+    {
+        "name": "pan molde sin corteza",
+        "gr_ration": 30,
+        "Kcal": 237,
+        "fats": 3.1,
+        "carbs": 42,
+        "protein": 8.2
+    },
+    {
+        "name": "patatas",
+        "gr_ration": 220,
+        "Kcal": 68,
+        "fats": 0,
+        "carbs": 14.5,
+        "protein": 1.9
+    },
+    {
+        "name": "patatas fritas congeladas",
+        "gr_ration": 220,
+        "Kcal": 143,
+        "fats": 4.6,
+        "carbs": 21,
+        "protein": 2.3
+    },
+    {
+        "name": "pate higado",
+        "gr_ration": 83,
+        "Kcal": 356,
+        "fats": 28.6,
+        "carbs": 1.3,
+        "protein": 15.1
+    },
+    {
+        "name": "pescado atun fresco",
+        "gr_ration": 220,
+        "Kcal": 103,
+        "fats": 0.4,
+        "carbs": 0.5,
+        "protein": 24.2
+    },
+    {
+        "name": "pescado bacalao",
+        "gr_ration": 150,
+        "Kcal": 51,
+        "fats": 3,
+        "carbs": 2,
+        "protein": 14
+    },
+    {
+        "name": "pescado chipirones",
+        "gr_ration": 150,
+        "Kcal": 95,
+        "fats": 1.92,
+        "carbs": 3.18,
+        "protein": 15.06
+    },
+    {
+        "name": "pescado dorada",
+        "gr_ration": 220,
+        "Kcal": 173,
+        "fats": 1.43,
+        "carbs": 0,
+        "protein": 37.74
+    },
+    {
+        "name": "pescado gamba pelada",
+        "gr_ration": 50,
+        "Kcal": 72,
+        "fats": 1,
+        "carbs": 1,
+        "protein": 14.7
+    },
+    {
+        "name": "pescado merluza",
+        "gr_ration": 300,
+        "Kcal": 90,
+        "fats": 1.7,
+        "carbs": 0.15,
+        "protein": 20
+    },
+    {
+        "name": "pescado pez espada",
+        "gr_ration": 220,
+        "Kcal": 121,
+        "fats": 0.01,
+        "carbs": 0,
+        "protein": 19.8
+    },
+    {
+        "name": "pescado poton",
+        "gr_ration": 220,
+        "Kcal": 81,
+        "fats": 0.9,
+        "carbs": 1.3,
+        "protein": 17
+    },
+    {
+        "name": "pescado salmon",
+        "gr_ration": 220,
+        "Kcal": 146,
+        "fats": 5.93,
+        "carbs": 0,
+        "protein": 21.62
+    },
+    {
+        "name": "pescado salmon salvaje",
+        "gr_ration": 150,
+        "Kcal": 224,
+        "fats": 16,
+        "carbs": 0,
+        "protein": 20
+    },
+    {
+        "name": "pescado sardinas",
+        "gr_ration": 150,
+        "Kcal": 178,
+        "fats": 9.8,
+        "carbs": 0,
+        "protein": 22
+    },
+    {
+        "name": "philadelpia light",
+        "gr_ration": 50,
+        "Kcal": 130,
+        "fats": 8.3,
+        "carbs": 4.8,
+        "protein": 9
+    },
+    {
+        "name": "picos",
+        "gr_ration": 25,
+        "Kcal": 416,
+        "fats": 6.2,
+        "carbs": 77.7,
+        "protein": 11.2
+    },
+    {
+        "name": "picos salados",
+        "gr_ration": 25,
+        "Kcal": 466,
+        "fats": 18.3,
+        "carbs": 63.9,
+        "protein": 9.7
+    },
+    {
+        "name": "pimientos asados",
+        "gr_ration": 60,
+        "Kcal": 31,
+        "fats": 0.2,
+        "carbs": 6.1,
+        "protein": 0.5
+    },
+    {
+        "name": "pimientos piquillo",
+        "gr_ration": 90,
+        "Kcal": 40,
+        "fats": 0.4,
+        "carbs": 7.7,
+        "protein": 1
+    },
+    {
+        "name": "pimientos rojos",
+        "gr_ration": 100,
+        "Kcal": 26,
+        "fats": 0.3,
+        "carbs": 6.03,
+        "protein": 0.99
+    },
+    {
+        "name": "pimientos verdes",
+        "gr_ration": 100,
+        "Kcal": 20,
+        "fats": 0.17,
+        "carbs": 4.65,
+        "protein": 0.86
+    },
+    {
+        "name": "pizza atun bacon",
+        "gr_ration": 200,
+        "Kcal": 262,
+        "fats": 12.3,
+        "carbs": 25.1,
+        "protein": 12.7
+    },
+    {
+        "name": "pizza jamon queso",
+        "gr_ration": 200,
+        "Kcal": 224,
+        "fats": 7.5,
+        "carbs": 25.2,
+        "protein": 14
+    },
+    {
+        "name": "pizza prosciutto",
+        "gr_ration": 200,
+        "Kcal": 207,
+        "fats": 6.5,
+        "carbs": 26,
+        "protein": 9.6
+    },
+    {
+        "name": "proteinas (whey protein)",
+        "gr_ration": 40,
+        "Kcal": 380,
+        "fats": 5.9,
+        "carbs": 8,
+        "protein": 73
+    },
+    {
+        "name": "queso brie",
+        "gr_ration": 40,
+        "Kcal": 347,
+        "fats": 31,
+        "carbs": 0,
+        "protein": 17
+    },
+    {
+        "name": "queso burgos",
+        "gr_ration": 42,
+        "Kcal": 164,
+        "fats": 11.5,
+        "carbs": 4.2,
+        "protein": 10.9
+    },
+    {
+        "name": "queso cabra",
+        "gr_ration": 50,
+        "Kcal": 335,
+        "fats": 29.2,
+        "carbs": 1.1,
+        "protein": 17
+    },
+    {
+        "name": "queso cottage",
+        "gr_ration": 25,
+        "Kcal": 99,
+        "fats": 4,
+        "carbs": 1.7,
+        "protein": 14
+    },
+    {
+        "name": "queso curado",
+        "gr_ration": 60,
+        "Kcal": 431,
+        "fats": 36,
+        "carbs": 1.8,
+        "protein": 25
+    },
+    {
+        "name": "queso fresco",
+        "gr_ration": 80,
+        "Kcal": 168,
+        "fats": 11.4,
+        "carbs": 4.5,
+        "protein": 11.8
+    },
+    {
+        "name": "queso fresco batido",
+        "gr_ration": 125,
+        "Kcal": 46,
+        "fats": 0.1,
+        "carbs": 3.5,
+        "protein": 8
+    },
+    {
+        "name": "queso lonchas fundido",
+        "gr_ration": 19,
+        "Kcal": 242,
+        "fats": 16,
+        "carbs": 12,
+        "protein": 11.8
+    },
+    {
+        "name": "queso lonchas tierno",
+        "gr_ration": 60,
+        "Kcal": 378,
+        "fats": 32,
+        "carbs": 1.5,
+        "protein": 21
+    },
+    {
+        "name": "queso porciones",
+        "gr_ration": 16,
+        "Kcal": 151,
+        "fats": 9,
+        "carbs": 6,
+        "protein": 11.5
+    },
+    {
+        "name": "queso semicurado",
+        "gr_ration": 60,
+        "Kcal": 421,
+        "fats": 35,
+        "carbs": 1.6,
+        "protein": 25
+    },
+    {
+        "name": "rabas empanadas",
+        "gr_ration": 125,
+        "Kcal": 175,
+        "fats": 9.6,
+        "carbs": 12.3,
+        "protein": 9.7
+    },
+    {
+        "name": "refresco coca cola",
+        "gr_ration": 220,
+        "Kcal": 42,
+        "fats": 0,
+        "carbs": 10.4,
+        "protein": 0
+    },
+    {
+        "name": "refresco te limon zero",
+        "gr_ration": 220,
+        "Kcal": 2.9,
+        "fats": 0,
+        "carbs": 0.1,
+        "protein": 0
+    },
+    {
+        "name": "refresco tinto limon zero",
+        "gr_ration": 220,
+        "Kcal": 1,
+        "fats": 0,
+        "carbs": 0,
+        "protein": 0
+    },
+    {
+        "name": "regañadas",
+        "gr_ration": 25,
+        "Kcal": 448,
+        "fats": 15,
+        "carbs": 65,
+        "protein": 11.8
+    },
+    {
+        "name": "requeson",
+        "gr_ration": 50,
+        "Kcal": 160,
+        "fats": 11.6,
+        "carbs": 5.4,
+        "protein": 8.7
+    },
+    {
+        "name": "salchichas cocidas de pollo",
+        "gr_ration": 250,
+        "Kcal": 187,
+        "fats": 13.4,
+        "carbs": 4.8,
+        "protein": 11.3
+    },
+    {
+        "name": "salmorejo",
+        "gr_ration": 330,
+        "Kcal": 85,
+        "fats": 6.4,
+        "carbs": 5.1,
+        "protein": 1.1
+    },
+    {
+        "name": "salsa agridulce",
+        "gr_ration": 80,
+        "Kcal": 118,
+        "fats": 0.5,
+        "carbs": 29,
+        "protein": 0.5
+    },
+    {
+        "name": "salsa boloñesa",
+        "gr_ration": 100,
+        "Kcal": 122,
+        "fats": 6.7,
+        "carbs": 9.6,
+        "protein": 5.3
+    },
+    {
+        "name": "salsa cocktail",
+        "gr_ration": 80,
+        "Kcal": 425,
+        "fats": 43,
+        "carbs": 10.4,
+        "protein": 1
+    },
+    {
+        "name": "salsa fritada pisto",
+        "gr_ration": 100,
+        "Kcal": 92,
+        "fats": 4.8,
+        "carbs": 10,
+        "protein": 1.2
+    },
+    {
+        "name": "salsa ketchup",
+        "gr_ration": 80,
+        "Kcal": 115,
+        "fats": 0,
+        "carbs": 27,
+        "protein": 1.3
+    },
+    {
+        "name": "salsa mahonesa",
+        "gr_ration": 50,
+        "Kcal": 618,
+        "fats": 67,
+        "carbs": 3.4,
+        "protein": 0.9
+    },
+    {
+        "name": "salsa mexicana",
+        "gr_ration": 50,
+        "Kcal": 38,
+        "fats": 0.1,
+        "carbs": 6.8,
+        "protein": 1.4
+    },
+    {
+        "name": "salsa mostaza",
+        "gr_ration": 40,
+        "Kcal": 75,
+        "fats": 5.3,
+        "carbs": 2.3,
+        "protein": 3.8
+    },
+    {
+        "name": "salsa ranchera",
+        "gr_ration": 60,
+        "Kcal": 402,
+        "fats": 41.5,
+        "carbs": 5,
+        "protein": 1.1
+    },
+    {
+        "name": "salsa tomate frito",
+        "gr_ration": 100,
+        "Kcal": 77,
+        "fats": 3.5,
+        "carbs": 9.5,
+        "protein": 1.5
+    },
+    {
+        "name": "salteado patatas salchicha",
+        "gr_ration": 450,
+        "Kcal": 149,
+        "fats": 6.6,
+        "carbs": 17,
+        "protein": 4.3
+    },
+    {
+        "name": "san jacobos",
+        "gr_ration": 175,
+        "Kcal": 179,
+        "fats": 3.5,
+        "carbs": 29,
+        "protein": 7.5
+    },
+    {
+        "name": "sandwich atun",
+        "gr_ration": 185,
+        "Kcal": 253,
+        "fats": 13,
+        "carbs": 22,
+        "protein": 12
+    },
+    {
+        "name": "sandwich mixto",
+        "gr_ration": 120,
+        "Kcal": 248,
+        "fats": 8.2,
+        "carbs": 29.4,
+        "protein": 14.2
+    },
+    {
+        "name": "snack chetos pandilla",
+        "gr_ration": 50,
+        "Kcal": 479,
+        "fats": 22.3,
+        "carbs": 62.1,
+        "protein": 5.8
+    },
+    {
+        "name": "snack doritos",
+        "gr_ration": 50,
+        "Kcal": 497,
+        "fats": 25.8,
+        "carbs": 56.9,
+        "protein": 6.6
+    },
+    {
+        "name": "snack fritos matutano",
+        "gr_ration": 50,
+        "Kcal": 153,
+        "fats": 8.8,
+        "carbs": 15.8,
+        "protein": 1.9
+    },
+    {
+        "name": "snack gusanitos (garfitos)",
+        "gr_ration": 50,
+        "Kcal": 466,
+        "fats": 22,
+        "carbs": 60,
+        "protein": 6
+    },
+    {
+        "name": "snack lays",
+        "gr_ration": 50,
+        "Kcal": 153,
+        "fats": 8.8,
+        "carbs": 15.8,
+        "protein": 1.9
+    },
+    {
+        "name": "snack papa delta",
+        "gr_ration": 50,
+        "Kcal": 488,
+        "fats": 24,
+        "carbs": 61,
+        "protein": 3.9
+    },
+    {
+        "name": "snack patatas fritas onduladas",
+        "gr_ration": 50,
+        "Kcal": 550,
+        "fats": 34,
+        "carbs": 53,
+        "protein": 5.7
+    },
+    {
+        "name": "snack patatas fritas onduladas jamon",
+        "gr_ration": 50,
+        "Kcal": 540,
+        "fats": 32.4,
+        "carbs": 53.9,
+        "protein": 6
+    },
+    {
+        "name": "snack pringles",
+        "gr_ration": 50,
+        "Kcal": 493,
+        "fats": 24.9,
+        "carbs": 61.7,
+        "protein": 3.9
+    },
+    {
+        "name": "surimi",
+        "gr_ration": 150,
+        "Kcal": 156,
+        "fats": 3.3,
+        "carbs": 23.1,
+        "protein": 7.9
+    },
+    {
+        "name": "tallarines formaggio",
+        "gr_ration": 190,
+        "Kcal": 393,
+        "fats": 7.9,
+        "carbs": 65,
+        "protein": 14.5
+    },
+    {
+        "name": "tarta queso",
+        "gr_ration": 220,
+        "Kcal": 295,
+        "fats": 20.9,
+        "carbs": 22,
+        "protein": 4.7
+    },
+    {
+        "name": "tortellini carne",
+        "gr_ration": 250,
+        "Kcal": 267,
+        "fats": 7,
+        "carbs": 38,
+        "protein": 11
+    },
+    {
+        "name": "tortillas trigo (fajitas)",
+        "gr_ration": 70,
+        "Kcal": 294,
+        "fats": 5.8,
+        "carbs": 50,
+        "protein": 8.4
+    },
+    {
+        "name": "tortitas arroz",
+        "gr_ration": 31,
+        "Kcal": 363,
+        "fats": 2.8,
+        "carbs": 75,
+        "protein": 8.5
+    },
+    {
+        "name": "tortitas arroz jamon serrano",
+        "gr_ration": 35,
+        "Kcal": 467,
+        "fats": 10,
+        "carbs": 79,
+        "protein": 11
+    },
+    {
+        "name": "tostadas de arroz y maiz sin gluten",
+        "gr_ration": 15,
+        "Kcal": 387,
+        "fats": 2.3,
+        "carbs": 84,
+        "protein": 6.7
+    },
+    {
+        "name": "varitas merluza",
+        "gr_ration": 125,
+        "Kcal": 195,
+        "fats": 9.5,
+        "carbs": 17.4,
+        "protein": 10
+    },
+    {
+        "name": "verdura calabacín",
+        "gr_ration": 100,
+        "Kcal": 16,
+        "fats": 0.18,
+        "carbs": 3.35,
+        "protein": 1.21
+    },
+    {
+        "name": "verdura calabaza",
+        "gr_ration": 220,
+        "Kcal": 26,
+        "fats": 0.1,
+        "carbs": 6.5,
+        "protein": 1
+    },
+    {
+        "name": "verdura cebolla",
+        "gr_ration": 30,
+        "Kcal": 42,
+        "fats": 0.08,
+        "carbs": 10.11,
+        "protein": 0.92
+    },
+    {
+        "name": "verdura cebolla fresca",
+        "gr_ration": 30,
+        "Kcal": 32,
+        "fats": 0.19,
+        "carbs": 7.34,
+        "protein": 1.83
+    },
+    {
+        "name": "verdura coles bruselas",
+        "gr_ration": 110,
+        "Kcal": 42,
+        "fats": 0.3,
+        "carbs": 4.5,
+        "protein": 3.2
+    },
+    {
+        "name": "verdura congelada (coliflor, brocoli y zanahoria)",
+        "gr_ration": 220,
+        "Kcal": 32,
+        "fats": 0.3,
+        "carbs": 3.8,
+        "protein": 2.6
+    },
+    {
+        "name": "verdura edamame",
+        "gr_ration": 75,
+        "Kcal": 145,
+        "fats": 7.6,
+        "carbs": 3.3,
+        "protein": 12
+    },
+    {
+        "name": "verdura endivia",
+        "gr_ration": 150,
+        "Kcal": 9,
+        "fats": 0.2,
+        "carbs": 2.6,
+        "protein": 1.1
+    },
+    {
+        "name": "verdura lechuga",
+        "gr_ration": 100,
+        "Kcal": 16,
+        "fats": 0.6,
+        "carbs": 1.5,
+        "protein": 0.7
+    },
+    {
+        "name": "verdura lechuga 4 estaciones",
+        "gr_ration": 250,
+        "Kcal": 17,
+        "fats": 0.5,
+        "carbs": 2,
+        "protein": 0.9
+    },
+    {
+        "name": "verdura pepino",
+        "gr_ration": 100,
+        "Kcal": 14,
+        "fats": 0.14,
+        "carbs": 2.9,
+        "protein": 0.62
+    },
+    {
+        "name": "verdura rabanos",
+        "gr_ration": 60,
+        "Kcal": 16,
+        "fats": 0.1,
+        "carbs": 3.4,
+        "protein": 0.68
+    },
+    {
+        "name": "verdura remolacha",
+        "gr_ration": 100,
+        "Kcal": 43,
+        "fats": 0.17,
+        "carbs": 9.56,
+        "protein": 1.61
+    },
+    {
+        "name": "verdura tomate",
+        "gr_ration": 160,
+        "Kcal": 18,
+        "fats": 0.2,
+        "carbs": 3.92,
+        "protein": 0.88
+    },
+    {
+        "name": "verdura zanahoria",
+        "gr_ration": 60,
+        "Kcal": 41,
+        "fats": 0.24,
+        "carbs": 9.58,
+        "protein": 0.93
+    },
+    {
+        "name": "vinagre",
+        "gr_ration": 30,
+        "Kcal": 20,
+        "fats": 0,
+        "carbs": 0,
+        "protein": 0
+    },
+    {
+        "name": "vinagre balsamico",
+        "gr_ration": 25,
+        "Kcal": 123,
+        "fats": 0,
+        "carbs": 25.2,
+        "protein": 0.98
+    },
+    {
+        "name": "yogur arroz con leche",
+        "gr_ration": 125,
+        "Kcal": 139,
+        "fats": 3.7,
+        "carbs": 23.2,
+        "protein": 3.2
+    },
+    {
+        "name": "yogur batido fresa 0%",
+        "gr_ration": 200,
+        "Kcal": 33,
+        "fats": 0.3,
+        "carbs": 4.3,
+        "protein": 3.3
+    },
+    {
+        "name": "yogur batido frutos silvestres 0%",
+        "gr_ration": 125,
+        "Kcal": 33,
+        "fats": 0.3,
+        "carbs": 4.4,
+        "protein": 3.3
+    },
+    {
+        "name": "yogur bifidus frutos silvestres 0%",
+        "gr_ration": 125,
+        "Kcal": 46,
+        "fats": 0.1,
+        "carbs": 7.5,
+        "protein": 3.8
+    },
+    {
+        "name": "yogur coco 0%",
+        "gr_ration": 125,
+        "Kcal": 35,
+        "fats": 0.1,
+        "carbs": 4.4,
+        "protein": 4.3
+    },
+    {
+        "name": "yogur frutas",
+        "gr_ration": 125,
+        "Kcal": 91,
+        "fats": 2.7,
+        "carbs": 13.1,
+        "protein": 3.6
+    },
+    {
+        "name": "yogur gelatina",
+        "gr_ration": 125,
+        "Kcal": 1,
+        "fats": 0,
+        "carbs": 0.2,
+        "protein": 0
+    },
+    {
+        "name": "yogur griego fresa",
+        "gr_ration": 125,
+        "Kcal": 139,
+        "fats": 7.8,
+        "carbs": 13.8,
+        "protein": 3.3
+    },
+    {
+        "name": "yogur griego ligero natural",
+        "gr_ration": 125,
+        "Kcal": 60,
+        "fats": 2,
+        "carbs": 4.7,
+        "protein": 5.8
+    },
+    {
+        "name": "yogur natillas",
+        "gr_ration": 125,
+        "Kcal": 127,
+        "fats": 4.4,
+        "carbs": 18.1,
+        "protein": 3.8
+    },
+    {
+        "name": "yogur natillas galleta",
+        "gr_ration": 125,
+        "Kcal": 152,
+        "fats": 4,
+        "carbs": 24.9,
+        "protein": 3.8
+    },
+    {
+        "name": "yogur natural",
+        "gr_ration": 125,
+        "Kcal": 62,
+        "fats": 3.4,
+        "carbs": 4.1,
+        "protein": 3.7
+    },
+    {
+        "name": "yogur natural 0% azucares",
+        "gr_ration": 125,
+        "Kcal": 36,
+        "fats": 0.1,
+        "carbs": 4.5,
+        "protein": 4.3
+    },
+    {
+        "name": "yogur panna cotta",
+        "gr_ration": 125,
+        "Kcal": 201,
+        "fats": 11,
+        "carbs": 21,
+        "protein": 3.3
+    },
+    {
+        "name": "yogur petit",
+        "gr_ration": 60,
+        "Kcal": 101,
+        "fats": 3,
+        "carbs": 11,
+        "protein": 7.5
+    },
+    {
+        "name": "yogur piña coco 0%",
+        "gr_ration": 125,
+        "Kcal": 34,
+        "fats": 0.4,
+        "carbs": 4.4,
+        "protein": 3.3
+    },
+    {
+        "name": "yogur proteinas arandanos",
+        "gr_ration": 120,
+        "Kcal": 53,
+        "fats": 0.1,
+        "carbs": 5,
+        "protein": 8.3
+    },
+    {
+        "name": "yogur proteinas fresa",
+        "gr_ration": 120,
+        "Kcal": 53,
+        "fats": 0.1,
+        "carbs": 5,
+        "protein": 8.3
+    },
+    {
+        "name": "yogur proteinas limon",
+        "gr_ration": 120,
+        "Kcal": 53,
+        "fats": 0.1,
+        "carbs": 5,
+        "protein": 8.3
+    },
+    {
+        "name": "yogur proteinas mango y maracuya",
+        "gr_ration": 120,
+        "Kcal": 56,
+        "fats": 0.1,
+        "carbs": 5.3,
+        "protein": 8.3
+    },
+    {
+        "name": "yogur proteinas natural",
+        "gr_ration": 120,
+        "Kcal": 52,
+        "fats": 0.5,
+        "carbs": 3.1,
+        "protein": 10
+    },
+    {
+        "name": "zumo fruta + leche mediterraneo",
+        "gr_ration": 200,
+        "Kcal": 15,
+        "fats": 0,
+        "carbs": 3.3,
+        "protein": 0.4
+    },
+    {
+        "name": "zumo fruta leche tropical",
+        "gr_ration": 200,
+        "Kcal": 21,
+        "fats": 0,
+        "carbs": 4.8,
+        "protein": 0.3
+    },
+    {
+        "name": "zumo melocoton",
+        "gr_ration": 200,
+        "Kcal": 27,
+        "fats": 0.1,
+        "carbs": 5.6,
+        "protein": 0.5
+    },
+    {
+        "name": "zumo melocotón uva",
+        "gr_ration": 200,
+        "Kcal": 55,
+        "fats": 0.2,
+        "carbs": 12.3,
+        "protein": 0.7
+    },
+    {
+        "name": "zumo mosto tinto",
+        "gr_ration": 200,
+        "Kcal": 62,
+        "fats": 0,
+        "carbs": 15.3,
+        "protein": 0.2
+    },
+    {
+        "name": "zumo multivitaminas sin azucares",
+        "gr_ration": 200,
+        "Kcal": 22,
+        "fats": 0.1,
+        "carbs": 4.5,
+        "protein": 0.4
+    },
+    {
+        "name": "zumo naranja",
+        "gr_ration": 200,
+        "Kcal": 44,
+        "fats": 0.1,
+        "carbs": 9.9,
+        "protein": 0.7
+    },
+    {
+        "name": "zumo naranja clementina.",
+        "gr_ration": 220,
+        "Kcal": 42,
+        "fats": 0.1,
+        "carbs": 9.7,
+        "protein": 0.6
+    },
+    {
+        "name": "zumo naranja, mango y zanahoria",
+        "gr_ration": 220,
+        "Kcal": 23,
+        "fats": 0,
+        "carbs": 5.4,
+        "protein": 0.3
+    },
+    {
+        "name": "zumo pera",
+        "gr_ration": 220,
+        "Kcal": 27,
+        "fats": 0.1,
+        "carbs": 6.1,
+        "protein": 0.2
+    },
+    {
+        "name": "zumo piña/uva",
+        "gr_ration": 200,
+        "Kcal": 54,
+        "fats": 0,
+        "carbs": 12.9,
+        "protein": 0.6
+    },
+    {
+        "name": "zumo sunny florida",
+        "gr_ration": 220,
+        "Kcal": 13,
+        "fats": 0,
+        "carbs": 2.6,
+        "protein": 0
+    }
+]

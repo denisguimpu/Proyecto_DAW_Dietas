@@ -17,8 +17,8 @@
                         {{ __('Ingredientes') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*')">
-                        {{ __('Dietas') }}
+                    <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.*')">
+                        {{ __('Menús') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -76,8 +76,8 @@
                 {{ __('Ingredientes') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*')">
-                {{ __('Dietas') }}
+            <x-responsive-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.*')">
+                {{ __('Menús') }}
             </x-responsive-nav-link>
         </div>
 

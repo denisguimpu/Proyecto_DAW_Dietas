@@ -20,6 +20,14 @@
                     <x-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*')">
                         {{ __('Dietas') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('meal-plans.index')" :active="request()->routeIs('meal-plans.*')">
+                        {{ __('Plan Semanal') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('shopping-lists.index')" :active="request()->routeIs('shopping-lists.*')">
+                        {{ __('Lista Compra') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -78,6 +86,14 @@
 
             <x-responsive-nav-link :href="route('diets.index')" :active="request()->routeIs('diets.*')">
                 {{ __('Dietas') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('meal-plans.index')" :active="request()->routeIs('meal-plans.*')">
+                {{ __('Plan Semanal') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('shopping-lists.index')" :active="request()->routeIs('shopping-lists.*')">
+                {{ __('Lista Compra') }}
             </x-responsive-nav-link>
         </div>
 

@@ -26,17 +26,26 @@ class DietController extends Controller
 
 public function store(Request $request)
 {
-    // 1. Validar
     $request->validate([
         'name' => 'required|max:255',
         'description' => 'nullable'
     ]);
 
-    // 2. Crear la dieta
-    $diet = Diet::create($request->only('name', 'description'));
+    $diet = Diet::create($request->only([
+        'name', 
+        'description', 
+        'weight', 
+        'height', 
+        'age', 
+        'gender', 
+        'activity_level', 
+        'goal',
+        'target_calories',
+        'target_protein',
+        'target_carbs',
+        'target_fats'
+    ]));
 
-    // 3. ASOCIAR LOS INGREDIENTES (La magia de la tabla pivote)
-    // $request->ingredients es un array con los IDs de los checkboxes marcados
     if ($request->has('ingredients')) {
         $diet->ingredients()->attach($request->ingredients);
     }
@@ -59,11 +68,44 @@ public function destroy($id)
 
 public function show($id)
 {
-    // Buscamos la dieta por su ID y cargamos sus ingredientes relacionados
     $diet = Diet::with('ingredients')->findOrFail($id);
-
-    // Retornamos la vista enviándole la dieta
     return view('diets.show', compact('diet'));
+}
+
+public function edit($id)
+{
+    $diet = Diet::with('ingredients')->findOrFail($id);
+    $ingredients = Ingredient::all();
+    return view('diets.edit', compact('diet', 'ingredients'));
+}
+
+public function update(Request $request, $id)
+{
+    $diet = Diet::findOrFail($id);
+
+    $request->validate([
+        'name' => 'required|max:255',
+        'description' => 'nullable'
+    ]);
+
+    $diet->update($request->only([
+        'name', 
+        'description', 
+        'weight', 
+        'height', 
+        'age', 
+        'gender', 
+        'activity_level', 
+        'goal',
+        'target_calories',
+        'target_protein',
+        'target_carbs',
+        'target_fats'
+    ]));
+
+    $diet->ingredients()->sync($request->ingredients ?? []);
+
+    return redirect()->route('diets.show', $diet->id)->with('success', 'Dieta actualizada');
 }
 
 }

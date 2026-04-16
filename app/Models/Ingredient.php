@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ingredient extends Model
 {
-    // Define the fillable fields for mass assignment
-    protected $fillable = ['name', 'calories', 'protein', 'fats', 'carbs', 'unit'];
-
+    protected $fillable = ['name', 'calories', 'protein', 'fats', 'carbs', 'unit', 'category'];
 
     public function diets() {
     return $this->belongsToMany(Diet::class);

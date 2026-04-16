@@ -3,38 +3,95 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Diet extends Model
 {
-    // Campos editables
-    protected $fillable = ['name', 'description'];
+    protected $fillable = [
+        'name', 
+        'description',
+        'weight',
+        'height', 
+        'age', 
+        'gender', 
+        'activity_level', 
+        'goal',
+        'target_calories',
+        'target_protein', 
+        'target_carbs', 
+        'target_fats'
+    ];
 
-    // Relación con ingredientes
-    public function ingredients() {
+    protected $casts = [
+        'weight' => 'float',
+        'height' => 'float',
+        'age' => 'integer',
+        'target_calories' => 'float',
+        'target_protein' => 'float',
+        'target_carbs' => 'float',
+        'target_fats' => 'float',
+    ];
+
+    public function ingredients(): BelongsToMany
+    {
         return $this->belongsToMany(Ingredient::class);
     }
 
-    // Suma calorías
-    public function totalCalories()
+    public function mealPlans()
     {
-        return $this->ingredients->sum('calories');
+        return $this->hasMany(MealPlan::class);
     }
 
-    // Suma proteínas
-    public function totalProtein()
+    public function meals()
     {
-        return $this->ingredients->sum('protein');
+        return $this->hasMany(Meal::class);
     }
 
-    // Suma carbohidratos
-    public function totalCarbs()
+    public function getTotalCaloriesAttribute(): float
     {
-        return $this->ingredients->sum('carbs');
+        return (float) $this->ingredients->sum('calories');
     }
 
-    // Suma grasas
-    public function totalFats()
+    public function getTotalProteinAttribute(): float
     {
-        return $this->ingredients->sum('fats');
+        return (float) $this->ingredients->sum('protein');
+    }
+
+    public function getTotalFatsAttribute(): float
+    {
+        return (float) $this->ingredients->sum('fats');
+    }
+
+    public function getTotalCarbsAttribute(): float
+    {
+        return (float) $this->ingredients->sum('carbs');
+    }
+
+    public function calculateTarget(): array
+    {
+        if (!$this->weight || !$this->height || !$this->age || !$this->gender || !$this->activity_level || !$this->goal) {
+            return [];
+        }
+
+        if ($this->gender === 'male') {
+            $tmb = 10 * $this->weight + 6.25 * $this->height - 5 * $this->age + 5;
+        } else {
+            $tmb = 10 * $this->weight + 6.25 * $this->height - 5 * $this->age - 161;
+        }
+
+        $maintenance = $tmb * (float) $this->activity_level;
+
+        $targetKcal = match ($this->goal) {
+            'deficit' => $maintenance - 500,
+            'volume' => $maintenance + 500,
+            default => $maintenance,
+        };
+
+        return [
+            'calories' => round($targetKcal),
+            'protein' => round($targetKcal * 0.3 / 4),
+            'carbs' => round($targetKcal * 0.4),
+            'fats' => round($targetKcal * 0.3 / 9),
+        ];
     }
 }

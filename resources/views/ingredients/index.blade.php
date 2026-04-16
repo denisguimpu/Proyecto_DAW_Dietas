@@ -5,25 +5,23 @@
         </h2>
     </x-slot>
 
-    {{-- Contenedor principal con el estado de Alpine --}}
-    <div class="py-12" x-data="{ 
+    <div class="py-12" x-data="{
         open: {{ $errors->any() ? 'true' : 'false' }},
         editMode: false,
         confirmDelete: false,
         deleteUrl: '',
-        ingredient: { id: '', name: '', calories: '', protein: '', carbs: '', fats: '' }
+        ingredient: { name: '', gr_ration: '', kcal: '', protein: '', carbs: '', fats: '', editUrl: '' }
     }" @edit-ingredient.window="
         ingredient = $event.detail;
         editMode = true;
         open = true;
     ">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            
-            {{-- Encabezado de la sección --}}
+
             <div class="mb-6 flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h3 class="text-lg font-bold text-gray-900">Listado de Ingredientes</h3>
-                <button @click="open = true; editMode = false; ingredient = { id: '', name: '', calories: '', protein: '', carbs: '', fats: '' }" 
-                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all transform active:scale-95">
+                <button @click="open = true; editMode = false; ingredient = { name: '', gr_ration: '', kcal: '', protein: '', carbs: '', fats: '', editUrl: '' }"
+                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all">
                     + Nuevo Ingrediente
                 </button>
             </div>
@@ -42,14 +40,13 @@
             
             <div @click.away="open = false" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8">
                 <h3 class="text-xl font-bold text-gray-800 mb-6" x-text="editMode ? 'Editar Ingrediente' : 'Agregar Ingrediente'"></h3>
-                
-                {{-- Formulario dinámico --}}
-                <form :action="editMode ? '/ingredients/' + ingredient.id : '{{ route('ingredients.store') }}'" method="POST">
+
+                <form :action="editMode ? ingredient.editUrl : '{{ route('ingredients.store') }}'" method="POST">
                     @csrf
                     <template x-if="editMode">
                         @method('PUT')
                     </template>
-                    
+
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-1">Nombre del Ingrediente</label>
@@ -58,24 +55,28 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1">Calorías (kcal)</label>
-                                <input type="number" name="calories" x-model="ingredient.calories" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Ración (g)</label>
+                                <input type="number" step="any" name="gr_ration" x-model="ingredient.gr_ration" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Kcal</label>
+                                <input type="number" step="any" name="kcal" x-model="ingredient.kcal" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Proteína (g)</label>
-                                <input type="number" name="protein" x-model="ingredient.protein" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <input type="number" step="any" name="protein" x-model="ingredient.protein" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-1">Carbos (g)</label>
-                                <input type="number" name="carbs" x-model="ingredient.carbs" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Carbohidratos (g)</label>
+                                <input type="number" step="any" name="carbs" x-model="ingredient.carbs" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-1">Grasas (g)</label>
-                                <input type="number" name="fats" x-model="ingredient.fats" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
+                                <input type="number" step="any" name="fats" x-model="ingredient.fats" placeholder="0" class="w-full border-gray-300 rounded-lg focus:ring-green-500" required>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="mt-8 flex justify-end gap-3">
                         <button type="button" @click="open = false" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">Cancelar</button>
                         <button type="submit" class="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 shadow-lg transition-all" x-text="editMode ? 'Actualizar' : 'Guardar'"></button>

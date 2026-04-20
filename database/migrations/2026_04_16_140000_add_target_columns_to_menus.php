@@ -6,18 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::table('diets', function (Blueprint $table) {
+        Schema::table('menus', function (Blueprint $table) {
             $table->float('weight')->nullable()->after('description');
             $table->float('height')->nullable()->after('weight');
             $table->integer('age')->nullable()->after('height');
-            $table->enum('gender', ['male', 'female'])->nullable()->after('age');
-            $table->string('activity_level')->nullable()->after('gender');
-            $table->enum('goal', ['deficit', 'maintenance', 'volume'])->nullable()->after('activity_level');
+            $table->string('gender')->nullable()->after('age');
+            $table->float('activity_level')->nullable()->after('gender');
+            $table->string('goal')->nullable()->after('activity_level');
             $table->float('target_calories')->nullable()->after('goal');
             $table->float('target_protein')->nullable()->after('target_calories');
             $table->float('target_carbs')->nullable()->after('target_protein');
@@ -25,13 +22,10 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('diets', function (Blueprint $table) {
-            //
+        Schema::table('menus', function (Blueprint $table) {
+            $table->dropColumn(['weight', 'height', 'age', 'gender', 'activity_level', 'goal', 'target_calories', 'target_protein', 'target_carbs', 'target_fats']);
         });
     }
 };

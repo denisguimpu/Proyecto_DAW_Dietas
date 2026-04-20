@@ -231,8 +231,8 @@
                             <tr>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Nombre</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Descripción</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Kcal totales</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Proteínas</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Kcal objetivo</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Proteína</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Carbohidratos</th>
                                 <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Grasas</th>
                                 <th class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Acciones</th>
@@ -248,16 +248,16 @@
                                         {{ $menu->description ?? 'Sin descripción disponible' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-orange-700">
-                                        {{ number_format($menu->total_kcal, 2) }} kcal
+                                        {{ $menu->target_calories ? number_format($menu->target_calories, 0) : '-' }} kcal
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-blue-700">
-                                        {{ number_format($menu->total_protein, 2) }}
+                                        {{ $menu->target_protein ? number_format($menu->target_protein, 0) . 'g' : '-' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-green-700">
-                                        {{ number_format($menu->total_carbs, 2) }}
+                                        {{ $menu->target_carbs ? number_format($menu->target_carbs, 0) . 'g' : '-' }}
                                     </td>
                                     <td class="px-6 py-4 text-sm font-bold text-yellow-700">
-                                        {{ number_format($menu->total_fats, 2) }}
+                                        {{ $menu->target_fats ? number_format($menu->target_fats, 0) . 'g' : '-' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end gap-3">

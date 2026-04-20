@@ -20,7 +20,8 @@ return new class extends Migration
         Schema::create('shopping_list_ingredient', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shopping_list_id')->constrained()->onDelete('cascade');
-            $table->foreignId('ingredient_id')->constrained()->onDelete('cascade');
+            $table->string('ingredient_name');
+            $table->foreign('ingredient_name')->references('name')->on('ingredients')->onDelete('cascade');
             $table->integer('quantity')->default(1);
             $table->timestamps();
         });

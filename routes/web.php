@@ -6,6 +6,7 @@ use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\DietController;
 use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\MealPlanController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/diets/{id}/edit', [DietController::class, 'edit'])->name('diets.edit');
     Route::put('/diets/{id}', [DietController::class, 'update'])->name('diets.update');
     Route::delete('/diets/{id}', [DietController::class, 'destroy'])->name('diets.destroy');
+
+    // Rutas de Menús (del main)
+    Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
+    Route::get('/menus/create', [MenuController::class, 'create'])->name('menus.create');
+    Route::post('/menus', [MenuController::class, 'store'])->name('menus.store');
+    Route::get('/menus/{id}/edit', [MenuController::class, 'edit'])->name('menus.edit');
+    Route::put('/menus/{id}', [MenuController::class, 'update'])->name('menus.update');
+    Route::get('/menus/{id}', [MenuController::class, 'show'])->name('menus.show');
+    Route::delete('/menus/{id}', [MenuController::class, 'destroy'])->name('menus.destroy');
+    Route::post('/menus/groups', [MenuController::class, 'storeFoodGroup'])->name('menus.groups.store');
+    Route::put('/menus/groups/{id}', [MenuController::class, 'updateFoodGroup'])->name('menus.groups.update');
+    Route::delete('/menus/groups/{id}', [MenuController::class, 'destroyFoodGroup'])->name('menus.groups.destroy');
 });
 
 // Rutas de Lista de la Compra
@@ -49,6 +62,27 @@ Route::delete('/meal-plans/{mealPlan}', [MealPlanController::class, 'destroy'])-
 // Rutas por defecto de Laravel
 Route::get('/', function () {
     return view('welcome');
+});
+
+use App\Models\Menu;
+use App\Models\FoodGroup;
+use App\Models\Ingredient;
+
+Route::get('/dashboard', function () {
+    return view('dashboard', [
+        'stats' => [
+            'ingredients' => Ingredient::count(),
+            'menus' => Menu::count(),
+            'foodGroups' => FoodGroup::count(),
+        ],
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Rutas de Perfil (Breeze)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

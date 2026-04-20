@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('ingredients', function (Blueprint $table) {
-            $table->enum('category', ['proteina', 'carbohidratos', 'verdura', 'fruta', 'grasa', 'lacteo', 'otro'])->default('otro')->after('unit');
+            if (!Schema::hasColumn('ingredients', 'category')) {
+                $table->string('category')->nullable()->after('carbs');
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('ingredients', function (Blueprint $table) {
-            //
+            $table->dropColumn(['category']);
         });
     }
 };

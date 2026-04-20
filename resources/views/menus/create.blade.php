@@ -12,40 +12,6 @@
                         </button>
                     </div>
 
-                    <div id="selected-ingredients-summary" class="mb-6 hidden">
-                        <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-                            <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-900">Ingredientes marcados</h3>
-                            <p class="mt-1 text-xs text-indigo-800">Puedes editar la racion (g) en esta franja para ajustar los calculos.</p>
-
-                            <div class="mt-3 overflow-x-auto">
-                                <table class="w-full bg-white rounded-lg shadow text-sm">
-                                    <thead class="bg-gray-100 text-gray-800">
-                                        <tr>
-                                            <th class="p-4 text-left font-bold">Ingrediente</th>
-                                            <th class="p-4 text-left font-bold bg-gray-100 text-gray-700">Racion (g)</th>
-                                            <th class="p-4 text-left font-bold bg-orange-100 text-orange-700">Kcal racion</th>
-                                            <th class="p-4 text-left font-bold bg-blue-100 text-blue-700">Prot racion</th>
-                                            <th class="p-4 text-left font-bold bg-green-100 text-green-700">Carb racion</th>
-                                            <th class="p-4 text-left font-bold bg-yellow-100 text-yellow-700">Grasa racion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="selected-ingredients-list" class="divide-y divide-gray-200 bg-white"></tbody>
-                                </table>
-                            </div>
-
-                            <div class="mt-4 border-t border-indigo-200 pt-3">
-                                <p class="text-xs font-extrabold uppercase tracking-wider text-indigo-900">Suma total (segun racion)</p>
-                                <div class="mt-2 flex flex-wrap gap-2" id="selected-ingredients-totals">
-                                    <span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 text-[10px] font-bold uppercase tracking-wider">Racion (g): <span data-total="gr_ration">0</span></span>
-                                    <span class="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 text-[10px] font-bold uppercase tracking-wider">Kcal: <span data-total="kcal">0</span></span>
-                                    <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider">Prot: <span data-total="protein">0</span></span>
-                                    <span class="px-2 py-0.5 rounded-md bg-green-100 text-green-700 text-[10px] font-bold uppercase tracking-wider">Carb: <span data-total="carbs">0</span></span>
-                                    <span class="px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-700 text-[10px] font-bold uppercase tracking-wider">Grasa: <span data-total="fats">0</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Nombre del menú:</label>
                         <input type="text" name="name" required class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500">
@@ -54,6 +20,85 @@
                     <div class="mb-6">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
                         <textarea name="description" rows="2" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500"></textarea>
+                    </div>
+
+                    <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-lg font-semibold text-blue-900 mb-4">Datos para calcular objetivo</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Peso (kg)</label>
+                                <input type="number" step="0.1" name="weight" id="menu_weight" class="w-full border rounded px-2 py-1 text-sm" placeholder="70">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Altura (cm)</label>
+                                <input type="number" step="0.1" name="height" id="menu_height" class="w-full border rounded px-2 py-1 text-sm" placeholder="175">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Edad</label>
+                                <input type="number" name="age" id="menu_age" class="w-full border rounded px-2 py-1 text-sm" placeholder="30">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Género</label>
+                                <select name="gender" id="menu_gender" class="w-full border rounded px-2 py-1 text-sm">
+                                    <option value="">Seleccionar</option>
+                                    <option value="male">Masculino</option>
+                                    <option value="female">Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Nivel de actividad</label>
+                                <select name="activity_level" id="menu_activity" class="w-full border rounded px-2 py-1 text-sm">
+                                    <option value="">Seleccionar</option>
+                                    <option value="1.2">Sedentario (sin ejercicio)</option>
+                                    <option value="1.375">Ligero (1-3 días/semana)</option>
+                                    <option value="1.55">Moderado (3-5 días/semana)</option>
+                                    <option value="1.725">Activo (6-7 días/semana)</option>
+                                    <option value="1.9">Muy activo (ejercicio intenso)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-600 mb-1">Objetivo</label>
+                                <select name="goal" id="menu_goal" class="w-full border rounded px-2 py-1 text-sm">
+                                    <option value="">Seleccionar</option>
+                                    <option value="deficit">Déficit (-500 kcal) → Perder peso</option>
+                                    <option value="maintenance">Mantenimiento → Mantener peso</option>
+                                    <option value="volume">Volumen (+500 kcal) → Ganar músculo</option>
+                                </select>
+                            </div>
+                            <div class="flex items-end">
+                                <button type="button" onclick="calculateTarget()" class="w-full bg-blue-600 text-white py-1 px-3 rounded text-sm hover:bg-blue-700">
+                                    Calcular Objetivo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="target_result" class="hidden mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-semibold text-green-900 mb-2">Tu Objetivo Diario</h3>
+                        <div class="grid grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600" id="target_kcal">-</div>
+                                <div class="text-xs text-gray-600">Kcal</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-red-500" id="target_protein">-</div>
+                                <div class="text-xs text-gray-600">Proteína (30%)</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-yellow-500" id="target_carbs">-</div>
+                                <div class="text-xs text-gray-600">Carbs (40%)</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-500" id="target_fats">-</div>
+                                <div class="text-xs text-gray-600">Grasas (30%)</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="target_calories" id="input_target_calories">
+                        <input type="hidden" name="target_protein" id="input_target_protein">
+                        <input type="hidden" name="target_carbs" id="input_target_carbs">
+                        <input type="hidden" name="target_fats" id="input_target_fats">
                     </div>
 
                     <div class="mb-6">
@@ -314,5 +359,66 @@
             updateIngredientFilter();
             renderSummary();
         });
+
+        function calculateTarget() {
+            const weight = parseFloat(document.getElementById('menu_weight').value);
+            const height = parseFloat(document.getElementById('menu_height').value);
+            const age = parseInt(document.getElementById('menu_age').value);
+            const gender = document.getElementById('menu_gender').value;
+            const activity = parseFloat(document.getElementById('menu_activity').value);
+            const goal = document.getElementById('menu_goal').value;
+
+            if (!weight || !height || !age || !gender || !activity || !goal) {
+                alert('Por favor, completa todos los campos');
+                return;
+            }
+
+            // Calcular TMB (Metabolismo Basal)
+            let tmb;
+            if (gender === 'male') {
+                tmb = 10 * weight + 6.25 * height - 5 * age + 5;
+            } else {
+                tmb = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
+
+            // Gasto energético total
+            let maintenance = tmb * activity;
+            
+            // Ajuste por objetivo
+            let targetKcal;
+            if (goal === 'deficit') {
+                targetKcal = maintenance - 500;
+            } else if (goal === 'volume') {
+                targetKcal = maintenance + 500;
+            } else {
+                targetKcal = maintenance;
+            }
+
+            // Distribución de macros que cuadra con las kcal:
+            // Proteína: 2g por kg (aprox 25% kcal)
+            // Grasas: 0.8g por kg (aprox 20% kcal)  
+            // Carbohidratos: resto de kcal (aprox 55% kcal)
+            
+            const protein = Math.round(weight * 2);
+            const fats = Math.round(weight * 0.8);
+            
+            // Calorías que quedan para carbs
+            const proteinKcal = protein * 4;
+            const fatsKcal = fats * 9;
+            const remainingKcal = targetKcal - proteinKcal - fatsKcal;
+            const carbs = Math.round(remainingKcal / 4);
+
+            document.getElementById('target_kcal').textContent = Math.round(targetKcal);
+            document.getElementById('target_protein').textContent = protein + 'g';
+            document.getElementById('target_carbs').textContent = carbs + 'g';
+            document.getElementById('target_fats').textContent = fats + 'g';
+
+            document.getElementById('input_target_calories').value = Math.round(targetKcal);
+            document.getElementById('input_target_protein').value = protein;
+            document.getElementById('input_target_carbs').value = carbs;
+            document.getElementById('input_target_fats').value = fats;
+
+            document.getElementById('target_result').classList.remove('hidden');
+        }
     </script>
 </x-app-layout>

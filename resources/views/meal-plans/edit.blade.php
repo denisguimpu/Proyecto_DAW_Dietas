@@ -2,9 +2,21 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-lg sm:rounded-2xl p-8">
+                @php
+$dayTranslations = [
+    'monday' => 'Lunes',
+    'tuesday' => 'Martes', 
+    'wednesday' => 'Miércoles',
+    'thursday' => 'Jueves',
+    'friday' => 'Viernes',
+    'saturday' => 'Sábado',
+    'sunday' => 'Domingo'
+];
+$daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week;
+@endphp
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900">Editar Menú - {{ ucfirst($mealPlan->day_of_week) }}</h2>
+                        <h2 class="text-2xl font-bold text-gray-900">Editar Menú - {{ $daySpanish }}</h2>
                         <p class="text-gray-600">{{ $mealPlan->diet->name }}</p>
                     </div>
                     <a href="{{ route('meal-plans.index') }}" class="text-gray-600 hover:underline">← Volver</a>
@@ -13,45 +25,47 @@
                 <div id="totals-bar" class="mb-6 p-4 bg-gray-50 rounded-lg">
                     <div class="text-sm mb-2">
                         <span class="font-bold">Objetivo diario:</span>
-                        <span class="text-blue-600 font-bold">{{ round($mealPlan->diet->target_calories) }} kcal</span> |
-                        P: {{ round($mealPlan->diet->target_protein) }}g |
+                        <span class="text-blue-600 font-bold">{{ $mealPlan->diet->target_calories ? round($mealPlan->diet->target_calories) : 0 }} kcal</span>
+                        @if($mealPlan->diet->target_protein)
+                        | P: {{ round($mealPlan->diet->target_protein) }}g |
                         C: {{ round($mealPlan->diet->target_carbs) }}g |
                         G: {{ round($mealPlan->diet->target_fats) }}g
+                        @endif
                     </div>
                     <div class="grid grid-cols-4 gap-4 text-center">
                         <div>
                             <div class="text-xl font-bold" id="current_kcal">0</div>
                             <div class="text-xs text-gray-500">kcal</div>
-                            <div class="text-xs" id="kcal_diff">/ {{ round($mealPlan->diet->target_calories) }}</div>
+                            <div class="text-xs" id="kcal_diff">/ {{ $mealPlan->diet->target_calories ? round($mealPlan->diet->target_calories) : 0 }}</div>
                         </div>
                         <div>
                             <div class="text-xl font-bold text-red-500" id="current_protein">0g</div>
                             <div class="text-xs text-gray-500">Proteína</div>
-                            <div class="text-xs text-gray-400">/ {{ round($mealPlan->diet->target_protein) }}g</div>
+                            <div class="text-xs text-gray-400">/ {{ $mealPlan->diet->target_protein ? round($mealPlan->diet->target_protein) : 0 }}g</div>
                         </div>
                         <div>
                             <div class="text-xl font-bold text-yellow-500" id="current_carbs">0g</div>
                             <div class="text-xs text-gray-500">Carbs</div>
-                            <div class="text-xs text-gray-400">/ {{ round($mealPlan->diet->target_carbs) }}g</div>
+                            <div class="text-xs text-gray-400">/ {{ $mealPlan->diet->target_carbs ? round($mealPlan->diet->target_carbs) : 0 }}g</div>
                         </div>
                         <div>
                             <div class="text-xl font-bold text-green-500" id="current_fats">0g</div>
                             <div class="text-xs text-gray-500">Grasas</div>
-                            <div class="text-xs text-gray-400">/ {{ round($mealPlan->diet->target_fats) }}g</div>
+                            <div class="text-xs text-gray-400">/ {{ $mealPlan->diet->target_fats ? round($mealPlan->diet->target_fats) : 0 }}g</div>
                         </div>
                     </div>
-                    <div class="mt-3 h-2 bg-gray-200 rounded overflow-hidden">
-                        <div id="kcal_bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
+                    <div class="mt-3 bg-gray-200 rounded-full h-3 overflow-hidden">
+                        <div id="kcal_bar" class="bg-blue-500 h-full transition-all duration-300" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <form action="{{ route('meal-plans.update', $mealPlan->id) }}" method="POST" id="menuForm">
+                <form action="{{ route('meal-plans.update', $mealPlan->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     @foreach($mealTypes as $mealType)
-                    <div class="mb-6 border border-gray-200 rounded-lg p-4">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4 capitalize">{{ $mealType }}</h3>
+                    <div class="mb-8 p-4 border rounded-lg">
+                        <h3 class="text-lg font-semibold mb-4 capitalize">{{ $mealType }}</h3>
                         
                         <div class="space-y-3" id="meal_{{ $mealType }}">
                             @php
@@ -60,27 +74,27 @@
                             
                             @foreach($existingMeals as $index => $meal)
                             <div class="flex gap-3 items-center meal-row">
-                                <select name="meals[{{ $mealType }}][{{ $index }}][ingredient_id]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $index }}">
+                                <select name="meals[{{ $mealType }}][{{ $index }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $index }}">
                                     <option value="">Selecciona ingrediente</option>
                                     @foreach($mealPlan->diet->ingredients as $ingredient)
-                                    <option value="{{ $ingredient->id }}" data-cal="{{ $ingredient->calories }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}" {{ $meal->ingredient_id == $ingredient->id ? 'selected' : '' }}>
+                                    <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}" {{ $meal->ingredient_name == $ingredient->name ? 'selected' : '' }}>
                                         {{ $ingredient->name }}
                                     </option>
                                     @endforeach
                                 </select>
                                 <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="{{ $meal->quantity }}" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
                                 <span class="text-sm text-gray-500">g</span>
-                                <span class="text-xs text-gray-400 row-kcal ml-2">{{ $meal->quantity > 0 ? round($meal->quantity * $meal->ingredient->calories / 100) : 0 }} kcal</span>
+                                <span class="text-xs text-gray-400 row-kcal ml-2">{{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->kcal / 100) : 0 }} kcal</span>
                                 <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
                             </div>
                             @endforeach
                             
                             @for($i = $existingMeals->count(); $i < 5; $i++)
                             <div class="flex gap-3 items-center meal-row">
-                                <select name="meals[{{ $mealType }}][{{ $i }}][ingredient_id]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $i }}">
+                                <select name="meals[{{ $mealType }}][{{ $i }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $i }}">
                                     <option value="">Selecciona ingrediente</option>
                                     @foreach($mealPlan->diet->ingredients as $ingredient)
-                                    <option value="{{ $ingredient->id }}" data-cal="{{ $ingredient->calories }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}">
+                                    <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}">
                                         {{ $ingredient->name }}
                                     </option>
                                     @endforeach
@@ -157,28 +171,19 @@ function calculateTotals() {
     if (pct > 100) {
         document.getElementById('kcal_bar').classList.remove('bg-blue-500');
         document.getElementById('kcal_bar').classList.add('bg-red-500');
-    } else if (pct >= 90) {
-        document.getElementById('kcal_bar').classList.remove('bg-red-500', 'bg-blue-500');
-        document.getElementById('kcal_bar').classList.add('bg-green-500');
     } else {
-        document.getElementById('kcal_bar').classList.remove('bg-red-500', 'bg-green-500');
+        document.getElementById('kcal_bar').classList.remove('bg-red-500');
         document.getElementById('kcal_bar').classList.add('bg-blue-500');
     }
+    
+    document.getElementById('kcal_diff').textContent = '/ ' + targetKcal;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('menuForm').addEventListener('change', function(e) {
-        if (e.target.classList.contains('ingredient-select') || e.target.classList.contains('quantity-input')) {
-            calculateTotals();
-        }
+    document.querySelectorAll('.ingredient-select, .quantity-input').forEach(el => {
+        el.addEventListener('change', calculateTotals);
+        el.addEventListener('input', calculateTotals);
     });
-    
-    document.getElementById('menuForm').addEventListener('input', function(e) {
-        if (e.target.classList.contains('quantity-input')) {
-            calculateTotals();
-        }
-    });
-    
     calculateTotals();
 });
 
@@ -186,22 +191,22 @@ function addMealRow(mealType) {
     const container = document.getElementById('meal_' + mealType);
     const index = counters[mealType]++;
     
-    let options = '<option value="">Selecciona ingrediente</option>';
-    ingredientsList.forEach(ing => {
-        options += `<option value="${ing.id}" data-cal="${ing.cal}" data-prot="${ing.prot}" data-carbs="${ing.carbs}" data-fats="${ing.fats}">${ing.name}</option>`;
-    });
-    
     const div = document.createElement('div');
     div.className = 'flex gap-3 items-center meal-row';
     div.innerHTML = `
-        <select name="meals[${mealType}][${index}][ingredient_id]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select">
-            ${options}
+        <select name="meals[${mealType}][${index}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="${index}">
+            <option value="">Selecciona ingrediente</option>
+            ${ingredientsList.map(i => `<option value="${i.name}" data-cal="${i.cal}" data-prot="${i.prot}" data-carbs="${i.carbs}" data-fats="${i.fats}">${i.name}</option>`).join('')}
         </select>
         <input type="number" name="meals[${mealType}][${index}][quantity]" value="" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
         <span class="text-sm text-gray-500">g</span>
         <span class="text-xs text-gray-400 row-kcal ml-2">0 kcal</span>
         <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
     `;
+    
+    div.querySelector('.ingredient-select').addEventListener('change', calculateTotals);
+    div.querySelector('.quantity-input').addEventListener('input', calculateTotals);
+    
     container.appendChild(div);
 }
 </script>

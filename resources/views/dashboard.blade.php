@@ -24,7 +24,7 @@
                         </p>
 
                         <div class="flex flex-wrap gap-3 pt-2">
-                            <a href="{{ route('menus.create') }}" class="inline-flex items-center rounded-xl bg-white px-5 py-3 font-bold text-slate-900 shadow-lg transition hover:scale-[1.02] hover:bg-sky-50">
+                            <a href="{{ route('diets.create') }}" class="inline-flex items-center rounded-xl bg-white px-5 py-3 font-bold text-slate-900 shadow-lg transition hover:scale-[1.02] hover:bg-sky-50">
                                 Crear menu
                             </a>
                             <a href="{{ route('ingredients.index') }}" class="inline-flex items-center rounded-xl border border-slate-500 px-5 py-3 font-bold text-slate-900 transition hover:bg-white/40">

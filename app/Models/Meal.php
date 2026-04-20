@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Meal extends Model
 {
-    protected $fillable = ['meal_plan_id', 'diet_id', 'meal_type', 'ingredient_id', 'quantity'];
+    protected $fillable = ['meal_plan_id', 'diet_id', 'meal_type', 'ingredient_name', 'quantity'];
 
     protected $casts = [
         'quantity' => 'float',
@@ -15,12 +15,12 @@ class Meal extends Model
 
     public function diet(): BelongsTo
     {
-        return $this->belongsTo(Diet::class);
+        return $this->belongsTo(Menu::class);
     }
 
     public function ingredient(): BelongsTo
     {
-        return $this->belongsTo(Ingredient::class);
+        return $this->belongsTo(Ingredient::class, 'ingredient_name', 'name');
     }
     
     public function mealPlan(): BelongsTo

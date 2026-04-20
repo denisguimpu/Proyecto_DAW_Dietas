@@ -6,23 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('meal_plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('diet_id')->constrained()->onDelete('cascade');
+            $table->foreignId('diet_id')->constrained('menus')->onDelete('cascade');
             $table->enum('day_of_week', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
             $table->timestamps();
             $table->unique(['day_of_week']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('meal_plans');

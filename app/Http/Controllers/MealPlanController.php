@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Diet;
+use App\Models\Menu;
 use App\Models\MealPlan;
 use App\Models\Meal;
 use Illuminate\Http\Request;
@@ -13,28 +13,30 @@ class MealPlanController extends Controller
     {
         $mealPlans = MealPlan::with(['diet', 'meals.ingredient'])->get();
         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $daysSpanish = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
         
         $plansByDay = [];
-        foreach ($days as $day) {
+        foreach ($days as $index => $day) {
             $plansByDay[$day] = $mealPlans->firstWhere('day_of_week', $day);
         }
         
-        return view('meal-plans.index', compact('plansByDay', 'days'));
+        return view('meal-plans.index', compact('plansByDay', 'days', 'daysSpanish'));
     }
 
     public function create(Request $request)
     {
-        $diets = Diet::with('ingredients')->get();
+        $diets = Menu::with('ingredients')->get();
         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $daysSpanish = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
         $selectedDay = $request->get('day');
         
-        return view('meal-plans.create', compact('diets', 'days', 'selectedDay'));
+        return view('meal-plans.create', compact('diets', 'days', 'daysSpanish', 'selectedDay'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'diet_id' => 'required|exists:diets,id',
+            'diet_id' => 'required|exists:menus,id',
             'day_of_week' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday'
         ]);
 
@@ -53,9 +55,8 @@ class MealPlanController extends Controller
         
         $ingredientsData = $mealPlan->diet->ingredients->map(function($i) {
             return [
-                'id' => $i->id,
                 'name' => $i->name,
-                'cal' => floatval($i->calories),
+                'cal' => floatval($i->kcal),
                 'prot' => floatval($i->protein),
                 'carbs' => floatval($i->carbs),
                 'fats' => floatval($i->fats)
@@ -72,12 +73,12 @@ class MealPlanController extends Controller
         if ($request->has('meals')) {
             foreach ($request->meals as $mealType => $ingredients) {
                 foreach ($ingredients as $data) {
-                    if (!empty($data['ingredient_id']) && !empty($data['quantity']) && $data['quantity'] > 0) {
+                    if (!empty($data['ingredient_name']) && !empty($data['quantity']) && $data['quantity'] > 0) {
                         Meal::create([
                             'meal_plan_id' => $mealPlan->id,
                             'diet_id' => $mealPlan->diet_id,
                             'meal_type' => $mealType,
-                            'ingredient_id' => $data['ingredient_id'],
+                            'ingredient_name' => $data['ingredient_name'],
                             'quantity' => $data['quantity'],
                         ]);
                     }

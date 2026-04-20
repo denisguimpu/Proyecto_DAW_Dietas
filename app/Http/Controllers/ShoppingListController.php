@@ -2,68 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Diet;
-use App\Models\Ingredient;
-use App\Models\ShoppingList;
+use App\Models\MealPlan;
 use Illuminate\Http\Request;
 
 class ShoppingListController extends Controller
 {
     public function index()
     {
-        $shoppingLists = ShoppingList::with('ingredients')->get();
-        return view('shopping-lists.index', compact('shoppingLists'));
+        $mealPlans = MealPlan::with(['meals.ingredient'])->get();
+        
+        $allMeals = [];
+        foreach ($mealPlans as $plan) {
+            if ($plan->meals) {
+                foreach ($plan->meals as $meal) {
+                    $ingredientName = $meal->ingredient_name;
+                    if ($ingredientName) {
+                        if (!isset($allMeals[$ingredientName])) {
+                            $allMeals[$ingredientName] = [
+                                'name' => $ingredientName,
+                                'quantity' => 0,
+                            ];
+                        }
+                        $allMeals[$ingredientName]['quantity'] += $meal->quantity;
+                    }
+                }
+            }
+        }
+        
+        usort($allMeals, function($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
+        
+        return view('shopping-lists.index', compact('allMeals'));
     }
 
     public function create()
     {
-        $diets = Diet::with('ingredients')->get();
-        return view('shopping-lists.create', compact('diets'));
+        return redirect()->route('shopping-lists.index');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'diet_ids' => 'required|array|min:1',
-            'diet_ids.*' => 'exists:diets,id'
-        ]);
-
-        $diets = Diet::with('ingredients')->whereIn('id', $request->diet_ids)->get();
-
-        $allIngredients = $diets->flatMap->ingredients;
-        $consolidated = $allIngredients->unique('id')->map(function ($ingredient) use ($allIngredients) {
-            $quantity = $allIngredients->where('id', $ingredient->id)->count();
-            return [
-                'id' => $ingredient->id,
-                'quantity' => $quantity,
-                'name' => $ingredient->name,
-                'calories' => $ingredient->calories,
-                'protein' => $ingredient->protein,
-                'fats' => $ingredient->fats,
-                'carbs' => $ingredient->carbs,
-                'unit' => $ingredient->unit ?? 'ud'
-            ];
-        })->values();
-
-        $shoppingList = ShoppingList::create(['name' => $request->name]);
-
-        foreach ($consolidated as $item) {
-            $shoppingList->ingredients()->attach($item['id'], ['quantity' => $item['quantity']]);
-        }
-
-        return redirect()->route('shopping-lists.show', $shoppingList);
+        return redirect()->route('shopping-lists.index');
     }
 
-    public function show(ShoppingList $shoppingList)
+    public function show($id)
     {
-        $shoppingList->load('ingredients');
-        return view('shopping-lists.show', compact('shoppingList'));
+        return redirect()->route('shopping-lists.index');
     }
 
-    public function destroy(ShoppingList $shoppingList)
+    public function destroy($id)
     {
-        $shoppingList->delete();
         return redirect()->route('shopping-lists.index');
     }
 }

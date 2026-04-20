@@ -10,8 +10,8 @@
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Día de la semana</label>
                         <select name="day_of_week" required class="w-full border rounded px-3 py-2">
-                            @foreach($days as $day)
-                            <option value="{{ $day }}">{{ __($day) }}</option>
+                            @foreach($days as $index => $day)
+                            <option value="{{ $day }}" {{ $selectedDay == $day ? 'selected' : '' }}>{{ $daysSpanish[$index] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -25,7 +25,7 @@
                                 <option value="">-- Selecciona una dieta --</option>
                                 @foreach($diets as $diet)
                                 <option value="{{ $diet->id }}">
-                                    {{ $diet->name }} ({{ $diet->total_calories }} kcal)
+                                    {{ $diet->name }}
                                 </option>
                                 @endforeach
                             </select>

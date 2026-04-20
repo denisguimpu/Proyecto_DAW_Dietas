@@ -34,7 +34,7 @@ class Diet extends Model
 
     public function ingredients(): BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class, 'diet_ingredient', 'diet_id', 'ingredient_name', 'id', 'name');
     }
 
     public function mealPlans()
@@ -49,7 +49,7 @@ class Diet extends Model
 
     public function getTotalCaloriesAttribute(): float
     {
-        return (float) $this->ingredients->sum('calories');
+        return (float) $this->ingredients->sum('kcal');
     }
 
     public function getTotalProteinAttribute(): float

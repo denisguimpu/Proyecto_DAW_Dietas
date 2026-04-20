@@ -73,7 +73,22 @@ class MenuController extends Controller
             'ingredients.*' => 'exists:ingredients,name',
         ]);
 
-        $menu = Menu::create($request->only('name', 'description'));
+        $menuData = $request->only([
+            'name', 
+            'description',
+            'weight',
+            'height',
+            'age',
+            'gender',
+            'activity_level',
+            'goal',
+            'target_calories',
+            'target_protein',
+            'target_carbs',
+            'target_fats'
+        ]);
+
+        $menu = Menu::create($menuData);
 
         if ($request->has('ingredients')) {
             $menu->ingredients()->attach($request->input('ingredients', []));
@@ -92,7 +107,23 @@ class MenuController extends Controller
         ]);
 
         $menu = Menu::findOrFail($id);
-        $menu->update($request->only('name', 'description'));
+
+        $menuData = $request->only([
+            'name', 
+            'description',
+            'weight',
+            'height',
+            'age',
+            'gender',
+            'activity_level',
+            'goal',
+            'target_calories',
+            'target_protein',
+            'target_carbs',
+            'target_fats'
+        ]);
+
+        $menu->update($menuData);
         $menu->ingredients()->sync($request->input('ingredients', []));
 
         return redirect()->route('menus.show', $menu->id)->with('success', 'Menú actualizado con éxito');

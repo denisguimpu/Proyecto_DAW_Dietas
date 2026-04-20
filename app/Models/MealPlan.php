@@ -13,9 +13,9 @@ class MealPlan extends Model
         'day_of_week' => 'string',
     ];
 
-    public function diet(): BelongsTo
+public function diet(): BelongsTo
     {
-        return $this->belongsTo(Diet::class);
+        return $this->belongsTo(Menu::class);
     }
 
     public function meals()

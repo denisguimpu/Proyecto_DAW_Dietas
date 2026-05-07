@@ -53,6 +53,31 @@
                 </div>
             </section>
 
+            <!-- 
+                GRAFICO DE ESTADISTICAS SEMANALES
+                ==========================
+                Este grafico muestra los nutrientes de cada dia de la semana.
+                Usa Chart.js para dibujar las barras.
+            -->
+            <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <h3 class="text-lg font-extrabold text-slate-800 mb-4">Estadisticas Semanales</h3>
+                
+                <!-- Tabla con las kcal de cada dia -->
+                <div class="grid grid-cols-7 gap-2 mb-6 text-center">
+                    @foreach($weeklyData as $index => $data)
+                    <div class="p-3 bg-slate-50 rounded-lg">
+                        <p class="text-xs font-bold text-slate-600">{{ $data['day'] }}</p>
+                        <p id="kcal-{{ $index }}" class="text-lg font-black text-red-500">{{ $data['kcal'] }} kcal</p>
+                    </div>
+                    @endforeach
+                </div>
+                
+                <!-- Lienzo donde se dibuja el grafico -->
+                <div style="height: 300px;">
+                    <canvas id="weeklyChart"></canvas>
+                </div>
+            </section>
+
             <section class="grid gap-6 md:grid-cols-1">
                 <article class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
                     <h3 class="text-lg font-extrabold text-slate-800">Enfoque de hoy</h3>
@@ -68,4 +93,53 @@
             </section>
         </div>
     </div>
+
+    <!-- Cargar Chart.js desde CDN (manera mas sencilla) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Configurar el grafico -->
+    <script>
+        // Datos que nos pasa PHP desde la ruta
+        const weeklyData = @json($weeklyData);
+        
+        // Extraer los dias y los nutrientes para el grafico (sin kcal)
+        const labels = weeklyData.map(d => d.day);
+        const proteinData = weeklyData.map(d => d.protein);
+        const carbsData = weeklyData.map(d => d.carbs);
+        const fatsData = weeklyData.map(d => d.fats);
+        
+        // Crear el grafico de barras
+        new Chart(document.getElementById('weeklyChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Proteina (g)',
+                        data: proteinData,
+                        backgroundColor: '#4ECDC4',  // Verde agua
+                    },
+                    {
+                        label: 'Carbohidratos (g)',
+                        data: carbsData,
+                        backgroundColor: '#45B7D1',  // Azul
+                    },
+                    {
+                        label: 'Grasas (g)',
+                        data: fatsData,
+                        backgroundColor: '#96CEB4',  // Verde
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </x-app-layout>

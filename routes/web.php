@@ -67,14 +67,55 @@ Route::get('/', function () {
 use App\Models\Menu;
 use App\Models\FoodGroup;
 use App\Models\Ingredient;
+use App\Models\MealPlan;
 
 Route::get('/dashboard', function () {
+    // Cogemos todos los planes de comida de la semana
+    $mealPlans = MealPlan::with(['meals.ingredient'])->get();
+    
+    // Dias de la semana
+    $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    $daysSpanish = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    
+    // Array para datos semanales
+    $weeklyData = [];
+    
+    foreach ($days as $index => $day) {
+        $plan = $mealPlans->firstWhere('day_of_week', $day);
+        
+        $totalKcal = 0;
+        $totalProtein = 0;
+        $totalCarbs = 0;
+        $totalFats = 0;
+        
+        if ($plan && $plan->meals) {
+            foreach ($plan->meals as $meal) {
+                if ($meal->ingredient) {
+                    $ratio = $meal->quantity / 100;
+                    $totalKcal += $meal->ingredient->kcal * $ratio;
+                    $totalProtein += $meal->ingredient->protein * $ratio;
+                    $totalCarbs += $meal->ingredient->carbs * $ratio;
+                    $totalFats += $meal->ingredient->fats * $ratio;
+                }
+            }
+        }
+        
+        $weeklyData[] = [
+            'day' => $daysSpanish[$index],
+            'kcal' => round($totalKcal),
+            'protein' => round($totalProtein),
+            'carbs' => round($totalCarbs),
+            'fats' => round($totalFats),
+        ];
+    }
+    
     return view('dashboard', [
         'stats' => [
             'ingredients' => Ingredient::count(),
             'menus' => Menu::count(),
             'foodGroups' => FoodGroup::count(),
         ],
+        'weeklyData' => $weeklyData,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

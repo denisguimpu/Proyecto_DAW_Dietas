@@ -82,7 +82,8 @@ class MealPlanController extends Controller
                         'cal' => floatval($i->kcal),
                         'prot' => floatval($i->protein),
                         'carbs' => floatval($i->carbs),
-                        'fats' => floatval($i->fats)
+                        'fats' => floatval($i->fats),
+                        'gr_ration' => intval($i->gr_ration)
                     ];
                 });
             } else {

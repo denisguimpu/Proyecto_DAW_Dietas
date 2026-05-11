@@ -11,7 +11,7 @@ class MealPlanController extends Controller
 {
     public function index()
     {
-        $mealPlans = MealPlan::with(['diet', 'meals.ingredient'])->get();
+        $mealPlans = MealPlan::with(['breakfastMenu', 'lunchMenu', 'snackMenu', 'dinnerMenu', 'meals.ingredient'])->get();
         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         $daysSpanish = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
         
@@ -25,24 +25,32 @@ class MealPlanController extends Controller
 
     public function create(Request $request)
     {
-        $diets = Menu::with('ingredients')->get();
+        $menus = Menu::all();
         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         $daysSpanish = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
         $selectedDay = $request->get('day');
         
-        return view('meal-plans.create', compact('diets', 'days', 'daysSpanish', 'selectedDay'));
+        return view('meal-plans.create', compact('menus', 'days', 'daysSpanish', 'selectedDay'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'diet_id' => 'required|exists:menus,id',
-            'day_of_week' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday'
+            'day_of_week' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
+            'breakfast_menu_id' => 'nullable|exists:menus,id',
+            'lunch_menu_id' => 'nullable|exists:menus,id',
+            'snack_menu_id' => 'nullable|exists:menus,id',
+            'dinner_menu_id' => 'nullable|exists:menus,id',
         ]);
 
         $mealPlan = MealPlan::updateOrCreate(
             ['day_of_week' => $request->day_of_week],
-            ['diet_id' => $request->diet_id]
+            [
+                'breakfast_menu_id' => $request->breakfast_menu_id,
+                'lunch_menu_id' => $request->lunch_menu_id,
+                'snack_menu_id' => $request->snack_menu_id,
+                'dinner_menu_id' => $request->dinner_menu_id,
+            ]
         );
 
         return redirect()->route('meal-plans.edit', $mealPlan->id);
@@ -50,18 +58,37 @@ class MealPlanController extends Controller
 
     public function edit(MealPlan $mealPlan)
     {
-        $mealPlan->load(['diet.ingredients', 'meals.ingredient']);
-        $mealTypes = ['desayuno', 'comida', 'merienda', 'cena'];
+        $mealPlan->load([
+            'breakfastMenu.ingredients', 
+            'lunchMenu.ingredients', 
+            'snackMenu.ingredients', 
+            'dinnerMenu.ingredients', 
+            'meals.ingredient'
+        ]);
         
-        $ingredientsData = $mealPlan->diet->ingredients->map(function($i) {
-            return [
-                'name' => $i->name,
-                'cal' => floatval($i->kcal),
-                'prot' => floatval($i->protein),
-                'carbs' => floatval($i->carbs),
-                'fats' => floatval($i->fats)
-            ];
-        });
+        $mealTypes = [
+            'desayuno' => $mealPlan->breakfastMenu,
+            'comida' => $mealPlan->lunchMenu,
+            'merienda' => $mealPlan->snackMenu,
+            'cena' => $mealPlan->dinnerMenu,
+        ];
+        
+        $ingredientsData = [];
+        foreach ($mealTypes as $type => $menu) {
+            if ($menu) {
+                $ingredientsData[$type] = $menu->ingredients->map(function($i) {
+                    return [
+                        'name' => $i->name,
+                        'cal' => floatval($i->kcal),
+                        'prot' => floatval($i->protein),
+                        'carbs' => floatval($i->carbs),
+                        'fats' => floatval($i->fats)
+                    ];
+                });
+            } else {
+                $ingredientsData[$type] = [];
+            }
+        }
         
         return view('meal-plans.edit', compact('mealPlan', 'mealTypes', 'ingredientsData'));
     }
@@ -76,7 +103,6 @@ class MealPlanController extends Controller
                     if (!empty($data['ingredient_name']) && !empty($data['quantity']) && $data['quantity'] > 0) {
                         Meal::create([
                             'meal_plan_id' => $mealPlan->id,
-                            'diet_id' => $mealPlan->diet_id,
                             'meal_type' => $mealType,
                             'ingredient_name' => $data['ingredient_name'],
                             'quantity' => $data['quantity'],
@@ -86,7 +112,7 @@ class MealPlanController extends Controller
             }
         }
 
-        return redirect()->route('meal-plans.index')->with('success', 'Menú actualizado');
+        return redirect()->route('meal-plans.index')->with('success', 'Plan actualizado');
     }
 
     public function destroy(MealPlan $mealPlan)

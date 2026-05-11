@@ -21,7 +21,22 @@
                         $totalProtein = 0;
                         $totalCarbs = 0;
                         $totalFats = 0;
-                        if($plan && $plan->diet) {
+                        $targetCalories = 0;
+                        $targetProtein = 0;
+                        $targetCarbs = 0;
+                        $targetFats = 0;
+                        $hasAnyMenu = false;
+
+                        if($plan) {
+                            $menus = array_filter([$plan->breakfastMenu, $plan->lunchMenu, $plan->snackMenu, $plan->dinnerMenu]);
+                            $hasAnyMenu = count($menus) > 0;
+                            foreach($menus as $menu) {
+                                $targetCalories += $menu->target_calories ?? 0;
+                                $targetProtein += $menu->target_protein ?? 0;
+                                $targetCarbs += $menu->target_carbs ?? 0;
+                                $targetFats += $menu->target_fats ?? 0;
+                            }
+                            
                             foreach($plan->meals as $meal) {
                                 if($meal->ingredient) {
                                     $ratio = $meal->quantity / 100;
@@ -36,32 +51,32 @@
                     <div class="border border-gray-200 rounded-lg overflow-hidden">
                         <div class="bg-gray-50 px-6 py-4 flex justify-between items-center">
                             <h3 class="text-lg font-bold text-gray-900 capitalize">{{ $daySpanish }}</h3>
-                            @if($plan && $plan->diet)
+                            @if($hasAnyMenu)
                                 <div class="flex items-center gap-4">
-                                    @if($plan->diet->target_calories)
+                                    @if($targetCalories > 0)
                                     <span class="text-sm text-gray-600">
-                                        <span class="font-medium text-blue-600">{{ round($plan->diet->target_calories) }}</span> kcal objetivo
+                                        <span class="font-medium text-blue-600">{{ round($targetCalories) }}</span> kcal objetivo
                                     </span>
                                     @endif
-                                    <a href="{{ route('meal-plans.edit', $plan->id) }}" class="text-blue-600 hover:underline text-sm">Editar Menú</a>
+                                    <a href="{{ route('meal-plans.edit', $plan->id) }}" class="text-blue-600 hover:underline text-sm">Ajustar Cantidades</a>
                                     <form action="{{ route('meal-plans.destroy', $plan->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:underline text-sm" onclick="return confirm('¿Eliminar?')">Eliminar</button>
+                                        <button type="submit" class="text-red-600 hover:underline text-sm" onclick="return confirm('¿Eliminar?')">Limpiar</button>
                                     </form>
                                 </div>
                             @else
-                                <a href="{{ route('meal-plans.create') }}?day={{ $day }}" class="text-blue-600 hover:underline text-sm">Asignar dieta</a>
+                                <a href="{{ route('meal-plans.create') }}?day={{ $day }}" class="text-blue-600 hover:underline text-sm">Asignar menús</a>
                             @endif
                         </div>
                         
-                        @if($plan && $plan->diet && $plan->diet->target_calories)
+                        @if($hasAnyMenu && $targetCalories > 0)
                         <div class="px-6 py-4">
                             <div class="grid grid-cols-4 gap-2 mb-4 text-xs text-gray-500 bg-gray-50 p-2 rounded">
-                                <div class="text-center">Kcal: {{ round($totalCal) }} / {{ round($plan->diet->target_calories) }}</div>
-                                <div class="text-center">P: {{ round($totalProtein) }}g / {{ round($plan->diet->target_protein) }}g</div>
-                                <div class="text-center">C: {{ round($totalCarbs) }}g / {{ round($plan->diet->target_carbs) }}g</div>
-                                <div class="text-center">G: {{ round($totalFats) }}g / {{ round($plan->diet->target_fats) }}g</div>
+                                <div class="text-center">Kcal: {{ round($totalCal) }} / {{ round($targetCalories) }}</div>
+                                <div class="text-center">P: {{ round($totalProtein) }}g / {{ round($targetProtein) }}g</div>
+                                <div class="text-center">C: {{ round($totalCarbs) }}g / {{ round($targetCarbs) }}g</div>
+                                <div class="text-center">G: {{ round($totalFats) }}g / {{ round($targetFats) }}g</div>
                             </div>
                         </div>
                         @endif
@@ -95,10 +110,10 @@
                                 @endforeach
                             </div>
                         </div>
-                        @elseif($plan && $plan->diet)
+                        @elseif($hasAnyMenu)
                         <div class="px-6 py-4 text-center text-gray-500 text-sm">
-                            <p>Dieta asignada pero sin personalized. 
-                            <a href="{{ route('meal-plans.edit', $plan->id) }}" class="text-blue-600 hover:underline">Añade los ingredients</a></p>
+                            <p>Menús asignados pero sin ajustar cantidades. 
+                            <a href="{{ route('meal-plans.edit', $plan->id) }}" class="text-blue-600 hover:underline">Añade los ingredientes</a></p>
                         </div>
                         @endif
                     </div>
@@ -108,8 +123,11 @@
                 @php
                 $totalTarget = 0;
                 foreach($plansByDay as $plan) {
-                    if($plan && $plan->diet && $plan->diet->target_calories) {
-                        $totalTarget += $plan->diet->target_calories;
+                    if($plan) {
+                        $menus = array_filter([$plan->breakfastMenu, $plan->lunchMenu, $plan->snackMenu, $plan->dinnerMenu]);
+                        foreach($menus as $menu) {
+                            $totalTarget += $menu->target_calories ?? 0;
+                        }
                     }
                 }
                 @endphp

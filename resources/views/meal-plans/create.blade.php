@@ -16,19 +16,30 @@
                         </select>
                     </div>
 
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Seleccionar Dieta</label>
-                        @if($diets->isEmpty())
-                            <p class="text-gray-500">No hay dietas disponibles. <a href="{{ route('diets.create') }}" class="text-blue-600 hover:underline">Crea una dieta primero</a></p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        @if($menus->isEmpty())
+                            <div class="col-span-2">
+                                <p class="text-gray-500">No hay menús disponibles. <a href="{{ route('menus.create') }}" class="text-blue-600 hover:underline">Crea un menú primero</a></p>
+                            </div>
                         @else
-                            <select name="diet_id" required class="w-full border rounded px-3 py-2">
-                                <option value="">-- Selecciona una dieta --</option>
-                                @foreach($diets as $diet)
-                                <option value="{{ $diet->id }}">
-                                    {{ $diet->name }}
-                                </option>
-                                @endforeach
-                            </select>
+                            @foreach([
+                                'breakfast_menu_id' => 'Desayuno',
+                                'lunch_menu_id' => 'Comida',
+                                'snack_menu_id' => 'Merienda',
+                                'dinner_menu_id' => 'Cena'
+                            ] as $field => $label)
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Seleccionar {{ $label }}</label>
+                                <select name="{{ $field }}" class="w-full border rounded px-3 py-2">
+                                    <option value="">-- Sin asignar --</option>
+                                    @foreach($menus as $menu)
+                                    <option value="{{ $menu->id }}">
+                                        {{ $menu->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endforeach
                         @endif
                     </div>
 

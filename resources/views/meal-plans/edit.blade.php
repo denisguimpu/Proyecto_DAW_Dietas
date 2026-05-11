@@ -14,10 +14,21 @@ $dayTranslations = [
 ];
 $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week;
 @endphp
+                @php
+                    $targetCal = 0; $targetProt = 0; $targetCarbs = 0; $targetFats = 0;
+                    foreach($mealTypes as $menu) {
+                        if($menu) {
+                            $targetCal += $menu->target_calories ?? 0;
+                            $targetProt += $menu->target_protein ?? 0;
+                            $targetCarbs += $menu->target_carbs ?? 0;
+                            $targetFats += $menu->target_fats ?? 0;
+                        }
+                    }
+                @endphp
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900">Editar Menú - {{ $daySpanish }}</h2>
-                        <p class="text-gray-600">{{ $mealPlan->diet->name }}</p>
+                        <h2 class="text-2xl font-bold text-gray-900">Ajustar Cantidades - {{ $daySpanish }}</h2>
+                        <p class="text-gray-600">Configura las cantidades de los ingredientes para cada menú asignado.</p>
                     </div>
                     <a href="{{ route('meal-plans.index') }}" class="text-gray-600 hover:underline">← Volver</a>
                 </div>
@@ -25,33 +36,33 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                 <div id="totals-bar" class="mb-6 p-4 bg-gray-50 rounded-lg">
                     <div class="text-sm mb-2">
                         <span class="font-bold">Objetivo diario:</span>
-                        <span class="text-blue-600 font-bold">{{ $mealPlan->diet->target_calories ? round($mealPlan->diet->target_calories) : 0 }} kcal</span>
-                        @if($mealPlan->diet->target_protein)
-                        | P: {{ round($mealPlan->diet->target_protein) }}g |
-                        C: {{ round($mealPlan->diet->target_carbs) }}g |
-                        G: {{ round($mealPlan->diet->target_fats) }}g
+                        <span class="text-blue-600 font-bold">{{ round($targetCal) }} kcal</span>
+                        @if($targetProt > 0)
+                        | P: {{ round($targetProt) }}g |
+                        C: {{ round($targetCarbs) }}g |
+                        G: {{ round($targetFats) }}g
                         @endif
                     </div>
                     <div class="grid grid-cols-4 gap-4 text-center">
                         <div>
                             <div class="text-xl font-bold" id="current_kcal">0</div>
                             <div class="text-xs text-gray-500">kcal</div>
-                            <div class="text-xs" id="kcal_diff">/ {{ $mealPlan->diet->target_calories ? round($mealPlan->diet->target_calories) : 0 }}</div>
+                            <div class="text-xs" id="kcal_diff">/ {{ round($targetCal) }}</div>
                         </div>
                         <div>
                             <div class="text-xl font-bold text-red-500" id="current_protein">0g</div>
                             <div class="text-xs text-gray-500">Proteína</div>
-                            <div class="text-xs text-gray-400">/ {{ $mealPlan->diet->target_protein ? round($mealPlan->diet->target_protein) : 0 }}g</div>
+                            <div class="text-xs text-gray-400">/ {{ round($targetProt) }}g</div>
                         </div>
                         <div>
                             <div class="text-xl font-bold text-yellow-500" id="current_carbs">0g</div>
                             <div class="text-xs text-gray-500">Carbs</div>
-                            <div class="text-xs text-gray-400">/ {{ $mealPlan->diet->target_carbs ? round($mealPlan->diet->target_carbs) : 0 }}g</div>
+                            <div class="text-xs text-gray-400">/ {{ round($targetCarbs) }}g</div>
                         </div>
                         <div>
                             <div class="text-xl font-bold text-green-500" id="current_fats">0g</div>
                             <div class="text-xs text-gray-500">Grasas</div>
-                            <div class="text-xs text-gray-400">/ {{ $mealPlan->diet->target_fats ? round($mealPlan->diet->target_fats) : 0 }}g</div>
+                            <div class="text-xs text-gray-400">/ {{ round($targetFats) }}g</div>
                         </div>
                     </div>
                     <div class="mt-3 bg-gray-200 rounded-full h-3 overflow-hidden">
@@ -63,43 +74,69 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                     @csrf
                     @method('PUT')
 
-                    @foreach($mealTypes as $mealType)
+                    @foreach($mealTypes as $mealType => $menu)
+                    @if($menu)
                     <div class="mb-8 p-4 border rounded-lg">
-                        <h3 class="text-lg font-semibold mb-4 capitalize">{{ $mealType }}</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold capitalize">{{ $mealType }}</h3>
+                            <span class="text-sm font-medium text-blue-600">{{ $menu->name }}</span>
+                        </div>
                         
                         <div class="space-y-3" id="meal_{{ $mealType }}">
                             @php
                                 $existingMeals = $mealPlan->meals->where('meal_type', $mealType);
+                                $rowCount = 0;
                             @endphp
                             
-                            @foreach($existingMeals as $index => $meal)
-                            <div class="flex gap-3 items-center meal-row">
-                                <select name="meals[{{ $mealType }}][{{ $index }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $index }}">
-                                    <option value="">Selecciona ingrediente</option>
-                                    @foreach($mealPlan->diet->ingredients as $ingredient)
-                                    <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}" {{ $meal->ingredient_name == $ingredient->name ? 'selected' : '' }}>
-                                        {{ $ingredient->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                                <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="{{ $meal->quantity }}" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
-                                <span class="text-sm text-gray-500">g</span>
-                                <span class="text-xs text-gray-400 row-kcal ml-2">{{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->kcal / 100) : 0 }} kcal</span>
-                                <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
-                            </div>
-                            @endforeach
+                            @if($existingMeals->isEmpty())
+                                @foreach($menu->ingredients as $index => $ingredient)
+                                <div class="flex gap-3 items-center meal-row">
+                                    <select name="meals[{{ $mealType }}][{{ $index }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $index }}">
+                                        <option value="">Selecciona ingrediente</option>
+                                        @foreach($menu->ingredients as $menuIng)
+                                        <option value="{{ $menuIng->name }}" data-cal="{{ $menuIng->kcal }}" data-prot="{{ $menuIng->protein }}" data-carbs="{{ $menuIng->carbs }}" data-fats="{{ $menuIng->fats }}" {{ $ingredient->name == $menuIng->name ? 'selected' : '' }}>
+                                            {{ $menuIng->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
+                                    <span class="text-sm text-gray-500">g</span>
+                                    <span class="text-xs text-gray-400 row-kcal ml-2">{{ round(100 * $ingredient->kcal / 100) }} kcal</span>
+                                    <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
+                                </div>
+                                @php $rowCount++; @endphp
+                                @endforeach
+                            @else
+                                @foreach($existingMeals as $index => $meal)
+                                <div class="flex gap-3 items-center meal-row">
+                                    <select name="meals[{{ $mealType }}][{{ $index }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $index }}">
+                                        <option value="">Selecciona ingrediente</option>
+                                        @foreach($menu->ingredients as $ingredient)
+                                        <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}" {{ $meal->ingredient_name == $ingredient->name ? 'selected' : '' }}>
+                                            {{ $ingredient->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="{{ $meal->quantity }}" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
+                                    <span class="text-sm text-gray-500">g</span>
+                                    <span class="text-xs text-gray-400 row-kcal ml-2">{{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->kcal / 100) : 0 }} kcal</span>
+                                    <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
+                                </div>
+                                @php $rowCount++; @endphp
+                                @endforeach
+                            @endif
                             
-                            @for($i = $existingMeals->count(); $i < 5; $i++)
+                            @for($i = $rowCount; $i < 5; $i++)
                             <div class="flex gap-3 items-center meal-row">
                                 <select name="meals[{{ $mealType }}][{{ $i }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $i }}">
                                     <option value="">Selecciona ingrediente</option>
-                                    @foreach($mealPlan->diet->ingredients as $ingredient)
+                                    @foreach($menu->ingredients as $ingredient)
                                     <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}">
                                         {{ $ingredient->name }}
                                     </option>
                                     @endforeach
                                 </select>
-                                <input type="number" name="meals[{{ $mealType }}][{{ $i }}][quantity]" value="" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
+                                <input type="number" name="meals[{{ $mealType }}][{{ $i }}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
                                 <span class="text-sm text-gray-500">g</span>
                                 <span class="text-xs text-gray-400 row-kcal ml-2">0 kcal</span>
                                 <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
@@ -111,6 +148,7 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                             + Añadir ingrediente
                         </button>
                     </div>
+                    @endif
                     @endforeach
 
                     <div class="flex gap-4">
@@ -127,7 +165,7 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
 
 <script>
 let counters = {desayuno: 5, comida: 5, merienda: 5, cena: 5};
-const targetKcal = {{ $mealPlan->diet->target_calories ?? 0 }};
+const targetKcal = {{ round($targetCal) }};
 const ingredientsList = @json($ingredientsData);
 
 function calculateTotals() {
@@ -193,12 +231,13 @@ function addMealRow(mealType) {
     
     const div = document.createElement('div');
     div.className = 'flex gap-3 items-center meal-row';
+    const ingredientsForMeal = ingredientsList[mealType] || [];
     div.innerHTML = `
         <select name="meals[${mealType}][${index}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="${index}">
             <option value="">Selecciona ingrediente</option>
-            ${ingredientsList.map(i => `<option value="${i.name}" data-cal="${i.cal}" data-prot="${i.prot}" data-carbs="${i.carbs}" data-fats="${i.fats}">${i.name}</option>`).join('')}
+            ${ingredientsForMeal.map(i => `<option value="${i.name}" data-cal="${i.cal}" data-prot="${i.prot}" data-carbs="${i.carbs}" data-fats="${i.fats}">${i.name}</option>`).join('')}
         </select>
-        <input type="number" name="meals[${mealType}][${index}][quantity]" value="" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
+        <input type="number" name="meals[${mealType}][${index}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
         <span class="text-sm text-gray-500">g</span>
         <span class="text-xs text-gray-400 row-kcal ml-2">0 kcal</span>
         <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>

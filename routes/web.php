@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/diets', [DietController::class, 'index'])->name('diets.index');
     Route::get('/diets/create', [DietController::class, 'create'])->name('diets.create');
     Route::post('/diets', [DietController::class, 'store'])->name('diets.store');
-    Route::get('/diets/{id}', [DietController::class, 'show'])->name('diets.show'); 
+    Route::get('/diets/{id}', [DietController::class, 'show'])->name('diets.show');
     Route::get('/diets/{id}/edit', [DietController::class, 'edit'])->name('diets.edit');
     Route::put('/diets/{id}', [DietController::class, 'update'])->name('diets.update');
     Route::delete('/diets/{id}', [DietController::class, 'destroy'])->name('diets.destroy');
@@ -70,36 +70,60 @@ use App\Models\Ingredient;
 use App\Models\MealPlan;
 
 Route::get('/dashboard', function () {
-    // Cogemos todos los planes de comida de la semana
-    $mealPlans = MealPlan::with(['meals.ingredient'])->get();
-    
+    // Cogemos todos los planes de comida de la semana con relaciones
+    $mealPlans = MealPlan::with([
+        'meals.ingredient',
+        'breakfastMenu.ingredients',
+        'lunchMenu.ingredients',
+        'snackMenu.ingredients',
+        'dinnerMenu.ingredients',
+    ])->get();
+
     // Dias de la semana
     $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     $daysSpanish = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
-    
+
     // Array para datos semanales
     $weeklyData = [];
-    
+
     foreach ($days as $index => $day) {
         $plan = $mealPlans->firstWhere('day_of_week', $day);
-        
+
         $totalKcal = 0;
         $totalProtein = 0;
         $totalCarbs = 0;
         $totalFats = 0;
-        
-        if ($plan && $plan->meals) {
-            foreach ($plan->meals as $meal) {
-                if ($meal->ingredient) {
-                    $ratio = $meal->quantity / 100;
-                    $totalKcal += $meal->ingredient->kcal * $ratio;
-                    $totalProtein += $meal->ingredient->protein * $ratio;
-                    $totalCarbs += $meal->ingredient->carbs * $ratio;
-                    $totalFats += $meal->ingredient->fats * $ratio;
+
+        if ($plan) {
+            // Strategy 1: Use explicit Meal rows if present
+            if ($plan->meals && $plan->meals->count() > 0) {
+                foreach ($plan->meals as $meal) {
+                    if ($meal->ingredient) {
+                        $ratio = $meal->quantity / 100;
+                        $totalKcal += $meal->ingredient->kcal * $ratio;
+                        $totalProtein += $meal->ingredient->protein * $ratio;
+                        $totalCarbs += $meal->ingredient->carbs * $ratio;
+                        $totalFats += $meal->ingredient->fats * $ratio;
+                    }
+                }
+            } else {
+                // Strategy 2: Fallback to assigned menus' ingredients
+                $slots = ['breakfastMenu', 'lunchMenu', 'snackMenu', 'dinnerMenu'];
+                foreach ($slots as $slot) {
+                    $menu = $plan->$slot;
+                    if ($menu && isset($menu->ingredients)) {
+                        foreach ($menu->ingredients as $ingredient) {
+                            $qty = $ingredient->gr_ration ?? 0;
+                            $totalKcal += ($ingredient->kcal ?? 0) * $qty / 100;
+                            $totalProtein += ($ingredient->protein ?? 0) * $qty / 100;
+                            $totalCarbs += ($ingredient->carbs ?? 0) * $qty / 100;
+                            $totalFats += ($ingredient->fats ?? 0) * $qty / 100;
+                        }
+                    }
                 }
             }
         }
-        
+
         $weeklyData[] = [
             'day' => $daysSpanish[$index],
             'kcal' => round($totalKcal),
@@ -108,7 +132,7 @@ Route::get('/dashboard', function () {
             'fats' => round($totalFats),
         ];
     }
-    
+
     return view('dashboard', [
         'stats' => [
             'ingredients' => Ingredient::count(),

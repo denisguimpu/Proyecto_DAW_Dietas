@@ -5,7 +5,7 @@
                 @php
 $dayTranslations = [
     'monday' => 'Lunes',
-    'tuesday' => 'Martes', 
+    'tuesday' => 'Martes',
     'wednesday' => 'Miércoles',
     'thursday' => 'Jueves',
     'friday' => 'Viernes',
@@ -74,6 +74,25 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                     @csrf
                     @method('PUT')
 
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        @foreach([
+                            'breakfast_menu_id' => 'Desayuno',
+                            'lunch_menu_id' => 'Comida',
+                            'snack_menu_id' => 'Merienda',
+                            'dinner_menu_id' => 'Cena'
+                        ] as $field => $label)
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ $label }}</label>
+                            <select name="{{ $field }}" class="w-full border rounded px-3 py-2">
+                                <option value="">-- Sin asignar --</option>
+                                @foreach($menus as $m)
+                                <option value="{{ $m->id }}" {{ ($mealPlan->{$field} ?? null) == $m->id ? 'selected' : '' }}>{{ $m->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endforeach
+                    </div>
+
                     @foreach($mealTypes as $mealType => $menu)
                     @if($menu)
                     <div class="mb-8 p-4 border rounded-lg">
@@ -81,13 +100,13 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                             <h3 class="text-lg font-semibold capitalize">{{ $mealType }}</h3>
                             <span class="text-sm font-medium text-blue-600">{{ $menu->name }}</span>
                         </div>
-                        
+
                         <div class="space-y-3" id="meal_{{ $mealType }}">
                             @php
                                 $existingMeals = $mealPlan->meals->where('meal_type', $mealType);
                                 $rowCount = 0;
                             @endphp
-                            
+
                             @if($existingMeals->isEmpty())
                                 @foreach($menu->ingredients as $index => $ingredient)
                                 <div class="flex gap-3 items-center meal-row">
@@ -125,7 +144,7 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                                 @php $rowCount++; @endphp
                                 @endforeach
                             @endif
-                            
+
                             @for($i = $rowCount; $i < 5; $i++)
                             <div class="flex gap-3 items-center meal-row">
                                 <select name="meals[{{ $mealType }}][{{ $i }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $i }}">
@@ -143,7 +162,7 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                             </div>
                             @endfor
                         </div>
-                        
+
                         <button type="button" class="mt-3 text-sm text-blue-600 hover:underline" onclick="addMealRow('{{ $mealType }}')">
                             + Añadir ingrediente
                         </button>
@@ -170,12 +189,12 @@ const ingredientsList = @json($ingredientsData);
 
 function calculateTotals() {
     let totalCal = 0, totalProt = 0, totalCarbs = 0, totalFats = 0;
-    
+
     document.querySelectorAll('.meal-row').forEach(row => {
         const select = row.querySelector('.ingredient-select');
         const input = row.querySelector('.quantity-input');
         const kcalSpan = row.querySelector('.row-kcal');
-        
+
         if (select && input && select.value && input.value > 0) {
             const option = select.options[select.selectedIndex];
             const cal = parseFloat(option.dataset.cal) || 0;
@@ -183,13 +202,13 @@ function calculateTotals() {
             const carbs = parseFloat(option.dataset.carbs) || 0;
             const fats = parseFloat(option.dataset.fats) || 0;
             const qty = parseFloat(input.value) || 0;
-            
+
             const rowCal = qty * cal / 100;
             totalCal += rowCal;
             totalProt += qty * prot / 100;
             totalCarbs += qty * carbs / 100;
             totalFats += qty * fats / 100;
-            
+
             if (kcalSpan) {
                 kcalSpan.textContent = Math.round(rowCal) + ' kcal';
             }
@@ -197,15 +216,15 @@ function calculateTotals() {
             kcalSpan.textContent = '0 kcal';
         }
     });
-    
+
     document.getElementById('current_kcal').textContent = Math.round(totalCal);
     document.getElementById('current_protein').textContent = Math.round(totalProt) + 'g';
     document.getElementById('current_carbs').textContent = Math.round(totalCarbs) + 'g';
     document.getElementById('current_fats').textContent = Math.round(totalFats) + 'g';
-    
+
     const pct = targetKcal > 0 ? (totalCal / targetKcal) * 100 : 0;
     document.getElementById('kcal_bar').style.width = Math.min(pct, 100) + '%';
-    
+
     if (pct > 100) {
         document.getElementById('kcal_bar').classList.remove('bg-blue-500');
         document.getElementById('kcal_bar').classList.add('bg-red-500');
@@ -213,7 +232,7 @@ function calculateTotals() {
         document.getElementById('kcal_bar').classList.remove('bg-red-500');
         document.getElementById('kcal_bar').classList.add('bg-blue-500');
     }
-    
+
     document.getElementById('kcal_diff').textContent = '/ ' + targetKcal;
 }
 
@@ -228,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function addMealRow(mealType) {
     const container = document.getElementById('meal_' + mealType);
     const index = counters[mealType]++;
-    
+
     const div = document.createElement('div');
     div.className = 'flex gap-3 items-center meal-row';
     const ingredientsForMeal = ingredientsList[mealType] || [];
@@ -242,10 +261,10 @@ function addMealRow(mealType) {
         <span class="text-xs text-gray-400 row-kcal ml-2">0 kcal</span>
         <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
     `;
-    
+
     div.querySelector('.ingredient-select').addEventListener('change', calculateTotals);
     div.querySelector('.quantity-input').addEventListener('input', calculateTotals);
-    
+
     container.appendChild(div);
 }
 </script>

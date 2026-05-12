@@ -14,12 +14,12 @@ class MealPlanController extends Controller
         $mealPlans = MealPlan::with(['breakfastMenu', 'lunchMenu', 'snackMenu', 'dinnerMenu', 'meals.ingredient'])->get();
         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         $daysSpanish = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
-        
+
         $plansByDay = [];
         foreach ($days as $index => $day) {
             $plansByDay[$day] = $mealPlans->firstWhere('day_of_week', $day);
         }
-        
+
         return view('meal-plans.index', compact('plansByDay', 'days', 'daysSpanish'));
     }
 
@@ -29,7 +29,7 @@ class MealPlanController extends Controller
         $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         $daysSpanish = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
         $selectedDay = $request->get('day');
-        
+
         return view('meal-plans.create', compact('menus', 'days', 'daysSpanish', 'selectedDay'));
     }
 
@@ -59,20 +59,21 @@ class MealPlanController extends Controller
     public function edit(MealPlan $mealPlan)
     {
         $mealPlan->load([
-            'breakfastMenu.ingredients', 
-            'lunchMenu.ingredients', 
-            'snackMenu.ingredients', 
-            'dinnerMenu.ingredients', 
+            'breakfastMenu.ingredients',
+            'lunchMenu.ingredients',
+            'snackMenu.ingredients',
+            'dinnerMenu.ingredients',
             'meals.ingredient'
         ]);
-        
+        $menus = Menu::all();
+
         $mealTypes = [
             'desayuno' => $mealPlan->breakfastMenu,
             'comida' => $mealPlan->lunchMenu,
             'merienda' => $mealPlan->snackMenu,
             'cena' => $mealPlan->dinnerMenu,
         ];
-        
+
         $ingredientsData = [];
         foreach ($mealTypes as $type => $menu) {
             if ($menu) {
@@ -89,14 +90,29 @@ class MealPlanController extends Controller
                 $ingredientsData[$type] = [];
             }
         }
-        
-        return view('meal-plans.edit', compact('mealPlan', 'mealTypes', 'ingredientsData'));
+
+        return view('meal-plans.edit', compact('mealPlan', 'mealTypes', 'ingredientsData', 'menus'));
     }
 
     public function update(Request $request, MealPlan $mealPlan)
     {
+        $request->validate([
+            'breakfast_menu_id' => 'nullable|exists:menus,id',
+            'lunch_menu_id' => 'nullable|exists:menus,id',
+            'snack_menu_id' => 'nullable|exists:menus,id',
+            'dinner_menu_id' => 'nullable|exists:menus,id',
+        ]);
+
+        // Allow updating assigned menus from the edit form
+        $mealPlan->update([
+            'breakfast_menu_id' => $request->input('breakfast_menu_id'),
+            'lunch_menu_id' => $request->input('lunch_menu_id'),
+            'snack_menu_id' => $request->input('snack_menu_id'),
+            'dinner_menu_id' => $request->input('dinner_menu_id'),
+        ]);
+
         $mealPlan->meals()->delete();
-        
+
         if ($request->has('meals')) {
             foreach ($request->meals as $mealType => $ingredients) {
                 foreach ($ingredients as $data) {

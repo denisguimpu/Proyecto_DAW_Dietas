@@ -26,6 +26,10 @@
                         $targetCarbs = 0;
                         $targetFats = 0;
                         $hasAnyMenu = false;
+                        $menuCal = 0;
+                        $menuProtein = 0;
+                        $menuCarbs = 0;
+                        $menuFats = 0;
 
                         if($plan) {
                             $menus = array_filter([$plan->breakfastMenu, $plan->lunchMenu, $plan->snackMenu, $plan->dinnerMenu]);
@@ -35,8 +39,16 @@
                                 $targetProtein += $menu->target_protein ?? 0;
                                 $targetCarbs += $menu->target_carbs ?? 0;
                                 $targetFats += $menu->target_fats ?? 0;
+
+                                foreach ($menu->ingredients as $ingredient) {
+                                    $ratio = (float) ($ingredient->gr_ration ?? 100) / 100;
+                                    $menuCal += (float) ($ingredient->kcal ?? 0) * $ratio;
+                                    $menuProtein += (float) ($ingredient->protein ?? 0) * $ratio;
+                                    $menuCarbs += (float) ($ingredient->carbs ?? 0) * $ratio;
+                                    $menuFats += (float) ($ingredient->fats ?? 0) * $ratio;
+                                }
                             }
-                            
+
                             foreach($plan->meals as $meal) {
                                 if($meal->ingredient) {
                                     $ratio = $meal->quantity / 100;
@@ -69,51 +81,90 @@
                                 <a href="{{ route('meal-plans.create') }}?day={{ $day }}" class="text-blue-600 hover:underline text-sm">Asignar menús</a>
                             @endif
                         </div>
-                        
+
                         @if($hasAnyMenu && $targetCalories > 0)
                         <div class="px-6 py-4">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+                                <div class="rounded-lg border border-gray-200 bg-white p-3">
+                                    <div class="text-xs uppercase tracking-wide text-gray-500">Desayuno</div>
+                                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ $plan->breakfastMenu->name ?? 'Sin asignar' }}</div>
+                                </div>
+                                <div class="rounded-lg border border-gray-200 bg-white p-3">
+                                    <div class="text-xs uppercase tracking-wide text-gray-500">Comida</div>
+                                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ $plan->lunchMenu->name ?? 'Sin asignar' }}</div>
+                                </div>
+                                <div class="rounded-lg border border-gray-200 bg-white p-3">
+                                    <div class="text-xs uppercase tracking-wide text-gray-500">Merienda</div>
+                                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ $plan->snackMenu->name ?? 'Sin asignar' }}</div>
+                                </div>
+                                <div class="rounded-lg border border-gray-200 bg-white p-3">
+                                    <div class="text-xs uppercase tracking-wide text-gray-500">Cena</div>
+                                    <div class="mt-1 text-sm font-semibold text-gray-900">{{ $plan->dinnerMenu->name ?? 'Sin asignar' }}</div>
+                                </div>
+                            </div>
+
                             <div class="grid grid-cols-4 gap-2 mb-4 text-xs text-gray-500 bg-gray-50 p-2 rounded">
-                                <div class="text-center">Kcal: {{ round($totalCal) }} / {{ round($targetCalories) }}</div>
-                                <div class="text-center">P: {{ round($totalProtein) }}g / {{ round($targetProtein) }}g</div>
-                                <div class="text-center">C: {{ round($totalCarbs) }}g / {{ round($targetCarbs) }}g</div>
-                                <div class="text-center">G: {{ round($totalFats) }}g / {{ round($targetFats) }}g</div>
+                                <div class="text-center">Kcal: {{ round($totalCal > 0 ? $totalCal : $menuCal) }} / {{ round($targetCalories) }}</div>
+                                <div class="text-center">P: {{ round($totalProtein > 0 ? $totalProtein : $menuProtein) }}g / {{ round($targetProtein) }}g</div>
+                                <div class="text-center">C: {{ round($totalCarbs > 0 ? $totalCarbs : $menuCarbs) }}g / {{ round($targetCarbs) }}g</div>
+                                <div class="text-center">G: {{ round($totalFats > 0 ? $totalFats : $menuFats) }}g / {{ round($targetFats) }}g</div>
                             </div>
                         </div>
                         @endif
-                        
-                        @if($plan && $plan->meals->count() > 0)
+
+                        @if($hasAnyMenu)
                         <div class="px-6 py-4">
                             @php
-                                $mealsByType = $plan->meals->groupBy('meal_type');
+                                $menusByType = [
+                                    'desayuno' => $plan->breakfastMenu,
+                                    'comida' => $plan->lunchMenu,
+                                    'merienda' => $plan->snackMenu,
+                                    'cena' => $plan->dinnerMenu,
+                                ];
                             @endphp
-                            <div class="grid grid-cols-4 gap-4">
-                                @foreach(['desayuno', 'comida', 'merienda', 'cena'] as $mealType)
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                @foreach($menusByType as $mealType => $menu)
                                 <div class="bg-white border rounded-lg p-3">
                                     <h4 class="font-medium text-gray-700 text-sm mb-2 capitalize">{{ $mealType }}</h4>
-                                    @if(isset($mealsByType[$mealType]))
-                                        @foreach($mealsByType[$mealType] as $meal)
+                                    @if($menu)
+                                        @php
+                                            $menuTotalCal = 0;
+                                            $menuTotalProtein = 0;
+                                            $menuTotalCarbs = 0;
+                                            $menuTotalFats = 0;
+                                        @endphp
+                                        @foreach($menu->ingredients as $ingredient)
+                                        @php
+                                            $ratio = (float) ($ingredient->gr_ration ?? 100) / 100;
+                                            $ingredientCal = (float) ($ingredient->kcal ?? 0) * $ratio;
+                                            $ingredientProtein = (float) ($ingredient->protein ?? 0) * $ratio;
+                                            $ingredientCarbs = (float) ($ingredient->carbs ?? 0) * $ratio;
+                                            $ingredientFats = (float) ($ingredient->fats ?? 0) * $ratio;
+                                            $menuTotalCal += $ingredientCal;
+                                            $menuTotalProtein += $ingredientProtein;
+                                            $menuTotalCarbs += $ingredientCarbs;
+                                            $menuTotalFats += $ingredientFats;
+                                        @endphp
                                         <div class="text-xs flex justify-between py-1">
-                                            <span>{{ $meal->ingredient_name }}</span>
-                                            <span class="text-gray-500">{{ $meal->quantity }}g</span>
+                                            <span>{{ $ingredient->name }}</span>
+                                            <span class="text-gray-500">{{ $ingredient->gr_ration ?? 100 }}g</span>
+                                        </div>
+                                        <div class="text-[11px] text-gray-400 mb-1">
+                                            {{ round($ingredientCal) }} kcal | P {{ round($ingredientProtein) }}g | C {{ round($ingredientCarbs) }}g | G {{ round($ingredientFats) }}g
                                         </div>
                                         @endforeach
-                                        @php
-                                            $mealCal = $mealsByType[$mealType]->sum(fn($m) => $m->quantity * ($m->ingredient ? $m->ingredient->kcal : 0) / 100);
-                                        @endphp
-                                        <div class="text-xs font-bold text-blue-600 mt-2 pt-2 border-t">
-                                            {{ round($mealCal) }} kcal
+                                        <div class="mt-2 pt-2 border-t text-xs font-bold text-blue-600">
+                                            Total menú: {{ round($menuTotalCal) }} kcal | P {{ round($menuTotalProtein) }}g | C {{ round($menuTotalCarbs) }}g | G {{ round($menuTotalFats) }}g
                                         </div>
                                     @else
-                                        <p class="text-xs text-gray-400">Sin ingredients</p>
+                                        <p class="text-xs text-gray-400">Sin asignar</p>
                                     @endif
                                 </div>
                                 @endforeach
                             </div>
-                        </div>
-                        @elseif($hasAnyMenu)
-                        <div class="px-6 py-4 text-center text-gray-500 text-sm">
-                            <p>Menús asignados pero sin ajustar cantidades. 
-                            <a href="{{ route('meal-plans.edit', $plan->id) }}" class="text-blue-600 hover:underline">Añade los ingredientes</a></p>
+                            <div class="mt-3 text-center text-gray-500 text-sm">
+                                Menús asignados pero sin cantidades ajustadas. <a href="{{ route('meal-plans.edit', $plan->id) }}" class="text-blue-600 hover:underline">Ajustar cantidades</a>
+                            </div>
                         </div>
                         @endif
                     </div>

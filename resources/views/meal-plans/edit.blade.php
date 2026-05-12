@@ -120,7 +120,10 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                                     </select>
                                     <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
                                     <span class="text-sm text-gray-500">g</span>
-                                    <span class="text-xs text-gray-400 row-kcal ml-2">{{ round(100 * $ingredient->kcal / 100) }} kcal</span>
+                                            <div class="ml-2 text-xs text-gray-500 row-meta leading-tight">
+                                                <div class="row-kcal font-semibold text-gray-700">{{ round(100 * $ingredient->kcal / 100) }} kcal</div>
+                                                <div class="row-macros">P: {{ round(100 * $ingredient->protein / 100) }}g | C: {{ round(100 * $ingredient->carbs / 100) }}g | G: {{ round(100 * $ingredient->fats / 100) }}g</div>
+                                            </div>
                                     <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
                                 </div>
                                 @php $rowCount++; @endphp
@@ -138,7 +141,14 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                                     </select>
                                     <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="{{ $meal->quantity }}" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
                                     <span class="text-sm text-gray-500">g</span>
-                                    <span class="text-xs text-gray-400 row-kcal ml-2">{{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->kcal / 100) : 0 }} kcal</span>
+                                    <div class="ml-2 text-xs text-gray-500 row-meta leading-tight">
+                                        <div class="row-kcal font-semibold text-gray-700">{{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->kcal / 100) : 0 }} kcal</div>
+                                        <div class="row-macros">
+                                            P: {{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->protein / 100) : 0 }}g |
+                                            C: {{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->carbs / 100) : 0 }}g |
+                                            G: {{ $meal->quantity > 0 && $meal->ingredient ? round($meal->quantity * $meal->ingredient->fats / 100) : 0 }}g
+                                        </div>
+                                    </div>
                                     <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
                                 </div>
                                 @php $rowCount++; @endphp
@@ -157,7 +167,10 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                                 </select>
                                 <input type="number" name="meals[{{ $mealType }}][{{ $i }}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
                                 <span class="text-sm text-gray-500">g</span>
-                                <span class="text-xs text-gray-400 row-kcal ml-2">0 kcal</span>
+                                <div class="ml-2 text-xs text-gray-500 row-meta leading-tight">
+                                    <div class="row-kcal font-semibold text-gray-700">0 kcal</div>
+                                    <div class="row-macros">P: 0g | C: 0g | G: 0g</div>
+                                </div>
                                 <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
                             </div>
                             @endfor
@@ -204,16 +217,27 @@ function calculateTotals() {
             const qty = parseFloat(input.value) || 0;
 
             const rowCal = qty * cal / 100;
+            const rowProt = qty * prot / 100;
+            const rowCarbs = qty * carbs / 100;
+            const rowFats = qty * fats / 100;
             totalCal += rowCal;
-            totalProt += qty * prot / 100;
-            totalCarbs += qty * carbs / 100;
-            totalFats += qty * fats / 100;
+            totalProt += rowProt;
+            totalCarbs += rowCarbs;
+            totalFats += rowFats;
 
+            const meta = row.querySelector('.row-macros');
             if (kcalSpan) {
                 kcalSpan.textContent = Math.round(rowCal) + ' kcal';
             }
-        } else if (kcalSpan) {
+            if (meta) {
+                meta.textContent = 'P: ' + Math.round(rowProt) + 'g | C: ' + Math.round(rowCarbs) + 'g | G: ' + Math.round(rowFats) + 'g';
+            }
+        } else {
+            const meta = row.querySelector('.row-macros');
             kcalSpan.textContent = '0 kcal';
+            if (meta) {
+                meta.textContent = 'P: 0g | C: 0g | G: 0g';
+            }
         }
     });
 
@@ -258,7 +282,10 @@ function addMealRow(mealType) {
         </select>
         <input type="number" name="meals[${mealType}][${index}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
         <span class="text-sm text-gray-500">g</span>
-        <span class="text-xs text-gray-400 row-kcal ml-2">0 kcal</span>
+        <div class="ml-2 text-xs text-gray-500 row-meta leading-tight">
+            <div class="row-kcal font-semibold text-gray-700">0 kcal</div>
+            <div class="row-macros">P: 0g | C: 0g | G: 0g</div>
+        </div>
         <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
     `;
 

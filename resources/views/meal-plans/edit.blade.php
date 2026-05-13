@@ -113,14 +113,17 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                                     <select name="meals[{{ $mealType }}][{{ $index }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $index }}">
                                         <option value="">Selecciona ingrediente</option>
                                         @foreach($menu->ingredients as $menuIng)
-                                        <option value="{{ $menuIng->name }}" data-cal="{{ $menuIng->kcal }}" data-prot="{{ $menuIng->protein }}" data-carbs="{{ $menuIng->carbs }}" data-fats="{{ $menuIng->fats }}" data-ration="{{ $menuIng->gr_ration ?: 100 }}" {{ $ingredient->name == $menuIng->name ? 'selected' : '' }}>
+                                        <option value="{{ $menuIng->name }}" data-cal="{{ $menuIng->kcal }}" data-prot="{{ $menuIng->protein }}" data-carbs="{{ $menuIng->carbs }}" data-fats="{{ $menuIng->fats }}" {{ $ingredient->name == $menuIng->name ? 'selected' : '' }}>
                                             {{ $menuIng->name }}
                                         </option>
                                         @endforeach
                                     </select>
-                                    <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="{{ $ingredient->gr_ration ?: 100 }}" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
+                                    <input type="number" name="meals[{{ $mealType }}][{{ $index }}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
                                     <span class="text-sm text-gray-500">g</span>
-                                    <span class="text-xs text-gray-400 row-kcal ml-2">{{ round(100 * $ingredient->kcal / 100) }} kcal</span>
+                                            <div class="ml-2 text-xs text-gray-500 row-meta leading-tight">
+                                                <div class="row-kcal font-semibold text-gray-700">{{ round(100 * $ingredient->kcal / 100) }} kcal</div>
+                                                <div class="row-macros">P: {{ round(100 * $ingredient->protein / 100) }}g | C: {{ round(100 * $ingredient->carbs / 100) }}g | G: {{ round(100 * $ingredient->fats / 100) }}g</div>
+                                            </div>
                                     <button type="button" class="text-red-600 hover:text-red-800" onclick="this.parentElement.remove(); calculateTotals();">✕</button>
                                 </div>
                                 @php $rowCount++; @endphp
@@ -131,7 +134,7 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                                     <select name="meals[{{ $mealType }}][{{ $index }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $index }}">
                                         <option value="">Selecciona ingrediente</option>
                                         @foreach($menu->ingredients as $ingredient)
-                                        <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}" data-ration="{{ $ingredient->gr_ration ?: 100 }}" {{ $meal->ingredient_name == $ingredient->name ? 'selected' : '' }}>
+                                        <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}" {{ $meal->ingredient_name == $ingredient->name ? 'selected' : '' }}>
                                             {{ $ingredient->name }}
                                         </option>
                                         @endforeach
@@ -157,12 +160,12 @@ $daySpanish = $dayTranslations[$mealPlan->day_of_week] ?? $mealPlan->day_of_week
                                 <select name="meals[{{ $mealType }}][{{ $i }}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="{{ $i }}">
                                     <option value="">Selecciona ingrediente</option>
                                     @foreach($menu->ingredients as $ingredient)
-                                    <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}" data-ration="{{ $ingredient->gr_ration ?: 100 }}">
+                                    <option value="{{ $ingredient->name }}" data-cal="{{ $ingredient->kcal }}" data-prot="{{ $ingredient->protein }}" data-carbs="{{ $ingredient->carbs }}" data-fats="{{ $ingredient->fats }}">
                                         {{ $ingredient->name }}
                                     </option>
                                     @endforeach
                                 </select>
-                                <input type="number" name="meals[{{ $mealType }}][{{ $i }}][quantity]" value="" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
+                                <input type="number" name="meals[{{ $mealType }}][{{ $i }}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
                                 <span class="text-sm text-gray-500">g</span>
                                 <div class="ml-2 text-xs text-gray-500 row-meta leading-tight">
                                     <div class="row-kcal font-semibold text-gray-700">0 kcal</div>
@@ -258,21 +261,9 @@ function calculateTotals() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.meal-row').forEach(row => {
-        const selectEl = row.querySelector('.ingredient-select');
-        const inputEl = row.querySelector('.quantity-input');
-        if (selectEl && inputEl) {
-            selectEl.addEventListener('change', function() {
-                if(this.selectedIndex > 0) {
-                    const ration = this.options[this.selectedIndex].dataset.ration || 100;
-                    inputEl.value = ration;
-                } else {
-                    inputEl.value = '';
-                }
-                calculateTotals();
-            });
-            inputEl.addEventListener('input', calculateTotals);
-        }
+    document.querySelectorAll('.ingredient-select, .quantity-input').forEach(el => {
+        el.addEventListener('change', calculateTotals);
+        el.addEventListener('input', calculateTotals);
     });
     calculateTotals();
 });
@@ -287,9 +278,9 @@ function addMealRow(mealType) {
     div.innerHTML = `
         <select name="meals[${mealType}][${index}][ingredient_name]" class="flex-1 border rounded px-3 py-2 text-sm ingredient-select" data-index="${index}">
             <option value="">Selecciona ingrediente</option>
-            ${ingredientsForMeal.map(i => `<option value="${i.name}" data-cal="${i.cal}" data-prot="${i.prot}" data-carbs="${i.carbs}" data-fats="${i.fats}" data-ration="${i.gr_ration || 100}">${i.name}</option>`).join('')}
+            ${ingredientsForMeal.map(i => `<option value="${i.name}" data-cal="${i.cal}" data-prot="${i.prot}" data-carbs="${i.carbs}" data-fats="${i.fats}">${i.name}</option>`).join('')}
         </select>
-        <input type="number" name="meals[${mealType}][${index}][quantity]" value="" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
+        <input type="number" name="meals[${mealType}][${index}][quantity]" value="100" placeholder="g" class="w-24 border rounded px-3 py-2 text-sm quantity-input" min="0">
         <span class="text-sm text-gray-500">g</span>
         <div class="ml-2 text-xs text-gray-500 row-meta leading-tight">
             <div class="row-kcal font-semibold text-gray-700">0 kcal</div>

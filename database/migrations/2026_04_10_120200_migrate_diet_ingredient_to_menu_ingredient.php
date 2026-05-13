@@ -9,6 +9,21 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (DB::getDriverName() === 'sqlite') {
+            if (!Schema::hasTable('menu_ingredient')) {
+                Schema::create('menu_ingredient', function (Blueprint $table) {
+                    $table->foreignId('menu_id')->constrained('menus')->cascadeOnDelete();
+                    $table->string('ingredient_name');
+                    $table->foreign('ingredient_name')->references('name')->on('ingredients')->cascadeOnDelete();
+                    $table->primary(['menu_id', 'ingredient_name']);
+                });
+            }
+            if (Schema::hasTable('diet_ingredient')) {
+                Schema::dropIfExists('diet_ingredient');
+            }
+            return;
+        }
+
         if (!Schema::hasTable('menu_ingredient')) {
             Schema::create('menu_ingredient', function (Blueprint $table) {
                 $table->foreignId('menu_id')->constrained('menus')->cascadeOnDelete();
@@ -40,12 +55,21 @@ return new class extends Migration
         }
 
         if (Schema::hasTable('menu_ingredient')) {
-            DB::statement('
-                INSERT IGNORE INTO diet_ingredient (diet_id, ingredient_name)
-                SELECT mi.menu_id, i.name
-                FROM menu_ingredient mi
-                INNER JOIN ingredients i ON i.id = mi.ingredient_id
-            ');
+            if (DB::getDriverName() === 'sqlite') {
+                DB::statement('
+                    INSERT OR IGNORE INTO diet_ingredient (diet_id, ingredient_name)
+                    SELECT mi.menu_id, i.name
+                    FROM menu_ingredient mi
+                    INNER JOIN ingredients i ON i.id = mi.ingredient_id
+                ');
+            } else {
+                DB::statement('
+                    INSERT IGNORE INTO diet_ingredient (diet_id, ingredient_name)
+                    SELECT mi.menu_id, i.name
+                    FROM menu_ingredient mi
+                    INNER JOIN ingredients i ON i.id = mi.ingredient_id
+                ');
+            }
 
             Schema::dropIfExists('menu_ingredient');
         }

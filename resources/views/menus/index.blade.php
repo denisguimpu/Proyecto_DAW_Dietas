@@ -11,7 +11,7 @@
 
                 <div class="flex justify-between items-center mb-8 border-b pb-6">
                     <div>
-                        <h2 class="text-3xl font-extrabold text-gray-900">Mis menús</h2>
+                        <h1 class="text-3xl font-extrabold text-gray-900">Mis menús</h1>
                         <p class="text-gray-500 mt-1">Gestiona y consulta tus planes nutricionales.</p>
                     </div>
                     <a href="{{ route('menus.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl transition duration-200 shadow-md transform hover:scale-105">

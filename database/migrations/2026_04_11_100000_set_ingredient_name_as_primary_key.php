@@ -25,6 +25,8 @@ return new class extends Migration
 
     public function up(): void
     {
+        if (DB::getDriverName() === 'sqlite') { return; }
+
         if (Schema::hasTable('menu_ingredient') && Schema::hasColumn('menu_ingredient', 'ingredient_id')) {
             if (!Schema::hasColumn('menu_ingredient', 'ingredient_name')) {
                 Schema::table('menu_ingredient', function (Blueprint $table) {
